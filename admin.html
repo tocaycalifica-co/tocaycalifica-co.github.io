@@ -126,7 +126,7 @@ const enc = s => { const b = new TextEncoder().encode(s); let t = ""; b.forEach(
 
 function parse(text){
   const out = {};
-  text.split("\n").forEach(l => { const m = l.match(/^\s*"(\w+)":\s*"([^"]*)",?\s*(?:\/\/\s*(.*))?$/); if (m) out[m[1]] = { url: m[2], note: (m[3] || "").trim() }; });
+  text.split(/\r?\n/).forEach(l => { l = l.trim(); const m = l.match(/^\s*"(\w+)":\s*"([^"]*)",?\s*(?:\/\/\s*(.*))?$/); if (m) out[m[1]] = { url: m[2], note: (m[3] || "").trim() }; });
   return out;
 }
 function nfcShow(){ const c = $("code").value; if (!c) return; $("nfc").textContent = SITE + c; $("nfcBox").style.display = "flex"; }
@@ -147,7 +147,7 @@ async function load(){
   } catch(e){ $("list").innerHTML = "<li><span>No pude cargar las placas. Revisa el internet.</span></li>"; }
 }
 async function loadForWrite(){  // version exacta del archivo para guardar (necesita clave)
-  const j = await gh("GET"); raw = dec(j.content); sha = j.sha; codes = parse(raw); paint();
+  const j = await gh("GET"); raw = dec(j.content).replace(/\r\n/g, "\n"); sha = j.sha; codes = parse(raw); paint();
 }
 async function write(code, url, note, done){
   await loadForWrite();
