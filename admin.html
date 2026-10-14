@@ -89,13 +89,21 @@ const store = { get(){ try { return localStorage.getItem("tyc_tok") || ""; } cat
 let codes = {}, raw = "", sha = "";
 // Grupos de placas: los codigos impresos en el QR no cambian (A001..A020).
 const GRUPOS = [
-  { nombre: "Vinilo (madera)", corto: "Vinilo", desde: 1, hasta: 10, nfc: true },
-  { nombre: "Económica", corto: "Económica", desde: 11, hasta: 20, nfc: false },
+  // rangos de codigos A001.. de cada tipo, en orden de placa (Vinilo 1-10 = A001-A010, Vinilo 11-20 = A021-A030...)
+  { nombre: "Vinilo (madera)", corto: "Vinilo", rangos: [[1, 10], [21, 30]], nfc: true },
+  { nombre: "Económica", corto: "Económica", rangos: [[11, 20], [31, 40]], nfc: false },
 ];
 let grupo = 0;
 const num = c => parseInt(c.replace(/\D/g, ""), 10);
-const grupoDe = c => GRUPOS.findIndex(g => num(c) >= g.desde && num(c) <= g.hasta);
-const nombre = c => { const g = GRUPOS[grupoDe(c)]; return g ? `${g.corto} placa ${num(c) - g.desde + 1}` : c; };
+function pos(c){  // -> { g: indice del grupo, p: numero de placa } o null
+  const n = num(c);
+  for (let gi = 0; gi < GRUPOS.length; gi++){ let base = 0;
+    for (const [a, b] of GRUPOS[gi].rangos){ if (n >= a && n <= b) return { g: gi, p: base + n - a + 1 }; base += b - a + 1; } }
+  return null;
+}
+const grupoDe = c => { const x = pos(c); return x ? x.g : -1; };
+const placa = c => { const x = pos(c); return x ? x.p : 0; };
+const nombre = c => { const g = GRUPOS[grupoDe(c)]; return g ? `${g.corto} placa ${placa(c)}` : c; };
 
 function show(text, kind){ const m = $("msg"); m.className = "msg " + kind; m.textContent = text; }
 function syncTok(){ $("tokCard").style.display = store.get() ? "none" : "block"; }
@@ -154,13 +162,13 @@ function esc(t){ return t.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
 function paint(){
   const sel = $("code"), cur = sel.value; sel.innerHTML = "";
   const all = Object.keys(codes).filter(c => c !== "DEMO");
-  const list = all.filter(c => grupoDe(c) === grupo);
+  const list = all.filter(c => grupoDe(c) === grupo).sort((x, y) => placa(x) - placa(y));
   list.forEach(c => { const o = document.createElement("option"); o.value = c;
-    o.textContent = "Placa " + (num(c) - GRUPOS[grupo].desde + 1) + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
+    o.textContent = "Placa " + placa(c) + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
   if (cur && list.includes(cur)) sel.value = cur; else { const free = list.find(c => !codes[c].url); if (free) sel.value = free; }
   nfcShow();
-  $("list").innerHTML = GRUPOS.map((g, gi) => `<h3>${g.nombre}</h3><ul>` + all.filter(c => grupoDe(c) === gi).map(c =>
-    `<li><b>Placa ${num(c) - g.desde + 1}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? esc(codes[c].note || "activa") : "libre"}</span></li>`).join("") + "</ul>").join("");
+  $("list").innerHTML = GRUPOS.map((g, gi) => `<h3>${g.nombre}</h3><ul>` + all.filter(c => grupoDe(c) === gi).sort((x, y) => placa(x) - placa(y)).map(c =>
+    `<li><b>Placa ${placa(c)}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? esc(codes[c].note || "activa") : "libre"}</span></li>`).join("") + "</ul>").join("");
 }
 async function load(){
   try {  // lista publica: no necesita clave
