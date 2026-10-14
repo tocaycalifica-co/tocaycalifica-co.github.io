@@ -19,6 +19,7 @@ El usuario manda un código (ej. A005) y un enlace de Google Maps del negocio. H
    Si el usuario manda un `g.page/r/.../review`, usarlo tal cual.
 3. En `codigos.js` poner `"A005": "<enlace>", // Nombre del negocio`. Para desactivar, dejar `""`.
 4. Hacer commit y push directo a `main` (GitHub Pages publica en 1 o 2 minutos). No crear ramas ni PR.
-5. Responder en español, corto: qué placa quedó con qué negocio.
+5. Responder en español, corto: qué placa quedó con qué negocio, y el enlace para programar el NFC: `https://tocaycalifica-co.github.io/<CODIGO>`.
+   Si el usuario no dice el código de la placa, preguntárselo antes de cambiar nada.
 
 Hay que mantener el formato de `codigos.js`, porque el usuario también lo edita a mano desde github.com.
