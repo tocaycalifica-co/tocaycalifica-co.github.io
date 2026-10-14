@@ -20,7 +20,7 @@ var CODIGOS = {
   "A015": "",
   "A016": "",
   "A017": "",
-  "A018": "",
+  "A018": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
   "A019": "",
   "A020": "",
 };
