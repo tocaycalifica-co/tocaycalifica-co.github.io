@@ -33,6 +33,11 @@
   li span{flex:1;color:var(--soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .on{color:var(--green)!important}
   .stars{color:#fbbc05;letter-spacing:2px}
+  .seg{display:flex;background:#eef0f3;border-radius:12px;padding:4px;gap:4px;margin-bottom:12px}
+  .seg button{flex:1;background:transparent;color:var(--soft);padding:10px 6px}
+  .seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  h3{font-size:14px;margin:14px 0 2px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+  h3:first-child{margin-top:0}
   details summary{cursor:pointer;color:var(--soft);font-size:14px}
 </style></head>
 <body><main>
@@ -50,7 +55,9 @@
   <section class="card">
     <label for="link">Enlace de Google Maps del negocio</label>
     <textarea id="link" placeholder="https://www.google.com/maps/place/…"></textarea>
-    <label for="code" style="margin-top:12px">Placa</label>
+    <label style="margin-top:12px">Tipo de placa</label>
+    <div class="seg" id="tipo"><button data-g="0" class="on">Vinilo (madera)</button><button data-g="1">Económica</button></div>
+    <label for="code">Placa</label>
     <select id="code"></select>
     <label for="name" style="margin-top:12px">Nombre del negocio (para acordarte)</label>
     <input id="name" placeholder="Se llena solo si el enlace lo trae">
@@ -59,13 +66,13 @@
       <button class="sec" id="test">Probar</button>
     </div>
     <div class="msg" id="msg"></div>
-    <label style="margin-top:14px">Enlace para el NFC de esta placa</label>
-    <div class="nfc" id="nfcBox" style="display:none"><code id="nfc"></code><button class="sec" id="copy">Copiar</button></div>
+    <div id="nfcWrap"><label style="margin-top:14px">Enlace para el NFC de esta placa</label>
+    <div class="nfc" id="nfcBox" style="display:none"><code id="nfc"></code><button class="sec" id="copy">Copiar</button></div></div>
   </section>
 
   <section class="card">
     <label>Placas</label>
-    <ul id="list"><li><span>Cargando…</span></li></ul>
+    <div id="list"><ul><li><span>Cargando…</span></li></ul></div>
     <div class="row"><button class="ghost" id="reload">Actualizar lista</button><button class="ghost" id="off" style="margin-left:auto">Desactivar placa elegida</button></div>
   </section>
 
@@ -80,6 +87,15 @@ const store = { get(){ try { return localStorage.getItem("tyc_tok") || ""; } cat
                 set(v){ try { localStorage.setItem("tyc_tok", v); } catch(e){} },
                 del(){ try { localStorage.removeItem("tyc_tok"); } catch(e){} } };
 let codes = {}, raw = "", sha = "";
+// Grupos de placas: los codigos impresos en el QR no cambian (A001..A020).
+const GRUPOS = [
+  { nombre: "Vinilo (madera)", corto: "Vinilo", desde: 1, hasta: 10, nfc: true },
+  { nombre: "Económica", corto: "Económica", desde: 11, hasta: 20, nfc: false },
+];
+let grupo = 0;
+const num = c => parseInt(c.replace(/\D/g, ""), 10);
+const grupoDe = c => GRUPOS.findIndex(g => num(c) >= g.desde && num(c) <= g.hasta);
+const nombre = c => { const g = GRUPOS[grupoDe(c)]; return g ? `${g.corto} placa ${num(c) - g.desde + 1}` : c; };
 
 function show(text, kind){ const m = $("msg"); m.className = "msg " + kind; m.textContent = text; }
 function syncTok(){ $("tokCard").style.display = store.get() ? "none" : "block"; }
@@ -129,22 +145,28 @@ function parse(text){
   text.split(/\r?\n/).forEach(l => { l = l.trim(); const m = l.match(/^\s*"(\w+)":\s*"([^"]*)",?\s*(?:\/\/\s*(.*))?$/); if (m) out[m[1]] = { url: m[2], note: (m[3] || "").trim() }; });
   return out;
 }
-function nfcShow(){ const c = $("code").value; if (!c) return; $("nfc").textContent = SITE + c; $("nfcBox").style.display = "flex"; }
+function nfcShow(){
+  const c = $("code").value; const g = GRUPOS[grupoDe(c)];
+  $("nfcWrap").style.display = c && g && g.nfc ? "block" : "none";
+  if (!c) return; $("nfc").textContent = SITE + c; $("nfcBox").style.display = "flex";
+}
+function esc(t){ return t.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
 function paint(){
   const sel = $("code"), cur = sel.value; sel.innerHTML = "";
-  const list = Object.keys(codes).filter(c => c !== "DEMO");
+  const all = Object.keys(codes).filter(c => c !== "DEMO");
+  const list = all.filter(c => grupoDe(c) === grupo);
   list.forEach(c => { const o = document.createElement("option"); o.value = c;
-    o.textContent = c + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
-  if (cur && codes[cur]) sel.value = cur; else { const free = list.find(c => !codes[c].url); if (free) sel.value = free; }
+    o.textContent = "Placa " + (num(c) - GRUPOS[grupo].desde + 1) + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
+  if (cur && list.includes(cur)) sel.value = cur; else { const free = list.find(c => !codes[c].url); if (free) sel.value = free; }
   nfcShow();
-  $("list").innerHTML = list.map(c =>
-    `<li><b>${c}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? (codes[c].note || "activa").replace(/</g, "&lt;") : "libre"}</span></li>`).join("");
+  $("list").innerHTML = GRUPOS.map((g, gi) => `<h3>${g.nombre}</h3><ul>` + all.filter(c => grupoDe(c) === gi).map(c =>
+    `<li><b>Placa ${num(c) - g.desde + 1}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? esc(codes[c].note || "activa") : "libre"}</span></li>`).join("") + "</ul>").join("");
 }
 async function load(){
   try {  // lista publica: no necesita clave
     const r = await fetch(SITE + FILE + "?v=" + Date.now(), { cache: "no-store" });
     codes = parse(await r.text()); paint();
-  } catch(e){ $("list").innerHTML = "<li><span>No pude cargar las placas. Revisa el internet.</span></li>"; }
+  } catch(e){ $("list").innerHTML = "<ul><li><span>No pude cargar las placas. Revisa el internet.</span></li></ul>"; }
 }
 async function loadForWrite(){  // version exacta del archivo para guardar (necesita clave)
   const j = await gh("GET"); raw = dec(j.content).replace(/\r\n/g, "\n"); sha = j.sha; codes = parse(raw); paint();
@@ -166,26 +188,30 @@ $("saveTok").onclick = () => { const v = $("tok").value.trim(); if (!v){ show("P
 $("forget").onclick = () => { store.del(); syncTok(); show("Clave borrada de este celular.", "info"); };
 $("reload").onclick = load;
 $("code").onchange = nfcShow;
+document.querySelectorAll("#tipo button").forEach(b => b.onclick = () => {
+  grupo = +b.dataset.g; document.querySelectorAll("#tipo button").forEach(x => x.classList.toggle("on", x === b));
+  $("code").value = ""; paint(); });
 $("test").onclick = () => { const r = reviewLink($("link").value); if (r.err){ show(r.err, "err"); return; } window.open(r.url, "_blank"); };
 $("copy").onclick = () => { navigator.clipboard && navigator.clipboard.writeText($("nfc").textContent); $("copy").textContent = "Copiado"; setTimeout(() => $("copy").textContent = "Copiar", 1500); };
 $("go").onclick = async () => {
   if (!store.get()){ show("Primero guarda la clave de GitHub.", "err"); return; }
   const r = reviewLink($("link").value); if (r.err){ show(r.err, "err"); return; }
   const code = $("code").value; if (!code){ show("Elige una placa.", "err"); return; }
-  if (codes[code] && codes[code].url && !confirm(`La ${code} ya está con "${codes[code].note || "otro negocio"}". ¿Cambiarla?`)) return;
+  if (codes[code] && codes[code].url && !confirm(`La ${nombre(code)} ya está con "${codes[code].note || "otro negocio"}". ¿Cambiarla?`)) return;
   show("Guardando…", "info"); $("go").disabled = true;
   try {
     await write(code, r.url, $("name").value, () => {
-      show(`Listo: ${code} quedó con ${$("name").value || "el negocio"}. En 1 o 2 minutos ya funciona.`, "ok");
-      $("nfc").textContent = SITE + code; $("nfcBox").style.display = "flex"; $("link").value = ""; $("name").value = "";
+      show(`Listo: ${nombre(code)} quedó con ${$("name").value || "el negocio"}. En 1 o 2 minutos ya funciona.` +
+        (GRUPOS[grupoDe(code)] && GRUPOS[grupoDe(code)].nfc ? " Programa el NFC con el enlace de abajo." : ""), "ok");
+      $("code").value = code; nfcShow(); $("link").value = ""; $("name").value = "";
     });
   } catch(e){ show(e.message, "err"); }
   $("go").disabled = false;
 };
 $("off").onclick = async () => {
-  const code = $("code").value; if (!code || !confirm(`¿Desactivar la ${code}?`)) return;
+  const code = $("code").value; if (!code || !confirm(`¿Desactivar la ${nombre(code)}?`)) return;
   show("Guardando…", "info");
-  try { await write(code, "", "", () => show(`${code} quedó libre.`, "ok")); } catch(e){ show(e.message, "err"); }
+  try { await write(code, "", "", () => show(`${nombre(code)} quedó libre.`, "ok")); } catch(e){ show(e.message, "err"); }
 };
 syncTok(); load();
 </script>
