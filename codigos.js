@@ -3,7 +3,7 @@
 // Una placa vacía ("") muestra la página de "placa sin activar" con el WhatsApp de ventas.
 var CODIGOS = {
   "DEMO": "https://wa.me/573228286887?text=Hola%2C%20quiero%20mi%20soporte%20de%20rese%C3%B1as",
-  "A001": "https://search.google.com/local/writereview?placeid=ChIJ50-V-JV3QI4Rkr9GvCMQSYQ", // El león de arroz (Cajicá) - prueba
+  "A001": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito (Cajicá)
   "A002": "",
   "A003": "",
   "A004": "",
@@ -13,7 +13,7 @@ var CODIGOS = {
   "A008": "",
   "A009": "",
   "A010": "",
-  "A011": "",
+  "A011": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito (Cajicá)
   "A012": "",
   "A013": "",
   "A014": "",
