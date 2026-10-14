@@ -1,0 +1,16 @@
+// Toca y Califica: a donde lleva cada placa.
+// Para activar una placa, pega el enlace de reseña del negocio entre comillas y guarda (Commit changes).
+// Una placa vacía ("") muestra la página de "placa sin activar" con el WhatsApp de ventas.
+var CODIGOS = {
+  "DEMO": "https://wa.me/573228286887?text=Hola%2C%20quiero%20mi%20soporte%20de%20rese%C3%B1as",
+  "A001": "",
+  "A002": "",
+  "A003": "",
+  "A004": "",
+  "A005": "",
+  "A006": "",
+  "A007": "",
+  "A008": "",
+  "A009": "",
+  "A010": "",
+};
