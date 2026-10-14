@@ -6,7 +6,7 @@ var CODIGOS = {
   "A001": "",
   "A002": "",
   "A003": "",
-  "A004": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
+  "A004": "",
   "A005": "",
   "A006": "",
   "A007": "",
