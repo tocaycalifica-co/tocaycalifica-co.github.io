@@ -43,7 +43,7 @@
 <body><main>
   <div class="stars">★★★★★</div>
   <h1>Activar placas</h1>
-  <p class="sub">Toca y Califica · pega el enlace del negocio y elige la placa.</p>
+  <p class="sub">Toca y Califica · elige la placa y pega el enlace del negocio.</p>
 
   <section class="card" id="tokCard">
     <label for="tok">Clave de GitHub (solo la primera vez)</label>
@@ -53,12 +53,16 @@
   </section>
 
   <section class="card">
-    <label for="link">Enlace de Google Maps del negocio</label>
-    <textarea id="link" placeholder="https://www.google.com/maps/place/…"></textarea>
-    <label style="margin-top:12px">Tipo de placa</label>
-    <div class="seg" id="tipo"><button data-g="0" class="on">Vinilo (madera)</button><button data-g="1">Económica</button></div>
+    <label>Producto</label>
+    <div class="seg" id="prod"><button data-p="google" class="on">Google</button><button data-p="ig">Instagram</button><button data-p="tt">TikTok</button><button data-p="doble">Doble</button></div>
+    <label>Tipo de placa</label>
+    <div class="seg" id="tipo"><button data-t="0" class="on">Vinilo (madera)</button><button data-t="1">Económica</button></div>
     <label for="code">Placa</label>
     <select id="code"></select>
+    <label for="link" id="linkLbl" style="margin-top:12px">Enlace de Google Maps del negocio</label>
+    <textarea id="link"></textarea>
+    <div id="link2Box" style="display:none"><label for="link2" style="margin-top:12px">Enlace o @usuario de TikTok</label>
+      <textarea id="link2" placeholder="@tunegocio o https://www.tiktok.com/@tunegocio"></textarea></div>
     <label for="name" style="margin-top:12px">Nombre del negocio (para acordarte)</label>
     <input id="name" placeholder="Se llena solo si el enlace lo trae">
     <div class="row">
@@ -66,12 +70,11 @@
       <button class="sec" id="test">Probar</button>
     </div>
     <div class="msg" id="msg"></div>
-    <div id="nfcWrap"><label style="margin-top:14px">Enlace para el NFC de esta placa</label>
-    <div class="nfc" id="nfcBox" style="display:none"><code id="nfc"></code><button class="sec" id="copy">Copiar</button></div></div>
+    <div id="nfcWrap"></div>
   </section>
 
   <section class="card">
-    <label>Placas</label>
+    <label id="listLbl">Placas</label>
     <div id="list"><ul><li><span>Cargando…</span></li></ul></div>
     <div class="row"><button class="ghost" id="reload">Actualizar lista</button><button class="ghost" id="off" style="margin-left:auto">Desactivar placa elegida</button></div>
   </section>
@@ -86,27 +89,25 @@ const $ = id => document.getElementById(id);
 const store = { get(){ try { return localStorage.getItem("tyc_tok") || ""; } catch(e){ return ""; } },
                 set(v){ try { localStorage.setItem("tyc_tok", v); } catch(e){} },
                 del(){ try { localStorage.removeItem("tyc_tok"); } catch(e){} } };
-let codes = {}, raw = "", sha = "";
-// Grupos de placas: los codigos impresos en el QR no cambian (A001..A020).
-const GRUPOS = [
-  // rangos de codigos A001.. de cada tipo, en orden de placa (Vinilo 1-10 = A001-A010, Vinilo 11-20 = A021-A030...)
-  { nombre: "Vinilo (madera)", corto: "Vinilo", rangos: [[1, 10], [21, 30]], nfc: true },
-  { nombre: "Económica", corto: "Económica", rangos: [[11, 20], [31, 40]], nfc: false },
-];
-let grupo = 0;
-const num = c => parseInt(c.replace(/\D/g, ""), 10);
-function pos(c){  // -> { g: indice del grupo, p: numero de placa } o null
-  const n = num(c);
-  for (let gi = 0; gi < GRUPOS.length; gi++){ let base = 0;
-    for (const [a, b] of GRUPOS[gi].rangos){ if (n >= a && n <= b) return { g: gi, p: base + n - a + 1 }; base += b - a + 1; } }
-  return null;
-}
-const grupoDe = c => { const x = pos(c); return x ? x.g : -1; };
-const placa = c => { const x = pos(c); return x ? x.p : 0; };
-const nombre = c => { const g = GRUPOS[grupoDe(c)]; return g ? `${g.corto} placa ${placa(c)}` : c; };
+let codes = {}, raw = "", sha = "", prod = "google", tipo = 0;
+
+// --- placas: los codigos impresos en el QR no cambian ---
+const rango = (p, a, b, suf = "") => Array.from({ length: b - a + 1 }, (_, i) => p + String(a + i).padStart(3, "0") + suf);
+const PRODUCTOS = {
+  google: { nombre: "Google", grupos: [ [...rango("A", 1, 10), ...rango("A", 21, 30)], [...rango("A", 11, 20), ...rango("A", 31, 40)] ] },
+  ig:     { nombre: "Instagram", grupos: [ rango("I", 1, 10), rango("I", 11, 20) ] },
+  tt:     { nombre: "TikTok", grupos: [ rango("T", 1, 10), rango("T", 11, 20) ] },
+  doble:  { nombre: "Doble", grupos: [ rango("D", 1, 10), rango("D", 11, 20) ] },  // cada placa: D001I (Instagram) + D001T (TikTok)
+};
+const TIPOS = ["Vinilo", "Económica"];
+const claves = c => prod === "doble" ? [c + "I", c + "T"] : [c];
+function buscar(c){ for (const p in PRODUCTOS) for (let t = 0; t < 2; t++){ const i = PRODUCTOS[p].grupos[t].indexOf(c); if (i >= 0) return { p, t, n: i + 1 }; } return null; }
+const nombre = c => { const x = buscar(c); return x ? `${PRODUCTOS[x.p].nombre} ${TIPOS[x.t].toLowerCase()} placa ${x.n}` : c; };
+const estado = c => { const ks = claves(c).map(k => codes[k]).filter(Boolean); const a = ks.find(k => k.url); return a ? (a.note || "activa") : ""; };
 
 function show(text, kind){ const m = $("msg"); m.className = "msg " + kind; m.textContent = text; }
 function syncTok(){ $("tokCard").style.display = store.get() ? "none" : "block"; }
+function esc(t){ return t.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
 
 // --- enlace de reseña a partir del enlace de Maps ---
 function le64(hex){ let n = BigInt(hex), out = []; for (let i = 0; i < 8; i++){ out.push(Number(n & 255n)); n >>= 8n; } return out; }
@@ -131,8 +132,6 @@ function reviewLink(txt){
   return { err: "No encontré el negocio en ese enlace. Abre el negocio en Google Maps desde el navegador y copia el enlace completo." };
 }
 function nameFrom(d){ const m = d.match(/\/place\/([^/@]+)/); return m ? m[1].replace(/\+/g, " ").trim() : ""; }
-
-// --- GitHub ---
 async function gh(method, body){
   const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
     method, cache: "no-store",
@@ -148,79 +147,108 @@ async function gh(method, body){
 const dec = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g, "")), c => c.charCodeAt(0)));
 const enc = s => { const b = new TextEncoder().encode(s); let t = ""; b.forEach(x => t += String.fromCharCode(x)); return btoa(t); };
 
+// --- Instagram / TikTok ---
+function redLink(red, txt){
+  txt = txt.trim(); if (!txt) return { err: "Pega el enlace o el @usuario de " + (red === "ig" ? "Instagram." : "TikTok.") };
+  const dom = red === "ig" ? "instagram.com" : "tiktok.com";
+  let m = txt.match(/https?:\/\/[^\s]+/);
+  if (m){ if (!m[0].includes(dom) && !(red === "tt" && /vm\.tiktok|vt\.tiktok/.test(m[0]))) return { err: "Ese enlace no es de " + (red === "ig" ? "Instagram." : "TikTok.") };
+    const u = m[0].match(red === "ig" ? /instagram\.com\/([\w.]+)/ : /tiktok\.com\/@([\w.]+)/); return { url: m[0], name: u ? "@" + u[1] : "" }; }
+  m = txt.match(/^@?([\w.]{2,30})$/);
+  if (m) return { url: red === "ig" ? `https://www.instagram.com/${m[1]}/` : `https://www.tiktok.com/@${m[1]}`, name: "@" + m[1] };
+  return { err: "Pega el enlace del perfil o el @usuario." };
+}
+function enlaces(){  // -> lista de [clave, url] para la placa elegida, o {err}
+  const c = $("code").value; if (!c) return { err: "Elige una placa." };
+  if (prod === "google"){ const r = reviewLink($("link").value); return r.err ? r : { pares: [[c, r.url]], name: r.name }; }
+  if (prod === "ig" || prod === "tt"){ const r = redLink(prod, $("link").value); return r.err ? r : { pares: [[c, r.url]], name: r.name }; }
+  const a = redLink("ig", $("link").value); if (a.err) return a;
+  const b = redLink("tt", $("link2").value); if (b.err) return b;
+  return { pares: [[c + "I", a.url], [c + "T", b.url]], name: a.name };
+}
+
 function parse(text){
   const out = {};
   text.split(/\r?\n/).forEach(l => { l = l.trim(); const m = l.match(/^\s*"(\w+)":\s*"([^"]*)",?\s*(?:\/\/\s*(.*))?$/); if (m) out[m[1]] = { url: m[2], note: (m[3] || "").trim() }; });
   return out;
 }
 function nfcShow(){
-  const c = $("code").value; const g = GRUPOS[grupoDe(c)];
-  $("nfcWrap").style.display = c && g && g.nfc ? "block" : "none";
-  if (!c) return; $("nfc").textContent = SITE + c; $("nfcBox").style.display = "flex";
+  const c = $("code").value, w = $("nfcWrap"); w.innerHTML = "";
+  if (!c || tipo !== 0) return;  // las economicas no llevan NFC
+  claves(c).forEach(k => {
+    const lbl = prod === "doble" ? (k.endsWith("I") ? "NFC de Instagram" : "NFC de TikTok") : "Enlace para el NFC de esta placa";
+    w.insertAdjacentHTML("beforeend", `<label style="margin-top:14px">${lbl}</label><div class="nfc"><code>${SITE + k}</code><button class="sec" data-copy="${SITE + k}">Copiar</button></div>`);
+  });
+  w.querySelectorAll("[data-copy]").forEach(b => b.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copiado"; setTimeout(() => b.textContent = "Copiar", 1500); });
 }
-function esc(t){ return t.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function form(){
+  const L = { google: ["Enlace de Google Maps del negocio", "https://www.google.com/maps/place/…"],
+              ig: ["Enlace o @usuario de Instagram", "@tunegocio o https://www.instagram.com/tunegocio"],
+              tt: ["Enlace o @usuario de TikTok", "@tunegocio o https://www.tiktok.com/@tunegocio"],
+              doble: ["Enlace o @usuario de Instagram", "@tunegocio o https://www.instagram.com/tunegocio"] }[prod];
+  $("linkLbl").textContent = L[0]; $("link").placeholder = L[1];
+  $("link2Box").style.display = prod === "doble" ? "block" : "none";
+  $("test").style.display = prod === "doble" ? "none" : "";
+}
 function paint(){
   const sel = $("code"), cur = sel.value; sel.innerHTML = "";
-  const all = Object.keys(codes).filter(c => c !== "DEMO");
-  const list = all.filter(c => grupoDe(c) === grupo).sort((x, y) => placa(x) - placa(y));
-  list.forEach(c => { const o = document.createElement("option"); o.value = c;
-    o.textContent = "Placa " + placa(c) + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
-  if (cur && list.includes(cur)) sel.value = cur; else { const free = list.find(c => !codes[c].url); if (free) sel.value = free; }
+  const list = PRODUCTOS[prod].grupos[tipo].filter(c => claves(c).every(k => codes[k]));
+  list.forEach((c, i) => { const o = document.createElement("option"); o.value = c; const e = estado(c);
+    o.textContent = "Placa " + (i + 1) + (e ? " · " + e : " · libre"); sel.appendChild(o); });
+  if (cur && list.includes(cur)) sel.value = cur; else { const free = list.find(c => !estado(c)); if (free) sel.value = free; }
   nfcShow();
-  $("list").innerHTML = GRUPOS.map((g, gi) => `<h3>${g.nombre}</h3><ul>` + all.filter(c => grupoDe(c) === gi).sort((x, y) => placa(x) - placa(y)).map(c =>
-    `<li><b>Placa ${placa(c)}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? esc(codes[c].note || "activa") : "libre"}</span></li>`).join("") + "</ul>").join("");
+  $("listLbl").textContent = "Placas de " + PRODUCTOS[prod].nombre;
+  $("list").innerHTML = PRODUCTOS[prod].grupos.map((g, t) => `<h3>${TIPOS[t]}</h3><ul>` + g.filter(c => claves(c).every(k => codes[k])).map((c, i) => {
+    const e = estado(c); return `<li><b>Placa ${i + 1}</b><span class="${e ? "on" : ""}">${e ? esc(e) : "libre"}</span></li>`; }).join("")
+    + "</ul>").join("") || "<ul><li><span>Aún no hay placas de este producto.</span></li></ul>";
 }
 async function load(){
-  try {  // lista publica: no necesita clave
-    const r = await fetch(SITE + FILE + "?v=" + Date.now(), { cache: "no-store" });
-    codes = parse(await r.text()); paint();
-  } catch(e){ $("list").innerHTML = "<ul><li><span>No pude cargar las placas. Revisa el internet.</span></li></ul>"; }
+  try { const r = await fetch(SITE + FILE + "?v=" + Date.now(), { cache: "no-store" }); codes = parse(await r.text()); paint(); }
+  catch(e){ $("list").innerHTML = "<ul><li><span>No pude cargar las placas. Revisa el internet.</span></li></ul>"; }
 }
-async function loadForWrite(){  // version exacta del archivo para guardar (necesita clave)
-  const j = await gh("GET"); raw = dec(j.content).replace(/\r\n/g, "\n"); sha = j.sha; codes = parse(raw); paint();
-}
-async function write(code, url, note, done){
+async function loadForWrite(){ const j = await gh("GET"); raw = dec(j.content).replace(/\r\n/g, "\n"); sha = j.sha; codes = parse(raw); paint(); }
+async function write(pares, note, msg){  // pares: [[clave, url], ...] en un solo guardado
   await loadForWrite();
-  if (!codes[code]) throw new Error("No encontré la placa " + code + " en la lista.");
-  const re = new RegExp(`^(\\s*)"${code}":.*$`, "m");
-  const safe = (note || "").replace(/[\r\n]/g, " ").trim();
-  const line = `$1"${code}": "${url}",` + (url && safe ? " // " + safe : "");
-  const nuevo = raw.replace(re, line);
-  await gh("PUT", { message: (url ? "Activar " : "Desactivar ") + code + (safe ? " - " + safe : ""), content: enc(nuevo), sha });
-  codes = parse(nuevo); paint(); done();
+  const safe = (note || "").replace(/[\r\n"]/g, " ").trim(); let nuevo = raw;
+  for (const [k, url] of pares){
+    if (!codes[k]) throw new Error("No encontré la placa " + k + " en la lista.");
+    nuevo = nuevo.replace(new RegExp(`^(\\s*)"${k}":.*$`, "m"), `$1"${k}": "${url}",` + (url && safe ? " // " + safe : ""));
+  }
+  await gh("PUT", { message: msg + (safe ? " - " + safe : ""), content: enc(nuevo), sha });
+  codes = parse(nuevo); paint();
 }
 
-$("link").addEventListener("input", () => { const r = reviewLink($("link").value); if (r.name && !$("name").value) $("name").value = r.name; });
+document.querySelectorAll("#prod button").forEach(b => b.onclick = () => { prod = b.dataset.p;
+  document.querySelectorAll("#prod button").forEach(x => x.classList.toggle("on", x === b)); $("code").value = ""; form(); paint(); });
+document.querySelectorAll("#tipo button").forEach(b => b.onclick = () => { tipo = +b.dataset.t;
+  document.querySelectorAll("#tipo button").forEach(x => x.classList.toggle("on", x === b)); $("code").value = ""; paint(); });
+$("link").addEventListener("input", () => { const r = prod === "google" ? reviewLink($("link").value) : redLink(prod === "tt" ? "tt" : "ig", $("link").value); if (r.name && !$("name").value) $("name").value = r.name; });
 $("saveTok").onclick = () => { const v = $("tok").value.trim(); if (!v){ show("Pega la clave primero.", "err"); return; }
-  if (!/^(github_pat_|ghp_)\w{20,}$/.test(v)){ show("Eso no parece una clave de GitHub. Debe empezar por github_pat_ (mira la guía).", "err"); return; } store.set(v); $("tok").value = ""; syncTok(); load(); };
+  if (!/^(github_pat_|ghp_)\w{20,}$/.test(v)){ show("Eso no parece una clave de GitHub. Debe empezar por github_pat_ (mira la guía).", "err"); return; }
+  store.set(v); $("tok").value = ""; syncTok(); load(); };
 $("forget").onclick = () => { store.del(); syncTok(); show("Clave borrada de este celular.", "info"); };
 $("reload").onclick = load;
 $("code").onchange = nfcShow;
-document.querySelectorAll("#tipo button").forEach(b => b.onclick = () => {
-  grupo = +b.dataset.g; document.querySelectorAll("#tipo button").forEach(x => x.classList.toggle("on", x === b));
-  $("code").value = ""; paint(); });
-$("test").onclick = () => { const r = reviewLink($("link").value); if (r.err){ show(r.err, "err"); return; } window.open(r.url, "_blank"); };
-$("copy").onclick = () => { navigator.clipboard && navigator.clipboard.writeText($("nfc").textContent); $("copy").textContent = "Copiado"; setTimeout(() => $("copy").textContent = "Copiar", 1500); };
+$("test").onclick = () => { const r = enlaces(); if (r.err){ show(r.err, "err"); return; } window.open(r.pares[0][1], "_blank"); };
 $("go").onclick = async () => {
   if (!store.get()){ show("Primero guarda la clave de GitHub.", "err"); return; }
-  const r = reviewLink($("link").value); if (r.err){ show(r.err, "err"); return; }
-  const code = $("code").value; if (!code){ show("Elige una placa.", "err"); return; }
-  if (codes[code] && codes[code].url && !confirm(`La ${nombre(code)} ya está con "${codes[code].note || "otro negocio"}". ¿Cambiarla?`)) return;
+  const r = enlaces(); if (r.err){ show(r.err, "err"); return; }
+  const c = $("code").value, e = estado(c);
+  if (e && !confirm(`La ${nombre(c)} ya está con "${e}". ¿Cambiarla?`)) return;
+  const note = $("name").value || r.name || "";
   show("Guardando…", "info"); $("go").disabled = true;
   try {
-    await write(code, r.url, $("name").value, () => {
-      show(`Listo: ${nombre(code)} quedó con ${$("name").value || "el negocio"}. En 1 o 2 minutos ya funciona.` +
-        (GRUPOS[grupoDe(code)] && GRUPOS[grupoDe(code)].nfc ? " Programa el NFC con el enlace de abajo." : ""), "ok");
-      $("code").value = code; nfcShow(); $("link").value = ""; $("name").value = "";
-    });
-  } catch(e){ show(e.message, "err"); }
+    await write(r.pares, note, "Activar " + nombre(c));
+    show(`Listo: ${nombre(c)} quedó con ${note || "el negocio"}. En 1 o 2 minutos ya funciona.` + (tipo === 0 ? " Programa el NFC con el enlace de abajo." : ""), "ok");
+    $("code").value = c; nfcShow(); $("link").value = ""; $("link2").value = ""; $("name").value = "";
+  } catch(err){ show(err.message, "err"); }
   $("go").disabled = false;
 };
 $("off").onclick = async () => {
-  const code = $("code").value; if (!code || !confirm(`¿Desactivar la ${nombre(code)}?`)) return;
+  const c = $("code").value; if (!c || !confirm(`¿Desactivar la ${nombre(c)}?`)) return;
   show("Guardando…", "info");
-  try { await write(code, "", "", () => show(`${nombre(code)} quedó libre.`, "ok")); } catch(e){ show(e.message, "err"); }
+  try { await write(claves(c).map(k => [k, ""]), "", "Desactivar " + nombre(c)); show(`${nombre(c)} quedó libre.`, "ok"); } catch(e){ show(e.message, "err"); }
 };
-syncTok(); load();
+syncTok(); form(); load();
 </script>
 </body></html>
