@@ -4,7 +4,7 @@
 var CODIGOS = {
   "DEMO": "https://wa.me/573228286887?text=Hola%2C%20quiero%20mi%20soporte%20de%20rese%C3%B1as",
   "A001": "",
-  "A002": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
+  "A002": "",
   "A003": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
   "A004": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
   "A005": "",
