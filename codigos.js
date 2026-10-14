@@ -6,7 +6,7 @@ var CODIGOS = {
   "A001": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito (Cajicá)
   "A002": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
   "A003": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
-  "A004": "",
+  "A004": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito, Cl. 2 #6-105, Cajicá, Cundinamarca
   "A005": "",
   "A006": "",
   "A007": "",
