@@ -58,6 +58,7 @@
       <button class="sec" id="test">Probar</button>
     </div>
     <div class="msg" id="msg"></div>
+    <label style="margin-top:14px">Enlace para el NFC de esta placa</label>
     <div class="nfc" id="nfcBox" style="display:none"><code id="nfc"></code><button class="sec" id="copy">Copiar</button></div>
   </section>
 
@@ -98,6 +99,8 @@ function reviewLink(txt){
   let d = decodeURIComponent(txt);
   m = d.match(/(0x[0-9a-f]{6,16}):(0x[0-9a-f]{6,16})/i);
   if (m) return { url: "https://search.google.com/local/writereview?placeid=" + placeId(m[1], m[2]), name: nameFrom(d) };
+  m = d.match(/[?&](?:cid|ludocid)=(\d{5,20})/);
+  if (m) return { url: "https://search.google.com/local/writereview?placeid=" + placeId("0", m[1]), name: nameFrom(d) };
   if (/maps\.app\.goo\.gl|goo\.gl\/maps/i.test(txt))
     return { err: "Ese es un enlace corto. Ábrelo en el navegador (no en la app de Maps), espera a que cargue el negocio y copia el enlace largo de la barra de direcciones." };
   return { err: "No encontré el negocio en ese enlace. Abre el negocio en Google Maps desde el navegador y copia el enlace completo." };
@@ -110,42 +113,58 @@ async function gh(method, body){
     method, cache: "no-store",
     headers: { "Authorization": "Bearer " + store.get(), "Accept": "application/vnd.github+json" },
     body: body ? JSON.stringify(body) : undefined });
-  if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? "La clave de GitHub no sirve o no tiene permiso. Revísala." : "GitHub respondió " + r.status);
+  if (!r.ok) throw new Error(
+    r.status === 401 ? "La clave no es válida (está mal copiada o se venció). Bórrala abajo y pega una nueva." :
+    r.status === 403 ? "La clave no tiene permiso de escritura. Revisa que tenga Contents: Read and write, o apruébala en la organización." :
+    r.status === 404 ? "La clave no tiene acceso al repositorio. En la clave, el Resource owner debe ser tocaycalifica-co y el repositorio tocaycalifica-co.github.io." :
+    "GitHub respondió " + r.status);
   return r.json();
 }
 const dec = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g, "")), c => c.charCodeAt(0)));
 const enc = s => { const b = new TextEncoder().encode(s); let t = ""; b.forEach(x => t += String.fromCharCode(x)); return btoa(t); };
 
-async function load(){
-  if (!store.get()){ $("list").innerHTML = "<li><span>Guarda la clave para ver las placas.</span></li>"; return; }
-  try {
-    const j = await gh("GET"); raw = dec(j.content); sha = j.sha; codes = {};
-    raw.split("\n").forEach(l => { const m = l.match(/^\s*"(\w+)":\s*"([^"]*)",?\s*(?:\/\/\s*(.*))?$/); if (m) codes[m[1]] = { url: m[2], note: (m[3] || "").trim() }; });
-    const sel = $("code"), cur = sel.value; sel.innerHTML = "";
-    Object.keys(codes).filter(c => c !== "DEMO").forEach(c => {
-      const o = document.createElement("option"); o.value = c;
-      o.textContent = c + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
-    if (cur && codes[cur]) sel.value = cur; else { const free = Object.keys(codes).find(c => c !== "DEMO" && !codes[c].url); if (free) sel.value = free; }
-    $("list").innerHTML = Object.keys(codes).filter(c => c !== "DEMO").map(c =>
-      `<li><b>${c}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? (codes[c].note || "activa").replace(/</g, "&lt;") : "libre"}</span></li>`).join("");
-  } catch(e){ $("list").innerHTML = `<li><span>${e.message}</span></li>`; }
+function parse(text){
+  const out = {};
+  text.split("\n").forEach(l => { const m = l.match(/^\s*"(\w+)":\s*"([^"]*)",?\s*(?:\/\/\s*(.*))?$/); if (m) out[m[1]] = { url: m[2], note: (m[3] || "").trim() }; });
+  return out;
 }
-
+function nfcShow(){ const c = $("code").value; if (!c) return; $("nfc").textContent = SITE + c; $("nfcBox").style.display = "flex"; }
+function paint(){
+  const sel = $("code"), cur = sel.value; sel.innerHTML = "";
+  const list = Object.keys(codes).filter(c => c !== "DEMO");
+  list.forEach(c => { const o = document.createElement("option"); o.value = c;
+    o.textContent = c + (codes[c].url ? " · " + (codes[c].note || "activa") : " · libre"); sel.appendChild(o); });
+  if (cur && codes[cur]) sel.value = cur; else { const free = list.find(c => !codes[c].url); if (free) sel.value = free; }
+  nfcShow();
+  $("list").innerHTML = list.map(c =>
+    `<li><b>${c}</b><span class="${codes[c].url ? "on" : ""}">${codes[c].url ? (codes[c].note || "activa").replace(/</g, "&lt;") : "libre"}</span></li>`).join("");
+}
+async function load(){
+  try {  // lista publica: no necesita clave
+    const r = await fetch(SITE + FILE + "?v=" + Date.now(), { cache: "no-store" });
+    codes = parse(await r.text()); paint();
+  } catch(e){ $("list").innerHTML = "<li><span>No pude cargar las placas. Revisa el internet.</span></li>"; }
+}
+async function loadForWrite(){  // version exacta del archivo para guardar (necesita clave)
+  const j = await gh("GET"); raw = dec(j.content); sha = j.sha; codes = parse(raw); paint();
+}
 async function write(code, url, note, done){
-  await load();
+  await loadForWrite();
   if (!codes[code]) throw new Error("No encontré la placa " + code + " en la lista.");
   const re = new RegExp(`^(\\s*)"${code}":.*$`, "m");
   const safe = (note || "").replace(/[\r\n]/g, " ").trim();
   const line = `$1"${code}": "${url}",` + (url && safe ? " // " + safe : "");
   const nuevo = raw.replace(re, line);
   await gh("PUT", { message: (url ? "Activar " : "Desactivar ") + code + (safe ? " - " + safe : ""), content: enc(nuevo), sha });
-  await load(); done();
+  codes = parse(nuevo); paint(); done();
 }
 
 $("link").addEventListener("input", () => { const r = reviewLink($("link").value); if (r.name && !$("name").value) $("name").value = r.name; });
-$("saveTok").onclick = () => { const v = $("tok").value.trim(); if (!v){ show("Pega la clave primero.", "err"); return; } store.set(v); $("tok").value = ""; syncTok(); load(); };
-$("forget").onclick = () => { store.del(); syncTok(); load(); show("Clave borrada de este celular.", "info"); };
+$("saveTok").onclick = () => { const v = $("tok").value.trim(); if (!v){ show("Pega la clave primero.", "err"); return; }
+  if (!/^(github_pat_|ghp_)\w{20,}$/.test(v)){ show("Eso no parece una clave de GitHub. Debe empezar por github_pat_ (mira la guía).", "err"); return; } store.set(v); $("tok").value = ""; syncTok(); load(); };
+$("forget").onclick = () => { store.del(); syncTok(); show("Clave borrada de este celular.", "info"); };
 $("reload").onclick = load;
+$("code").onchange = nfcShow;
 $("test").onclick = () => { const r = reviewLink($("link").value); if (r.err){ show(r.err, "err"); return; } window.open(r.url, "_blank"); };
 $("copy").onclick = () => { navigator.clipboard && navigator.clipboard.writeText($("nfc").textContent); $("copy").textContent = "Copiado"; setTimeout(() => $("copy").textContent = "Copiar", 1500); };
 $("go").onclick = async () => {
