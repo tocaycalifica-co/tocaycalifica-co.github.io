@@ -13,7 +13,7 @@ var CODIGOS = {
   "A008": "",
   "A009": "",
   "A010": "",
-  "A011": "https://search.google.com/local/writereview?placeid=ChIJR0RJAe53QI4RewxDeU0kdok", // El caserito (Cajicá)
+  "A011": "",
   "A012": "",
   "A013": "",
   "A014": "",
