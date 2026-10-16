@@ -15,7 +15,7 @@ var CODIGOS = {
   "A010": "",
   "A011": "https://search.google.com/local/writereview?placeid=ChIJk2XLC193QI4RdiIpZLvzej4", // Belarmin Gourmet, Cajicá, Cundinamarca
   "A012": "",
-  "A013": "",
+  "A013": "https://search.google.com/local/writereview?placeid=ChIJFbKfZGN3QI4RzyLysQNXSLc", // La Nacional Papelería, Cl. 3 #3-31, Cajicá, Cundinamarca
   "A014": "",
   "A015": "",
   "A016": "",
