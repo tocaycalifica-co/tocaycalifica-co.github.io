@@ -3,7 +3,7 @@
 // Una placa vacía ("") muestra la página de "placa sin activar" con el WhatsApp de ventas.
 var CODIGOS = {
   "DEMO": "https://wa.me/573228286887?text=Hola%2C%20quiero%20mi%20soporte%20de%20rese%C3%B1as",
-  "A001": "",
+  "A001": "https://search.google.com/local/writereview?placeid=ChIJ50-V-JV3QI4Rkr9GvCMQSYQ", // El león de arroz, Cra. 7 #0-170, Centro, Cajicá, Cundinamarca
   "A002": "",
   "A003": "",
   "A004": "",
