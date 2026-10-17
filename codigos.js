@@ -16,7 +16,7 @@ var CODIGOS = {
   "A011": "https://search.google.com/local/writereview?placeid=ChIJk2XLC193QI4RdiIpZLvzej4", // Belarmin Gourmet, Cajicá, Cundinamarca
   "A012": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
   "A013": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
-  "A014": "https://search.google.com/local/writereview?placeid=ChIJl9VgGPd3QI4RGkS0LDzWmaU", // Podología Tu Pie, Cl. 2 #6-69 Loc 103, Cajicá, Cundinamarca
+  "A014": "https://search.google.com/local/writereview?placeid=ChIJl3T-cFZ3QI4R7xvEdvFRQsg", // La Fortaleza, Cra. 4 #0-20, Cajicá, Cundinamarca
   "A015": "",
   "A016": "",
   "A017": "",
