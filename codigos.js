@@ -21,7 +21,7 @@ var CODIGOS = {
   "A016": "",
   "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
-  "A019": "https://search.google.com/local/writereview?placeid=ChIJCZ0FtFJ5QI4RdIujaS0DtPc", // Salsamentaria Cavelier, Cl. 3 #10 - 28, Cajicá, Cundinamarca
+  "A019": "",
   "A020": "",
   "A021": "",
   "A022": "",
