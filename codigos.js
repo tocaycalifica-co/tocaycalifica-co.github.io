@@ -19,7 +19,7 @@ var CODIGOS = {
   "A014": "https://search.google.com/local/writereview?placeid=ChIJfbqdPPV3QI4RO-9wgI2omfk", // Destellos Floristeria Cajicá, Cra. 5 #1 58, Cajicá, Cundinamarca
   "A015": "",
   "A016": "",
-  "A017": "",
+  "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
   "A019": "",
   "A020": "",
