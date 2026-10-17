@@ -15,7 +15,7 @@ var CODIGOS = {
   "A010": "",
   "A011": "https://search.google.com/local/writereview?placeid=ChIJk2XLC193QI4RdiIpZLvzej4", // Belarmin Gourmet, Cajicá, Cundinamarca
   "A012": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
-  "A013": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
+  "A013": "https://search.google.com/local/writereview?placeid=ChIJr1OWuQd3QI4R5PlOSa1qIWk", // Jama, Cra. 5 #1 - 14 local 2, Cajicá, Cundinamarca
   "A014": "https://search.google.com/local/writereview?placeid=ChIJfbqdPPV3QI4RO-9wgI2omfk", // Destellos Floristeria Cajicá, Cra. 5 #1 58, Cajicá, Cundinamarca
   "A015": "",
   "A016": "",
