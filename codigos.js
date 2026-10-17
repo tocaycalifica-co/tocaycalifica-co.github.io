@@ -21,7 +21,7 @@ var CODIGOS = {
   "A016": "",
   "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
-  "A019": "",
+  "A019": "https://search.google.com/local/writereview?placeid=ChIJayD3Z4d3QI4RLGDafW8dcVw", // Restaurante fushion, Cl. 2 #6-50, Cajicá, Cundinamarca
   "A020": "",
   "A021": "",
   "A022": "",
