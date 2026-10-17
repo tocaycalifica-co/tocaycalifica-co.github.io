@@ -15,7 +15,7 @@ var CODIGOS = {
   "A010": "",
   "A011": "https://search.google.com/local/writereview?placeid=ChIJk2XLC193QI4RdiIpZLvzej4", // Belarmin Gourmet, Cajicá, Cundinamarca
   "A012": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
-  "A013": "https://search.google.com/local/writereview?placeid=ChIJ4Zok1mJ3QI4R4axvTzPRuAA", // Floristería Emmanuel Cajica cra 6 #0-99, Cra. 6 #0-99, Centro, Cajicá, Cundinamarca
+  "A013": "https://search.google.com/local/writereview?placeid=ChIJ7dHhW7d3QI4Rzymc40x3xLE", // FOTO MOLANO 2, Calle del distrito, Cl. 3 #6-20 2 Piso, Cajicá, Cundinamarca
   "A014": "https://search.google.com/local/writereview?placeid=ChIJfbqdPPV3QI4RO-9wgI2omfk", // Destellos Floristeria Cajicá, Cra. 5 #1 58, Cajicá, Cundinamarca
   "A015": "",
   "A016": "",
