@@ -15,7 +15,7 @@ var CODIGOS = {
   "A010": "",
   "A011": "https://search.google.com/local/writereview?placeid=ChIJk2XLC193QI4RdiIpZLvzej4", // Belarmin Gourmet, Cajicá, Cundinamarca
   "A012": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
-  "A013": "https://search.google.com/local/writereview?placeid=ChIJAzrfB4l3QI4RC6YaOD3boxs", // TIENDA DE ROPA INFANTIL ANIMAL KID'S, Cra. 6 #0 - 83, Centro, Cajicá, Cundinamarca
+  "A013": "https://search.google.com/local/writereview?placeid=ChIJ4Zok1mJ3QI4R4axvTzPRuAA", // Floristería Emmanuel Cajica cra 6 #0-99, Cra. 6 #0-99, Centro, Cajicá, Cundinamarca
   "A014": "https://search.google.com/local/writereview?placeid=ChIJfbqdPPV3QI4RO-9wgI2omfk", // Destellos Floristeria Cajicá, Cra. 5 #1 58, Cajicá, Cundinamarca
   "A015": "",
   "A016": "",
