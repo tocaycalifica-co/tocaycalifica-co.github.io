@@ -21,7 +21,7 @@ var CODIGOS = {
   "A016": "",
   "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
-  "A019": "https://search.google.com/local/writereview?placeid=ChIJqQ9VlRp3QI4R27EgRt7Wpxk", // PSC Fast Food, Cl. 3 #8a-2 a 8a-50, Cajicá, Cundinamarca
+  "A019": "https://search.google.com/local/writereview?placeid=ChIJQYzJemJ3QI4Ri2X7Klj1Xu8", // Lo Máximo, Cajicá, Cundinamarca
   "A020": "",
   "A021": "",
   "A022": "",
