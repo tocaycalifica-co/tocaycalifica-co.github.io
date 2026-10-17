@@ -16,7 +16,7 @@ var CODIGOS = {
   "A011": "https://search.google.com/local/writereview?placeid=ChIJk2XLC193QI4RdiIpZLvzej4", // Belarmin Gourmet, Cajicá, Cundinamarca
   "A012": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
   "A013": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
-  "A014": "https://search.google.com/local/writereview?placeid=ChIJbQPWelN3QI4RAoPqD5Wo_dc", // Altare beauty store, Cra. 6 #1 73, Cajicá, Cundinamarca
+  "A014": "https://search.google.com/local/writereview?placeid=ChIJM8KWoGN3QI4RLYbgOUSKRbU", // Sol y Luna Restaurante Saludable, Cl. 4 #4-35, Cajicá, Cundinamarca
   "A015": "",
   "A016": "",
   "A017": "",
