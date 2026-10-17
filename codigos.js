@@ -21,7 +21,7 @@ var CODIGOS = {
   "A016": "",
   "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
-  "A019": "https://search.google.com/local/writereview?placeid=ChIJw-ek-WJ3QI4RylNbEZsKAC8", // Pato hamburguesas, Cra. 7 #243, Cajicá, Cundinamarca
+  "A019": "https://search.google.com/local/writereview?placeid=ChIJ05UiIe13QI4R3roIRll-Wkk", // El Caballero Tienda Barbería - Maquinas Wahl Babyliss, Calle 3, Avenida Cavelier #7-16, Cajicá, Cundinamarca
   "A020": "",
   "A021": "",
   "A022": "",
