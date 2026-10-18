@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Fushion · Editar menú</title>
+<meta name="theme-color" content="#3A3A3C">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBF7F1;--card:#FFFDF9;--ink:#2F2F31;--grey:#3A3A3C;--soft:#7D766E;--line:#ECE2D6;--red:#E3262E;--ok:#1F9D55;--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--paper);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;border:0;cursor:pointer}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+/* entrar */
+#login{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:30px 24px}
+.marca{font:italic 800 34px Montserrat;color:var(--grey);letter-spacing:-1px}.marca i{display:inline-block;width:.8em;height:.8em;border-radius:50%;background:var(--red);vertical-align:-.08em;margin:0 1px}
+.sub{font:600 13px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--soft);margin:10px 0 34px}
+#pin{width:100%;max-width:260px;height:62px;border-radius:18px;border:2px solid var(--line);background:var(--card);text-align:center;font:800 28px Montserrat;letter-spacing:10px;color:var(--ink);outline:none}
+#pin:focus{border-color:var(--grey)}
+.rec{display:flex;gap:8px;align-items:center;justify-content:center;margin:16px 0;font:600 14px Montserrat;color:var(--soft)}
+.big{width:100%;max-width:260px;height:56px;border-radius:28px;background:var(--red);color:#fff;font:800 16px Montserrat}
+.big:disabled{opacity:.5}
+.err{min-height:22px;margin-top:14px;font:700 14px Montserrat;color:var(--red)}
+/* editor */
+#ed{display:none;padding-bottom:110px}
+header{position:sticky;top:0;z-index:5;background:rgba(251,247,241,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:10px;padding-top:14px;padding-bottom:12px}
+header .marca{font-size:22px;flex:1}
+.salir{background:none;color:var(--soft);font:700 13px Montserrat;padding:8px}
+#buscar{width:100%;height:46px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);padding:0 14px;font:600 15px Montserrat;margin-bottom:12px;outline:none}
+.ayuda{font:500 13px/1.5 Montserrat;color:var(--soft);margin:16px 0 4px}
+h2{display:flex;align-items:center;gap:10px;font:italic 800 18px Montserrat;color:var(--grey);text-transform:uppercase;margin:26px 0 6px}
+h2::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--red)}
+.row{display:flex;align-items:center;gap:10px;padding:12px;margin:0 -12px;border-radius:14px;transition:background .3s}
+.row.cambio{background:#FFF1D6}
+.row .n{flex:1;font:700 15px/1.25 Montserrat;min-width:0}
+.row.off .n{color:var(--soft);text-decoration:line-through}
+.precio{display:flex;align-items:center;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding-left:10px;font:700 15px Montserrat;color:var(--soft)}
+.precio input{width:86px;height:42px;border:0;background:none;font:800 16px Montserrat;color:var(--ink);padding:0 8px 0 4px;outline:none}
+.sw{position:relative;width:52px;height:30px;flex:none;border-radius:15px;background:var(--ok);transition:background .25s}
+.sw::after{content:"";position:absolute;top:3px;left:25px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .25s var(--ease);box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.off .sw{background:#C9C1B8}.off .sw::after{left:3px}
+.leyenda{display:flex;gap:16px;font:600 12px Montserrat;color:var(--soft);margin-top:6px}
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));max-width:536px;margin:0 auto;z-index:6}
+.bar .big{max-width:none;height:60px;border-radius:30px;box-shadow:0 14px 30px -12px rgba(227,38,46,.8);transition:transform .4s var(--ease),opacity .3s}
+.bar .big:disabled{background:var(--grey);box-shadow:none;opacity:1}
+.toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-140%);background:var(--grey);color:#fff;font:700 14px/1.4 Montserrat;padding:14px 18px;border-radius:16px;z-index:9;transition:transform .45s var(--ease);max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.toast.bad{background:var(--red)}
+</style>
+</head>
+<body>
+<section id="login">
+  <div class="marca">FUSHI<i></i>N</div>
+  <p class="sub">Editar menú</p>
+  <input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="12" placeholder="PIN" aria-label="PIN">
+  <label class="rec"><input type="checkbox" id="rec"> Recordar en este celular</label>
+  <button class="big" id="entrar">Entrar</button>
+  <p class="err" id="err"></p>
+</section>
+
+<section id="ed">
+  <header><div class="wrap"><div class="marca">FUSHI<i></i>N</div><button class="salir" id="salir">Salir</button></div></header>
+  <div class="wrap">
+    <p class="ayuda">Cambia el precio o toca el interruptor para marcar un plato como <b>agotado</b>. Luego dale <b>Guardar</b>. Los clientes lo ven en 1 a 5 minutos.</p>
+    <div class="leyenda"><span>🟢 Disponible</span><span>⚪ Agotado</span></div>
+    <input id="buscar" type="search" placeholder="Buscar plato…" style="margin-top:14px">
+    <div id="lista"></div>
+  </div>
+  <div class="bar"><button class="big" id="guardar" disabled>Sin cambios</button></div>
+</section>
+<div class="toast" id="toast"></div>
+
+<script>
+const SHEET="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdTGvPFOMjxURkk50jZ5hiIfD8jbBcJ_xepzzE9Qs1J1mXXpejl3MUd6tyX9wyFtS1ywzA1n9CqHRx/pub?output=csv", API="https://script.google.com/macros/s/AKfycbwSgdzWSaWF9ZSqiqwA76YcgSA_wjcJjkBawtlvRNiBtfEOrW9uD_LpsFXFlowO6-c/exec";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let PIN="", filas=[];
+const store={get(){try{return localStorage.getItem("fushion_pin")||""}catch(e){return ""}},set(v){try{v?localStorage.setItem("fushion_pin",v):localStorage.removeItem("fushion_pin")}catch(e){}}};
+
+function toast(t,bad){const e=$("#toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",3500)}
+async function api(body){
+  const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pin:PIN,...body})});
+  return r.json();
+}
+function csv(t){const R=[];let r=[""],q=false;for(let i=0;i<t.length;i++){const c=t[i];
+  if(q){if(c=='"'){if(t[i+1]=='"'){r[r.length-1]+='"';i++}else q=false}else r[r.length-1]+=c}
+  else if(c=='"')q=true;else if(c==",")r.push("");else if(c=="\n"){R.push(r);r=[""]}else if(c!="\r")r[r.length-1]+=c}
+  if(r.length>1||r[0])R.push(r);return R}
+
+async function cargar(){
+  const t=await fetch(SHEET+"&t="+Date.now()).then(r=>r.text());
+  const rows=csv(t),h=rows.shift().map(x=>x.trim().toLowerCase()),col=k=>h.findIndex(x=>x.startsWith(k));
+  const C={cat:col("categ"),n:col("plato"),p:col("precio"),ok:col("dispon")};
+  filas=rows.filter(r=>r[C.cat]&&r[C.n]).map((r,i)=>{const p=+String(r[C.p]).replace(/\D/g,""),ok=!/^(no|agotado)/i.test(r[C.ok]||"");
+    return {i,cat:r[C.cat].trim(),plato:r[C.n].trim(),p,ok,p0:p,ok0:ok}});
+  pintar();
+}
+function pintar(){
+  let html="",cat="";
+  filas.forEach(f=>{if(f.cat!==cat){cat=f.cat;html+=`<h2 data-cat="${esc(cat)}">${esc(cat)}</h2>`}
+    html+=`<div class="row${f.ok?"":" off"}" data-i="${f.i}" data-busca="${esc((f.cat+" "+f.plato).toLowerCase())}">
+      <div class="n">${esc(f.plato)}</div>
+      <label class="precio">$<input inputmode="numeric" value="${f.p}" data-p="${f.i}" aria-label="Precio de ${esc(f.plato)}"></label>
+      <button class="sw" data-sw="${f.i}" aria-label="Disponible ${esc(f.plato)}"></button></div>`});
+  $("#lista").innerHTML=html;contar();
+}
+const cambiados=()=>filas.filter(f=>f.p!==f.p0||f.ok!==f.ok0);
+function contar(){
+  filas.forEach(f=>{const r=document.querySelector(`[data-i="${f.i}"]`);if(r){r.classList.toggle("cambio",f.p!==f.p0||f.ok!==f.ok0);r.classList.toggle("off",!f.ok)}});
+  const n=cambiados().length,b=$("#guardar");b.disabled=!n;b.textContent=n?`Guardar ${n} cambio${n>1?"s":""}`:"Sin cambios";
+}
+$("#lista").addEventListener("input",e=>{const i=e.target.dataset.p;if(i==null)return;
+  e.target.value=e.target.value.replace(/\D/g,"").slice(0,7);filas[i].p=+e.target.value||0;contar()});
+$("#lista").addEventListener("click",e=>{const s=e.target.closest("[data-sw]");if(!s)return;const f=filas[s.dataset.sw];f.ok=!f.ok;contar()});
+$("#buscar").addEventListener("input",e=>{const q=e.target.value.toLowerCase().trim();
+  document.querySelectorAll(".row").forEach(r=>r.style.display=!q||r.dataset.busca.includes(q)?"":"none");
+  document.querySelectorAll("h2").forEach(h=>h.style.display=q?"none":"")});
+
+$("#guardar").onclick=async()=>{
+  const c=cambiados();const malo=c.find(f=>f.p<1000);
+  if(malo){toast(`Revisa el precio de ${malo.plato}`,true);return}
+  const b=$("#guardar");b.disabled=true;b.textContent="Guardando…";
+  try{const r=await api({accion:"guardar",cambios:c.map(f=>({cat:f.cat,plato:f.plato,precio:f.p,disponible:f.ok}))});
+    if(!r.ok)throw new Error(r.error);
+    c.forEach(f=>{f.p0=f.p;f.ok0=f.ok});toast(`✓ Guardado. Los clientes lo verán en unos minutos.`)}
+  catch(e){toast(e.message||"No se pudo guardar. Revisa tu internet.",true)}
+  contar();
+};
+
+async function entrar(pin,auto){
+  PIN=pin;$("#err").textContent="";$("#entrar").disabled=true;$("#entrar").textContent="Entrando…";
+  try{const r=await api({accion:"entrar"});if(!r.ok)throw new Error(r.error);
+    if(!auto)store.set($("#rec").checked?pin:"");
+    $("#login").style.display="none";$("#ed").style.display="block";await cargar()}
+  catch(e){store.set("");$("#err").textContent=e.message||"No hay conexión";PIN=""}
+  $("#entrar").disabled=false;$("#entrar").textContent="Entrar";
+}
+$("#entrar").onclick=()=>{const v=$("#pin").value.trim();if(v)entrar(v)};
+$("#pin").addEventListener("keydown",e=>{if(e.key==="Enter")$("#entrar").click()});
+$("#salir").onclick=()=>{store.set("");location.reload()};
+addEventListener("beforeunload",e=>{if(cambiados().length){e.preventDefault();e.returnValue=""}});
+const guardado=store.get();if(guardado)entrar(guardado,true);
+</script>
+</body>
+</html>
