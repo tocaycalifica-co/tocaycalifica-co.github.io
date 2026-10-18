@@ -124,4 +124,6 @@ var CODIGOS = {
   "D019T": "",
   "D020I": "",
   "D020T": "",
+  // Personalizadas
+  "FUSHION": "https://search.google.com/local/writereview?placeid=ChIJayD3Z4d3QI4RLGDafW8dcVw", // Restaurante Fushion, Cajicá (sticker base de menú)
 };
