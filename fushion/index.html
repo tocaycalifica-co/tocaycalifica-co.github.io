@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fushion · Menú</title>
+<meta name="description" content="Menú de Fushion, cocina oriental & colombiana en Cajicá. Arma tu pedido y envíalo por WhatsApp.">
+<meta property="og:title" content="Fushion · Menú digital">
+<meta property="og:description" content="Cocina oriental & colombiana en Cajicá. Arma tu pedido y envíalo por WhatsApp.">
+<meta property="og:image" content="https://tocaycalifica-co.github.io/fushion/img/pasta.webp">
+<meta name="theme-color" content="#141312">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Playfair+Display:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#141312;--card:#1E1C1A;--line:#2E2B28;--ink:#F4EEE6;--soft:#A9A39B;--red:#E3262E;--gold:#F5B301;--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:560px;margin:0 auto}
+/* hero */
+.hero{position:relative;height:88svh;min-height:560px;max-height:860px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 22px 34px}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 18s var(--ease) both}
+@keyframes kb{from{transform:scale(1.18)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,18,.15) 0%,rgba(20,19,18,0) 30%,rgba(20,19,18,.75) 62%,var(--bg) 100%)}
+.hero>*:not(img){position:relative;z-index:1}
+.hero .lg{display:flex;justify-content:center;margin-bottom:46px;animation:up 1s .2s var(--ease) both}
+.tag{text-align:center;font:italic 500 19px 'Playfair Display';color:var(--ink);opacity:.9;animation:up 1s .35s var(--ease) both}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 22px;animation:up 1s .45s var(--ease) both}
+.chip{font:600 12px Montserrat;padding:7px 12px;border-radius:30px;background:rgba(255,255,255,.08);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12)}
+.chip b{color:var(--gold)}
+.ctas{display:flex;gap:10px;animation:up 1s .55s var(--ease) both}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:16px;font:800 15px Montserrat;transition:transform .2s var(--ease)}
+.btn:active{transform:scale(.96)}
+.btn.red{background:var(--red);color:#fff;box-shadow:0 10px 30px -10px rgba(227,38,46,.8)}
+.btn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(20,19,18,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:12px 16px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:none;font:700 13px Montserrat;padding:9px 14px;border-radius:30px;color:var(--soft);transition:all .3s var(--ease)}
+nav a.on{background:var(--ink);color:var(--bg)}
+/* secciones */
+h2{font:italic 700 30px/1.1 'Playfair Display';display:flex;align-items:center;gap:12px}
+h2::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--red);flex:none}
+.sub{font:600 11px Montserrat;letter-spacing:3px;color:var(--soft);text-transform:uppercase;margin:0 0 10px 24px}
+.fav{padding:38px 0 6px}
+.fav h2,.fav .sub{padding:0 22px}.fav .sub{margin-left:46px}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px 22px 10px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.fc{flex:none;width:74%;scroll-snap-align:center;border-radius:24px;overflow:hidden;background:var(--card);position:relative}
+.fc img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.fc .info{position:absolute;left:0;right:0;bottom:0;padding:60px 18px 18px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.fc h3{font:800 19px/1.15 Montserrat}.fc .p{font:600 14px Montserrat;color:var(--soft);margin-top:4px}
+section.cat{padding:34px 22px 4px}
+.ban{margin:16px 0 6px;border-radius:22px;overflow:hidden;aspect-ratio:16/9;position:relative}
+.ban img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.4s var(--ease)}
+.in .ban img{transform:scale(1)}
+.it{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:0}
+.it .n{flex:1;font:600 16px/1.3 Montserrat}
+.it .p{font:700 15px Montserrat;color:var(--ink);white-space:nowrap}
+.add{width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font:700 22px/1 Montserrat;flex:none;transition:transform .25s var(--ease)}
+.add:active{transform:scale(.85)}
+.qty{display:flex;align-items:center;gap:2px;background:var(--ink);color:var(--bg);border-radius:30px;flex:none}
+.qty button{width:34px;height:38px;font:800 18px Montserrat;color:var(--bg)}
+.qty span{min-width:18px;text-align:center;font:800 14px Montserrat}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+/* lugar */
+.lugar{padding:44px 22px 20px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.duo img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px;display:block}
+.row{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);font:600 14px/1.4 Montserrat;color:var(--soft)}
+.row svg{flex:none}
+.gg{margin:26px 0 8px;padding:20px;border-radius:22px;background:linear-gradient(135deg,#232120,#1A1918);border:1px solid var(--line);display:flex;align-items:center;gap:14px}
+.gg .t{flex:1;font:800 16px/1.3 Montserrat}.gg .t small{display:block;font:500 13px Montserrat;color:var(--soft);margin-top:3px}
+.stars{color:var(--gold);letter-spacing:2px;font-size:15px}
+footer{text-align:center;padding:30px 22px 130px;font:500 12px Montserrat;color:#6E6862}
+/* carrito */
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;max-width:536px;margin:0 auto;height:62px;border-radius:20px;background:var(--red);color:#fff;display:flex;align-items:center;padding:0 18px;gap:12px;font:800 15px Montserrat;box-shadow:0 18px 40px -12px rgba(227,38,46,.7);transform:translateY(140%);transition:transform .5s var(--ease)}
+.bar.show{transform:none}
+.bar .c{background:#fff;color:var(--red);min-width:28px;height:28px;border-radius:14px;display:grid;place-items:center;font-size:13px}
+.bar .go{margin-left:auto}
+.bump{animation:bump .4s var(--ease)}
+@keyframes bump{50%{transform:scale(1.05)}}
+.sheet-bg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;max-height:92svh;overflow-y:auto;background:var(--bg);border-radius:28px 28px 0 0;padding:10px 22px calc(24px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .5s var(--ease)}
+.open .sheet-bg{opacity:1;pointer-events:auto}.open .sheet{transform:none}
+.grab{width:44px;height:5px;border-radius:3px;background:#3A3633;margin:0 auto 18px}
+.sheet h2{font-size:26px;margin-bottom:6px}
+.sheet .it .n small{display:block;color:var(--soft);font-weight:500;font-size:13px;margin-top:2px}
+.tot{display:flex;justify-content:space-between;font:800 18px Montserrat;padding:18px 0 4px}
+.nota{font:500 12px Montserrat;color:var(--soft)}
+label{display:block;font:700 12px Montserrat;letter-spacing:1px;text-transform:uppercase;color:var(--soft);margin:18px 0 8px}
+input,textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--ink);font:600 15px Montserrat;outline:none}
+input:focus,textarea:focus{border-color:var(--soft)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{height:48px;border-radius:14px;background:var(--card);border:1px solid var(--line);font:700 14px Montserrat;color:var(--soft)}
+.seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.send{margin-top:22px;width:100%;height:58px;border-radius:18px;background:#25D366;color:#0B3B1E;font:800 16px Montserrat;display:flex;align-items:center;justify-content:center;gap:10px}
+.vacio{padding:30px 0;text-align:center;color:var(--soft);font-weight:600}
+@media (min-width:700px){.fc{width:46%}.hero{max-height:760px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <img src="img/pasta.webp" alt="Tallarines mixtos de Fushion" fetchpriority="high">
+  <div class="lg"><div style="display:inline-flex;align-items:baseline;font:italic 800 13mm/1 Montserrat;color:#F4EEE6;letter-spacing:-.03em;white-space:nowrap">
+<span>F</span><span style="position:relative">u<i style="position:absolute;left:.06em;bottom:.04em;width:.032em;height:1.3em;background:#F4EEE6;box-shadow:0 0 0 .012em #141312;transform:rotate(22deg);transform-origin:bottom"></i><i style="position:absolute;left:.06em;bottom:.04em;width:.032em;height:1.3em;background:#F4EEE6;box-shadow:0 0 0 .012em #141312;transform:rotate(34deg);transform-origin:bottom"></i></span><span>S</span><span>H</span>
+<span style="position:relative;color:transparent">I<i style="position:absolute;left:50%;margin-left:-.08em;top:.16em;width:.16em;height:1.1em;background:#F4EEE6;transform:skewX(-12deg)"></i>
+<b style="position:absolute;top:5.6em;font:600 .2em/1 Montserrat;color:#F4EEE6;font-style:normal;letter-spacing:0;right:calc(50% + .7em)">COCINA ORIENTAL</b><b style="position:absolute;top:5.6em;font:600 .2em/1 Montserrat;color:#F4EEE6;font-style:normal;letter-spacing:0;left:calc(50% + .75em)"><span style="font:italic 400 1.35em/0 'Playfair Display'">&amp;</span> COLOMBIANA</b></span>
+<span style="display:inline-block;width:.86em;height:.86em;border-radius:50%;background:#E3262E;vertical-align:-.1em;margin:0 .02em"></span><span>N</span></div></div>
+  <p class="tag">Sabores de oriente con corazón colombiano</p>
+  <div class="chips"><span class="chip"><b>★</b> 4,4 en Google</span><span class="chip">Cajicá · Cl. 2 #6-50</span><span class="chip">Domicilios</span></div>
+  <div class="ctas wrap" style="width:100%"><a class="btn red" href="#menu">Ver el menú</a><a class="btn ghost" href="https://wa.me/573013784539" target="_blank" rel="noopener">WhatsApp</a></div>
+</header>
+
+<nav id="nav"><div class="wrap" id="navw"></div></nav>
+
+<main class="wrap" id="menu">
+  <div class="fav rv"><h2>Los favoritos</h2><p class="sub">de la casa</p><div class="rail" id="rail"></div></div>
+  <div id="cats"></div>
+  <div class="lugar rv">
+    <h2>Visítanos</h2>
+    <div class="duo"><img src="img/local.webp" alt="Interior de Fushion" loading="lazy"><img src="img/fachada.webp" alt="Fachada de Fushion" loading="lazy"></div>
+    <a class="row" href="https://www.google.com/maps/place/?q=place_id:ChIJayD3Z4d3QI4RLGDafW8dcVw" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3262E" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Cl. 2 #6-50, Cajicá, Cundinamarca · Cómo llegar</a>
+    <a class="row" href="https://wa.me/573013784539" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3262E" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Domicilios: 301 378 4539</a>
+    <div class="row"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3262E" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Davivienda · Daviplata · Nequi</div>
+    <div class="row"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3262E" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Preparamos al instante: espera aprox. de 20 a 25 min</div>
+    <a class="gg" href="https://search.google.com/local/writereview?placeid=ChIJayD3Z4d3QI4RLGDafW8dcVw" target="_blank" rel="noopener"><div class="t">¿Te gustó tu experiencia?<small>Califícanos en Google, nos ayuda muchísimo</small></div><span class="stars">★★★★★</span></a>
+  </div>
+</main>
+<footer>© Fushion · Cocina oriental &amp; colombiana<br>Menú digital por Toca y Califica</footer>
+
+<button class="bar" id="bar"><span class="c" id="bc">0</span><span>Ver pedido</span><span class="go" id="bt">$0</span></button>
+<div id="sh"><div class="sheet-bg" id="shbg"></div>
+  <div class="sheet" role="dialog" aria-label="Tu pedido">
+    <div class="grab"></div><h2>Tu pedido</h2>
+    <div id="lista"></div>
+    <div class="tot"><span>Total</span><span id="tt">$0</span></div>
+    <p class="nota">El valor del domicilio te lo confirma el restaurante.</p>
+    <label for="nom">Tu nombre</label><input id="nom" autocomplete="name" placeholder="¿A nombre de quién?">
+    <label>Entrega</label><div class="seg" id="seg"><button data-v="Domicilio" class="on">Domicilio</button><button data-v="Recoger en el local">Recoger</button></div>
+    <div id="dirw"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Barrio, calle y número"></div>
+    <label for="obs">Notas</label><textarea id="obs" rows="2" placeholder="Sin cebolla, salsa aparte…"></textarea>
+    <button class="send" id="send"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B3B1E"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>Enviar pedido por WhatsApp</button>
+  </div>
+</div>
+
+<script>
+const DATA=[{"cat": "Entradas", "foto": null, "items": [{"id": "0-0", "n": "Chicharrón con arepa con queso", "p": 24000, "full": "Chicharrón con arepa con queso"}, {"id": "0-1", "n": "Chicharrón con papa criolla", "p": 13900, "full": "Chicharrón con papa criolla"}, {"id": "0-2", "n": "Camarón apanado", "p": 20000, "full": "Camarón apanado"}]}, {"cat": "Fushion oriental", "foto": "cerdo", "items": [{"id": "1-0", "n": "Pollo teriyaki", "p": 22500, "full": "Pollo teriyaki"}, {"id": "1-1", "n": "Pollo naranja", "p": 22500, "full": "Pollo naranja"}, {"id": "1-2", "n": "Cerdo BBQ", "p": 22500, "full": "Cerdo BBQ"}, {"id": "1-3", "n": "Res teriyaki", "p": 23000, "full": "Res teriyaki"}]}, {"cat": "Arroz mixto oriental", "foto": "arroz", "items": [{"id": "2-0", "n": "Personal", "p": 27500, "full": "Arroz mixto oriental personal"}, {"id": "2-1", "n": "2 personas", "p": 37500, "full": "Arroz mixto oriental 2 personas"}, {"id": "2-2", "n": "Solo camarón", "p": 33500, "full": "Arroz mixto oriental solo camarón"}, {"id": "2-3", "n": "Familiar", "p": 69900, "full": "Arroz mixto oriental familiar"}]}, {"cat": "Arroz valencia oriental", "foto": null, "items": [{"id": "3-0", "n": "Personal", "p": 29900, "full": "Arroz valencia oriental personal"}, {"id": "3-1", "n": "2 personas", "p": 46500, "full": "Arroz valencia oriental 2 personas"}]}, {"cat": "Pastas", "foto": "pasta", "items": [{"id": "4-0", "n": "Tallarines mixtos", "p": 28500, "full": "Tallarines mixtos"}, {"id": "4-1", "n": "Tallarines solo camarón", "p": 32500, "full": "Tallarines solo camarón"}]}, {"cat": "Vegetales", "foto": null, "items": [{"id": "5-0", "n": "Vegetales mixtos", "p": 27500, "full": "Vegetales vegetales mixtos"}, {"id": "5-1", "n": "Solo camarón", "p": 31500, "full": "Vegetales solo camarón"}]}, {"cat": "Típicos", "foto": "bandeja", "items": [{"id": "6-0", "n": "Ajiaco", "p": 22000, "full": "Ajiaco"}, {"id": "6-1", "n": "Frijolada", "p": 24000, "full": "Frijolada"}, {"id": "6-2", "n": "Bandeja paisa", "p": 30900, "full": "Bandeja paisa"}, {"id": "6-3", "n": "Cazuela de fríjol", "p": 26900, "full": "Cazuela de fríjol"}, {"id": "6-4", "n": "Calentado con chicharrón o carne", "p": 22900, "full": "Calentado con chicharrón o carne"}]}, {"cat": "Hamburguesa artesanal", "foto": null, "items": [{"id": "7-0", "n": "Clásica", "p": 20900, "full": "Hamburguesa artesanal clásica"}, {"id": "7-1", "n": "Especial", "p": 24900, "full": "Hamburguesa artesanal especial"}, {"id": "7-2", "n": "Doble", "p": 24900, "full": "Hamburguesa artesanal doble"}]}, {"cat": "Pescados", "foto": null, "items": [{"id": "8-0", "n": "Trucha en champiñón", "p": 34000, "full": "Trucha en champiñón"}, {"id": "8-1", "n": "Trucha a la parrilla", "p": 31500, "full": "Trucha a la parrilla"}, {"id": "8-2", "n": "Mojarra", "p": 29500, "full": "Mojarra"}, {"id": "8-3", "n": "Salmón", "p": 39000, "full": "Salmón"}]}, {"cat": "Parrilla", "foto": null, "items": [{"id": "9-0", "n": "Baby beef", "p": 37000, "full": "Baby beef"}, {"id": "9-1", "n": "Churrasco", "p": 32900, "full": "Churrasco"}, {"id": "9-2", "n": "Punta de anca", "p": 33900, "full": "Punta de anca"}, {"id": "9-3", "n": "Pechuga a la parrilla", "p": 25900, "full": "Pechuga a la parrilla"}, {"id": "9-4", "n": "Pechuga champiñón", "p": 28900, "full": "Pechuga champiñón"}, {"id": "9-5", "n": "Costillas BBQ", "p": 28000, "full": "Costillas BBQ"}, {"id": "9-6", "n": "Lomo de cerdo", "p": 27000, "full": "Lomo de cerdo"}]}], FAV=[{"foto": "bandeja", "id": "6-2", "n": "Bandeja paisa", "p": 30900, "full": "Bandeja paisa"}, {"foto": "arroz", "id": "2-0", "n": "Personal", "p": 27500, "full": "Arroz mixto oriental personal"}, {"foto": "pasta", "id": "4-0", "n": "Tallarines mixtos", "p": 28500, "full": "Tallarines mixtos"}], WA="573013784539";
+const $=s=>document.querySelector(s), money=v=>"$"+v.toLocaleString("es-CO");
+const ITEMS={};DATA.forEach(c=>c.items.forEach(i=>ITEMS[i.id]=i));
+let cart={};try{cart=JSON.parse(localStorage.getItem("fushion_cart")||"{}")}catch(e){}
+for(const k in cart)if(!ITEMS[k])delete cart[k];
+const save=()=>{try{localStorage.setItem("fushion_cart",JSON.stringify(cart))}catch(e){}};
+const ctrl=id=>cart[id]?`<div class="qty"><button data-d="-1" data-id="${id}" aria-label="Quitar uno">−</button><span>${cart[id]}</span><button data-d="1" data-id="${id}" aria-label="Agregar uno">+</button></div>`
+  :`<button class="add" data-d="1" data-id="${id}" aria-label="Agregar">+</button>`;
+const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/\s+/g,"-");
+
+$("#navw").innerHTML=DATA.map(c=>`<a href="#${slug(c.cat)}">${c.cat}</a>`).join("");
+$("#rail").innerHTML=FAV.map(f=>`<div class="fc"><img src="img/${f.foto}.webp" alt="${f.full}" loading="lazy"><div class="info"><div><h3>${f.full}</h3><div class="p">${money(f.p)}</div></div><span class="c" data-c="${f.id}">${ctrl(f.id)}</span></div></div>`).join("");
+$("#cats").innerHTML=DATA.map(c=>`<section class="cat rv" id="${slug(c.cat)}"><h2>${c.cat}</h2>${c.foto?`<div class="ban"><img src="img/${c.foto}.webp" alt="${c.cat}" loading="lazy"></div>`:""}
+  ${c.items.map(i=>`<div class="it"><div class="n">${i.n}</div><div class="p">${money(i.p)}</div><span class="c" data-c="${i.id}">${ctrl(i.id)}</span></div>`).join("")}</section>`).join("");
+
+function render(bump){
+  document.querySelectorAll("[data-c]").forEach(e=>e.innerHTML=ctrl(e.dataset.c));
+  const ids=Object.keys(cart),n=ids.reduce((a,k)=>a+cart[k],0),t=ids.reduce((a,k)=>a+cart[k]*ITEMS[k].p,0);
+  $("#bc").textContent=n;$("#bt").textContent=money(t);$("#tt").textContent=money(t);
+  const bar=$("#bar");bar.classList.toggle("show",n>0);if(bump){bar.classList.remove("bump");void bar.offsetWidth;bar.classList.add("bump")}
+  $("#lista").innerHTML=n?ids.map(k=>`<div class="it"><div class="n">${ITEMS[k].full}<small>${money(ITEMS[k].p)} c/u</small></div><span class="c" data-c="${k}">${ctrl(k)}</span></div>`).join(""):'<p class="vacio">Aún no has agregado platos.</p>';
+  save();
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-d]");if(!b)return;
+  const id=b.dataset.id;cart[id]=(cart[id]||0)+ +b.dataset.d;if(cart[id]<=0)delete cart[id];render(+b.dataset.d>0);
+  if(!Object.keys(cart).length)document.body.classList.remove("open")});
+$("#bar").onclick=()=>document.body.classList.add("open");
+$("#shbg").onclick=()=>document.body.classList.remove("open");
+let entrega="Domicilio";
+$("#seg").onclick=e=>{const b=e.target.closest("button");if(!b)return;entrega=b.dataset.v;
+  $("#seg").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));$("#dirw").style.display=entrega==="Domicilio"?"":"none"};
+$("#send").onclick=()=>{
+  const ids=Object.keys(cart);if(!ids.length)return;
+  const nom=$("#nom").value.trim(),dir=$("#dir").value.trim(),obs=$("#obs").value.trim();
+  if(entrega==="Domicilio"&&!dir){$("#dir").focus();$("#dir").placeholder="Escribe tu dirección para el domicilio";return}
+  const t=ids.reduce((a,k)=>a+cart[k]*ITEMS[k].p,0);
+  const msg=["Hola Fushion 👋 quiero hacer este pedido:","",...ids.map(k=>`• ${cart[k]} × ${ITEMS[k].full} — ${money(cart[k]*ITEMS[k].p)}`),"",
+    `*Total: ${money(t)}*${entrega==="Domicilio"?" + domicilio":""}`,nom?`Nombre: ${nom}`:null,`Entrega: ${entrega}${entrega==="Domicilio"?" — "+dir:""}`,obs?`Notas: ${obs}`:null].filter(x=>x!==null).join("\n");
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank");
+};
+render();
+// aparecer al hacer scroll + categoría activa
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+const links=[...document.querySelectorAll("#navw a")];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+  links.forEach(a=>{const on=a.getAttribute("href")==="#"+e.target.id;a.classList.toggle("on",on);if(on)a.parentNode.scrollTo({left:a.offsetLeft-a.parentNode.clientWidth/2+a.clientWidth/2,behavior:"smooth"})})}),{rootMargin:"-45% 0px -50% 0px"});
+document.querySelectorAll("section.cat").forEach(s=>spy.observe(s));
+</script>
+</body>
+</html>
