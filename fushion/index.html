@@ -16,7 +16,9 @@
 :root{--bg:#121110;--card:#1A1917;--ink:#F4EEE6;--soft:#9C958C;--dim:#6E6862;--line:#2A2724;--red:#E3262E;--gold:#D8B57A;--ease:cubic-bezier(.2,.8,.2,1)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;scroll-padding-top:58px}
-body{background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%} /* las fotos que salen por el borde no deben ensanchar la página */
+body{background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main,section.cat,.fav,.frase{overflow-x:clip}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:560px;margin:0 auto}
@@ -119,7 +121,7 @@ footer b{font:600 11px Montserrat;font-style:normal;letter-spacing:4px;color:var
 @keyframes bump{40%{transform:scale(1.04)}}
 /* hojas deslizables (ficha del plato y pedido) */
 .bg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;max-height:92svh;overflow-y:auto;background:var(--card);border-radius:28px 28px 0 0;border-top:1px solid var(--line);padding:10px 24px calc(24px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .55s var(--ease)}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;max-height:92svh;overflow-y:auto;background:var(--card);border-radius:28px 28px 0 0;border-top:1px solid var(--line);padding:10px 24px calc(24px + env(safe-area-inset-bottom));overflow-x:hidden;transform:translateY(105%);transition:transform .55s var(--ease)}
 .open-ped #bgPed,.open-pl #bgPl{opacity:1;pointer-events:auto}
 .open-ped #ped,.open-pl #pl{transform:none}
 .grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 18px}
@@ -152,7 +154,11 @@ input:focus,textarea:focus{border-color:#5A544D}
 .seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .send{margin-top:24px;width:100%;height:56px;border-radius:28px;background:#25D366;color:#0B3B1E;font:700 15px Montserrat;display:flex;align-items:center;justify-content:center;gap:10px}
 .vacio{padding:30px 0;text-align:center;color:var(--soft);font:italic 400 16px Lora}
-@media (min-width:700px){.fc{width:42%}}
+/* tablet y PC: columna más ancha, platos en 2 columnas y las fotos ya no salen del borde */
+@media (min-width:700px){.wrap{max-width:720px}.fc{width:40%}.der .cut{right:0}.izq .cut{left:0}.cat.conf{--s:300px}.hero{max-height:820px}
+  /* algunas fotos vienen cortadas en el PDF: sin el borde de la pantalla, se desvanecen a los lados */
+  .cut img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}}
+@media (min-width:1000px){.wrap{max-width:980px}.fc{width:30%}.lista{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}.it:last-child{border-bottom:1px solid var(--line)}.cat.conf.der .hd{padding-right:340px}.cat.conf.izq .hd{padding-left:340px}.ttl{font-size:38px}.cat.conf .ttl{font-size:34px}.sheet{max-width:600px;bottom:auto;top:50%;border-radius:28px;border:1px solid var(--line);transform:translateY(150vh)}.open-ped #ped,.open-pl #pl{transform:translateY(-50%)}.bar{max-width:600px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.cut,.it,.fc img{opacity:1!important;transform:none!important}}
 </style>
 </head>
