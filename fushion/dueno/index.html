@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fushion · Dueños</title><base href="../"><meta name="robots" content="noindex">
+<meta name="description" content="Menú de Fushion, cocina oriental & colombiana en Cajicá. Arma tu pedido y envíalo por WhatsApp.">
+<meta property="og:title" content="Fushion · Menú digital">
+<meta property="og:description" content="Cocina oriental & colombiana en Cajicá. Arma tu pedido y envíalo por WhatsApp.">
+<meta property="og:image" content="https://tocaycalifica-co.github.io/fushion/img/bandeja.webp">
+<meta name="theme-color" content="#121110">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Lora:ital@1&display=swap" rel="stylesheet">
+<style>
+/* oscuro y sobrio: rojo de la marca solo en detalles, serifa fina en títulos, líneas delgadas */
+:root{--bg:#121110;--card:#1A1917;--ink:#F4EEE6;--soft:#9C958C;--dim:#6E6862;--line:#2A2724;--red:#E3262E;--gold:#D8B57A;--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:58px}
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%} /* las fotos que salen por el borde no deben ensanchar la página */
+body{background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main,section.cat,.fav,.frase{overflow-x:clip}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:560px;margin:0 auto}
+.hoja{position:absolute;pointer-events:none;opacity:.09;animation:sway 8s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes sway{from{rotate:-3deg}to{rotate:3deg}}
+.kick{font:600 10.5px Montserrat;letter-spacing:3.5px;text-transform:uppercase;color:var(--soft);display:flex;align-items:center;gap:10px}
+.kick::before{content:"";width:22px;height:1px;background:var(--red)}
+.ttl{font:500 31px/1.08 'Playfair Display',serif;color:var(--ink);margin-top:10px;letter-spacing:-.3px}
+.nota{font:italic 400 14.5px/1.5 Lora,serif;color:var(--soft);margin-top:10px}
+/* portada con foto */
+.hero{position:relative;height:94svh;min-height:600px;max-height:900px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px 64px;background:var(--bg)}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 18s var(--ease) both;filter:saturate(.9)}
+@keyframes kb{from{transform:scale(1.18)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,17,16,.35) 0%,rgba(18,17,16,.05) 30%,rgba(18,17,16,.78) 62%,var(--bg) 100%)}
+.hero>*:not(img){position:relative;z-index:1}
+.hero .lg{display:flex;justify-content:center;margin-bottom:40px;animation:up 1.1s .2s var(--ease) both}
+.tag{text-align:center;font:italic 500 22px/1.35 'Playfair Display';color:#EDE5DA;animation:up 1.1s .35s var(--ease) both}
+.meta{display:flex;justify-content:center;gap:14px;margin:16px 0 26px;font:600 10.5px Montserrat;letter-spacing:2.5px;text-transform:uppercase;color:#C9C1B7;animation:up 1.1s .45s var(--ease) both}
+.meta span+span::before{content:"·";margin-right:14px;color:var(--red)}
+.meta b{color:var(--gold);font-weight:600}
+.ctas{display:flex;gap:10px;width:100%;animation:up 1.1s .55s var(--ease) both}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;height:52px;border-radius:30px;font:600 14px Montserrat;letter-spacing:.5px;transition:transform .2s var(--ease)}
+.btn:active{transform:scale(.96)}
+.btn.cream{background:var(--ink);color:var(--bg)}
+.btn.line{border:1px solid rgba(244,238,230,.4);color:var(--ink);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* navegación */
+nav{position:sticky;top:0;z-index:20;background:rgba(18,17,16,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:2px;overflow-x:auto;padding:9px 14px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:none;font:600 12.5px Montserrat;padding:9px 13px;border-radius:30px;color:var(--soft);transition:all .3s var(--ease)}
+nav a.on{background:var(--ink);color:var(--bg)}
+/* fotos recortadas: entran girando al bajar y luego flotan */
+.cut img,.fc img,.mini{filter:drop-shadow(0 22px 24px rgba(0,0,0,.6))}
+@keyframes flo{from{transform:translateY(0) rotate(-1.5deg)}to{transform:translateY(-10px) rotate(1.5deg)}}
+/* favoritos */
+.fav{padding:46px 0 0}.fav .hd{padding:0 24px}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:56px 24px 24px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.fc{flex:none;width:70%;scroll-snap-align:center;border-radius:26px;background:linear-gradient(180deg,#1E1C1A,#161513);border:1px solid var(--line);text-align:left;cursor:pointer;padding:0 18px 18px;position:relative}
+.fc::before{content:"";position:absolute;left:10%;right:10%;top:-20px;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(216,181,122,.13),transparent);pointer-events:none}
+.fc img{position:relative;width:100%;aspect-ratio:1;object-fit:contain;display:block;margin:-44px 0 6px;opacity:0;transform:translateY(30px) rotate(-18deg) scale(.85);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.in .fc img{opacity:1;transform:none}
+.in .fc:nth-child(2) img{transition-delay:.12s}.in .fc:nth-child(3) img{transition-delay:.24s}
+.fc h3{font:500 20px/1.2 'Playfair Display';color:var(--ink)}
+.fc .row2{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.fc .p{font:600 14.5px Montserrat;color:var(--gold)}
+/* categorías */
+section.cat{position:relative;padding:54px 24px 6px}
+section.cat+section.cat::before{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 20%,var(--line) 80%,transparent)}
+.cat .hd{position:relative;z-index:1}
+.cat.conf{--s:min(58vw,300px)}.cat.conf .hd{min-height:calc(var(--s) - 10px);padding-top:18px}
+.cat.conf.der .hd{padding-right:44%}.cat.conf.izq .hd{padding-left:44%}
+.cat.conf .ttl{font-size:26px;overflow-wrap:break-word}
+.cut{position:absolute;top:40px;width:var(--s);opacity:0;transition:opacity 1.1s var(--ease),transform 1.4s var(--ease)}
+.cut::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(closest-side,rgba(216,181,122,.12),transparent)}
+.cut img{position:relative;width:100%;display:block;animation:flo 7s ease-in-out infinite alternate}
+.der .cut{right:-12%;transform:translateX(35%) rotate(28deg) scale(.8)}.izq .cut{left:-12%;transform:translateX(-35%) rotate(-28deg) scale(.8)}
+.in .cut{opacity:1;transform:none}
+.cat .hoja{width:96px;top:40px}.der .hoja{left:-38px}.izq .hoja{right:-34px;scale:-1 1}
+.lista{margin-top:14px}
+.it{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer;opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.in .it{opacity:1;transform:none}
+.it:last-child{border-bottom:0}
+.it .tx{flex:1;min-width:0}
+.it .n{font:600 15px/1.3 Montserrat;color:var(--ink)}
+.it .d{font:italic 400 13.5px/1.45 Lora;color:var(--soft);margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.it .p{font:600 14px Montserrat;color:var(--gold);white-space:nowrap}
+.it .mini{width:50px;height:50px;object-fit:contain;flex:none}
+.ago{font:600 11px Montserrat;color:var(--soft);border:1px solid var(--line);border-radius:20px;padding:6px 10px;flex:none}
+.add{width:34px;height:34px;border-radius:50%;border:1px solid rgba(244,238,230,.35);color:var(--ink);display:grid;place-items:center;flex:none;transition:transform .25s var(--ease),background .25s,border-color .25s}
+.add svg{width:14px;height:14px}
+.add:active{transform:scale(.85);background:var(--red);border-color:var(--red)}
+.qty{display:flex;align-items:center;background:var(--ink);color:var(--bg);border-radius:30px;flex:none}
+.qty button{width:30px;height:34px;font:600 17px Montserrat;color:var(--bg)}
+.qty span{min-width:14px;text-align:center;font:700 13px Montserrat}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+/* cierre */
+.frase{position:relative;text-align:center;padding:70px 30px 40px;overflow:hidden}
+.frase p{font:italic 500 27px/1.3 'Playfair Display';color:var(--ink)}
+.frase small{display:block;margin-top:16px;font:600 10.5px Montserrat;letter-spacing:3.5px;color:var(--soft);text-transform:uppercase}
+.frase .hoja{width:110px;left:-20px;top:30px}.frase .h2{left:auto;right:-26px;top:auto;bottom:0;scale:-1 1}
+.lugar{padding:40px 24px 10px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 8px}
+.duo img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:20px;display:block}
+.row{display:flex;gap:14px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line);font:500 14px/1.45 Montserrat;color:#DCD4CA}
+.row svg{flex:none;width:19px;height:19px;stroke:var(--gold);fill:none;stroke-width:1.6}
+.gg{margin:28px 0 8px;padding:22px;border-radius:22px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;gap:14px}
+.gg .t{flex:1;font:500 18px/1.3 'Playfair Display'}.gg .t small{display:block;font:500 12.5px Montserrat;color:var(--soft);margin-top:4px}
+.gg .st{color:var(--gold);font-size:14px;letter-spacing:2px}
+footer{text-align:center;padding:30px 24px 130px;font:italic 400 13px/1.7 Lora;color:var(--dim)}
+footer b{font:600 11px Montserrat;font-style:normal;letter-spacing:4px;color:var(--soft)}
+/* barra del pedido */
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;max-width:536px;margin:0 auto;height:60px;border-radius:30px;background:var(--ink);color:var(--bg);display:flex;align-items:center;padding:0 8px 0 9px;gap:12px;font:600 14.5px Montserrat;box-shadow:0 18px 40px -12px rgba(0,0,0,.8);transform:translateY(150%);transition:transform .5s var(--ease)}
+.bar.show{transform:none}
+.bar .c{background:var(--red);color:#fff;min-width:42px;height:42px;border-radius:21px;display:grid;place-items:center;font-size:14px}
+.bar .go{margin-left:auto;background:var(--bg);color:var(--ink);height:44px;border-radius:22px;padding:0 18px;display:grid;place-items:center}
+.bump{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.04)}}
+/* hojas deslizables (ficha del plato y pedido) */
+.bg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;max-height:92svh;overflow-y:auto;background:var(--card);border-radius:28px 28px 0 0;border-top:1px solid var(--line);padding:10px 24px calc(24px + env(safe-area-inset-bottom));overflow-x:hidden;transform:translateY(105%);transition:transform .55s var(--ease)}
+.open-ped #bgPed,.open-pl #bgPl{opacity:1;pointer-events:auto}
+.open-ped #ped,.open-pl #pl{transform:none}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 18px}
+.x{position:absolute;right:16px;top:14px;width:38px;height:38px;border-radius:50%;background:rgba(244,238,230,.1);display:grid;place-items:center;z-index:2}
+#pl .ph{height:280px;display:grid;place-items:center;position:relative;margin:0 -24px;background:radial-gradient(closest-side,rgba(216,181,122,.14),transparent 80%)}
+#pl .ph img{max-width:88%;max-height:270px;filter:drop-shadow(0 24px 26px rgba(0,0,0,.65));transform:scale(.55) rotate(-30deg);opacity:0;transition:transform 1s .1s var(--ease),opacity .7s .1s var(--ease)}
+.open-pl #pl .ph img{transform:none;opacity:1}
+#pl h2{font:500 28px/1.12 'Playfair Display';color:var(--ink);margin-top:6px;padding-right:48px}
+#pl .pp{font:600 17px Montserrat;color:var(--gold);margin-top:10px}
+.lbl{font:600 10.5px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--soft);margin:24px 0 12px}
+.ings{display:flex;flex-wrap:wrap;gap:8px}
+.ings span{font:500 13px Montserrat;padding:8px 13px;border-radius:30px;border:1px solid #3A3631;color:#DCD4CA;opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+.open-pl .ings span{opacity:1;transform:none}
+.ings span::first-letter{text-transform:uppercase}
+.cta{display:flex;gap:10px;margin-top:28px}
+.cta .qty{height:54px;padding:0 4px}.cta .qty button{height:54px;width:40px}
+.cta .addbig{flex:1;height:54px;border-radius:27px;background:var(--red);color:#fff;font:600 15px Montserrat;letter-spacing:.3px}
+#ped h2{font:500 28px 'Playfair Display';color:var(--ink);margin-bottom:6px}
+#ped .it{cursor:default;opacity:1;transform:none}
+.tot{display:flex;justify-content:space-between;font:600 18px Montserrat;padding:18px 0 4px}
+.tot span:last-child{color:var(--gold)}
+.nt{font:italic 400 14px Lora;color:var(--soft)}
+label{display:block;font:600 10.5px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--soft);margin:22px 0 8px}
+input,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--ink);font:500 16px Montserrat;outline:none;resize:none}
+input:focus,textarea:focus{border-color:#5A544D}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{height:48px;border-radius:14px;background:var(--bg);border:1px solid var(--line);font:600 14px Montserrat;color:var(--soft)}
+.seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.send{margin-top:24px;width:100%;height:56px;border-radius:28px;background:#25D366;color:#0B3B1E;font:700 15px Montserrat;display:flex;align-items:center;justify-content:center;gap:10px}
+.vacio{padding:30px 0;text-align:center;color:var(--soft);font:italic 400 16px Lora}
+/* tablet y PC: columna más ancha, platos en 2 columnas y las fotos ya no salen del borde */
+@media (min-width:700px){.wrap{max-width:720px}.fc{width:40%}.der .cut{right:0}.izq .cut{left:0}.cat.conf{--s:300px}.hero{max-height:820px}
+  /* algunas fotos vienen cortadas en el PDF: sin el borde de la pantalla, se desvanecen a los lados */
+  .cut img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}}
+@media (min-width:1000px){.wrap{max-width:980px}.fc{width:30%}.lista{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}.it:last-child{border-bottom:1px solid var(--line)}.cat.conf.der .hd{padding-right:340px}.cat.conf.izq .hd{padding-left:340px}.ttl{font-size:38px}.cat.conf .ttl{font-size:34px}.sheet{max-width:600px;bottom:auto;top:50%;border-radius:28px;border:1px solid var(--line);transform:translateY(150vh)}.open-ped #ped,.open-pl #pl,.open-dn #dn{transform:translateY(-50%)}.bar{max-width:600px}}
+/* platos agotados */
+.it.off .tx,.it.off .p,.it.off .mini{opacity:.4}.fc.off img{opacity:.45!important}
+/*DUENO*/
+/* página de dueños: el mismo menú, con precio editable e interruptor de disponible */
+.dueno:not(.ok) nav,.dueno:not(.ok) main,.dueno:not(.ok) footer{visibility:hidden}
+.dtop{display:none;background:var(--red);color:#fff;text-align:center;font:600 11.5px/1.4 Montserrat;letter-spacing:.5px;padding:8px 14px}
+.dueno .dtop{display:block}
+.dueno .bar,.dueno .fav,.dueno.ok .hero,.dueno .hero .tag,.dueno .hero .meta,.dueno .hero .ctas,.dueno .frase,.dueno .lugar{display:none!important}
+.dueno .hero{justify-content:flex-start;padding-top:12svh}.dueno #bgDn{background:rgba(0,0,0,.2)}
+.dueno [data-c]{display:flex;align-items:center;gap:10px}.dueno .cut,.dueno .cat .hoja,.dueno .mini{display:none}
+.dueno section.cat{padding-top:34px}.dueno .cat.conf .hd,.dueno .cat.conf.der .hd,.dueno .cat.conf.izq .hd{min-height:0;padding:0}
+.dueno .it{cursor:default;opacity:1;transform:none}.dueno .it .p{display:none}.dueno .it.off .tx{opacity:.5}
+.pe{display:flex;align-items:center;gap:2px;border:1px solid #3A3631;border-radius:12px;padding:0 10px;height:42px;font:600 14px Montserrat;color:var(--gold);flex:none}
+.pe input{width:62px;background:none;border:0;border-radius:0;color:var(--gold);font:600 15px Montserrat;outline:none;padding:0}
+.it.cambio .pe{border-color:var(--gold);background:rgba(216,181,122,.08)}
+.sw{width:48px;height:28px;border-radius:14px;background:#4A2A2A;position:relative;flex:none;transition:background .25s}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:var(--ink);transition:transform .25s var(--ease)}
+.sw.on{background:#2E9E5B}.sw.on::after{transform:translateX(20px)}
+.dbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;max-width:536px;margin:0 auto;display:none;gap:8px}
+.dueno .dbar{display:flex}
+.dbar button{height:56px;border-radius:28px;font:600 15px Montserrat;box-shadow:0 18px 40px -12px rgba(0,0,0,.8)}
+#dsave{flex:1;background:var(--red);color:#fff}#dsave:disabled{background:#2A2724;color:var(--soft)}
+#dout{padding:0 22px;background:var(--card);border:1px solid var(--line);color:var(--ink)}
+#dn h2{font:500 28px 'Playfair Display';color:var(--ink);margin-bottom:6px}
+#pin{text-align:center;letter-spacing:10px;font:600 24px Montserrat}
+.chk{display:flex;gap:10px;align-items:center;margin-top:16px;font:500 14px Montserrat;letter-spacing:0;text-transform:none;color:var(--soft)}
+.chk input{width:18px;height:18px;padding:0;accent-color:var(--red)}
+.err{color:#FF7A7A;font:500 13px Montserrat;margin-top:10px;min-height:18px}
+.toast{position:fixed;left:50%;top:16px;z-index:60;transform:translate(-50%,-180%);background:var(--ink);color:var(--bg);font:600 14px/1.4 Montserrat;padding:12px 18px;border-radius:14px;transition:transform .4s var(--ease);width:max-content;max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}.toast.bad{background:var(--red);color:#fff}
+.open-dn #bgDn{opacity:1;pointer-events:auto}.open-dn #dn{transform:none}
+/*/DUENO*/
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.cut,.it,.fc img{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body class="dueno">
+<header class="hero">
+  <img src="img/pasta.webp" alt="Tallarines de Fushion" fetchpriority="high">
+  <div class="lg"><div style="display:inline-flex;align-items:baseline;font:italic 800 13mm/1 Montserrat;color:#F4EEE6;letter-spacing:-.03em;white-space:nowrap">
+<span>F</span><span style="position:relative">u<i style="position:absolute;left:.06em;bottom:.04em;width:.032em;height:1.3em;background:#F4EEE6;box-shadow:0 0 0 .012em #121110;transform:rotate(22deg);transform-origin:bottom"></i><i style="position:absolute;left:.06em;bottom:.04em;width:.032em;height:1.3em;background:#F4EEE6;box-shadow:0 0 0 .012em #121110;transform:rotate(34deg);transform-origin:bottom"></i></span><span>S</span><span>H</span>
+<span style="position:relative;color:transparent">I<i style="position:absolute;left:50%;margin-left:-.08em;top:.16em;width:.16em;height:1.1em;background:#F4EEE6;transform:skewX(-12deg)"></i>
+<b style="position:absolute;top:5.6em;font:600 .2em/1 Montserrat;color:#F4EEE6;font-style:normal;letter-spacing:0;right:calc(50% + .7em)">COCINA ORIENTAL</b><b style="position:absolute;top:5.6em;font:600 .2em/1 Montserrat;color:#F4EEE6;font-style:normal;letter-spacing:0;left:calc(50% + .75em)"><span style="font:italic 400 1.35em/0 'Playfair Display'">&amp;</span> COLOMBIANA</b></span>
+<span style="display:inline-block;width:.86em;height:.86em;border-radius:50%;background:#E3262E;vertical-align:-.1em;margin:0 .02em"></span><span>N</span></div></div>
+  <p class="tag">Sabores de oriente con corazón colombiano</p>
+  <div class="meta"><span><b>★</b> 4,4 Google</span><span>Cajicá</span><span>Domicilios</span></div>
+  <div class="ctas wrap"><a class="btn cream" href="#menu">Ver el menú</a><a class="btn line" href="https://wa.me/573013784539" target="_blank" rel="noopener">WhatsApp</a></div>
+</header>
+
+<nav><div class="dtop">Modo dueño · cambia el precio o toca el interruptor para marcar agotado, y luego Guardar</div><div class="wrap" id="navw"></div></nav>
+
+<main class="wrap" id="menu">
+  <div class="fav rv"><div class="hd"><div class="kick">La casa recomienda</div><h2 class="ttl">Los favoritos</h2></div><div class="rail" id="rail"></div></div>
+  <div id="cats"></div>
+  <div class="frase rv"><img class="hoja" src="img/carta/hoja1.svg" alt=""><img class="hoja h2" src="img/carta/hoja2.svg" alt=""><p>“Lo mejor de lo que hacemos es para quien lo hacemos”</p><small>Fushion</small></div>
+  <div class="lugar rv">
+    <div class="kick">Cl. 2 #6-50 · Cajicá</div><h2 class="ttl">Visítanos</h2>
+    <div class="duo"><img src="img/local.webp" alt="Interior de Fushion" loading="lazy"><img src="img/fachada.webp" alt="Fachada de Fushion" loading="lazy"></div>
+    <a class="row" href="https://www.google.com/maps/dir/?api=1&destination=Restaurante%20fushion%2C%20Cl.%202%20%236-50%2C%20Cajic%C3%A1" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Cl. 2 #6-50, Cajicá · Cómo llegar</a>
+    <a class="row" href="https://wa.me/573013784539" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Domicilios: 301 378 4539</a>
+    <div class="row"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Pagos: Davivienda · Daviplata · Nequi</div>
+    <div class="row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>La mayoría de nuestros platos se preparan al instante: espera aprox. de 20 a 25 min.</div>
+    <a class="gg" href="https://search.google.com/local/writereview?placeid=ChIJayD3Z4d3QI4RLGDafW8dcVw" target="_blank" rel="noopener"><div class="t">¿Te gustó tu experiencia?<small>Califícanos en Google</small></div><span class="st">★★★★★</span></a>
+  </div>
+</main>
+<footer><b>FUSHION</b><br>Cocina oriental &amp; colombiana · Cajicá<br>Menú digital por Toca y Califica</footer>
+
+<button class="bar" id="bar"><span class="c" id="bc">0</span><span>Tu pedido</span><span class="go" id="bt">$0</span></button>
+
+<div class="dbar"><button id="dout">Salir</button><button id="dsave" disabled>Sin cambios</button></div>
+<div class="bg" id="bgDn"></div>
+<div class="sheet" id="dn" role="dialog" aria-label="Acceso dueños">
+  <div class="grab"></div><h2>Modo dueño</h2><p class="nt">Escribe tu PIN para cambiar precios y marcar platos agotados.</p>
+  <label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="12">
+  <label class="chk"><input type="checkbox" id="rec" checked>Recordar en este celular</label>
+  <p class="err" id="err"></p><button class="send" id="entrar" style="background:var(--red);color:#fff">Entrar</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="bg" id="bgPl"></div>
+<div class="sheet" id="pl" role="dialog" aria-label="Detalle del plato"></div>
+
+<div class="bg" id="bgPed"></div>
+<div class="sheet" id="ped" role="dialog" aria-label="Tu pedido">
+  <div class="grab"></div><h2>Tu pedido</h2>
+  <div id="lista"></div>
+  <div class="tot"><span>Total</span><span id="tt">$0</span></div>
+  <p class="nt">El valor del domicilio te lo confirma el restaurante.</p>
+  <label for="nom">Tu nombre</label><input id="nom" autocomplete="name" placeholder="¿A nombre de quién?">
+  <label>Entrega</label><div class="seg" id="seg"><button data-v="Domicilio" class="on">Domicilio</button><button data-v="Recoger en el local">Recoger</button></div>
+  <div id="dirw"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Barrio, calle y número"></div>
+  <label for="obs">Notas</label><textarea id="obs" rows="2" placeholder="Sin cebolla, salsa aparte…"></textarea>
+  <button class="send" id="send"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B3B1E"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>Enviar pedido por WhatsApp</button>
+</div>
+
+<script>
+const DATA=[{"cat": "Entradas", "d": "Para abrir el apetito.", "foto": "carta/patacon", "items": [{"id": "entradas/camaron-apanado", "n": "Camarón apanado", "p": 22000, "ing": [], "foto": null, "full": "Camarón apanado"}, {"id": "entradas/chicharron-con-arepa-con-queso", "n": "Chicharrón con arepa con queso", "p": 26000, "ing": ["Chicharrón", "arepa", "queso"], "foto": null, "full": "Chicharrón con arepa con queso"}, {"id": "entradas/patacon-con-hogao-(5-und)", "n": "Patacón con hogao (5 und)", "p": 13500, "ing": ["Patacón", "hogao"], "foto": "carta/patacon", "full": "Patacón con hogao (5 und)"}, {"id": "entradas/entrada-de-chicharron", "n": "Entrada de chicharrón", "p": 15500, "ing": [], "foto": null, "full": "Entrada de chicharrón"}]}, {"cat": "Arroz mixto oriental", "d": "Arroz al wok, al estilo de la casa.", "foto": "carta/mixto", "items": [{"id": "arroz-mixto-oriental/mixto-personal", "n": "Mixto personal", "p": 29900, "ing": ["Res", "pollo", "camarón", "verduras", "papa francesa"], "foto": "carta/mixto", "full": "Arroz mixto personal"}, {"id": "arroz-mixto-oriental/mixto-2-personas", "n": "Mixto 2 personas", "p": 41500, "ing": ["Res", "pollo", "camarón", "verduras", "papa francesa"], "foto": "carta/mixto", "full": "Arroz mixto 2 personas"}, {"id": "arroz-mixto-oriental/mixto-familiar", "n": "Mixto familiar", "p": 74500, "ing": ["2 porciones", "papa francesa", "2 piernas pernil", "gaseosa 1", "5 L"], "foto": null, "full": "Arroz mixto familiar"}, {"id": "arroz-mixto-oriental/valenciana-personal", "n": "Valenciana personal", "p": 32500, "ing": ["Res", "pollo", "camarón", "papa francesa", "pierna pernil"], "foto": "carta/valenciana", "full": "Arroz valenciana personal"}, {"id": "arroz-mixto-oriental/valenciana-2-personas", "n": "Valenciana 2 personas", "p": 49900, "ing": ["Res", "pollo", "camarón", "papa francesa", "pierna pernil"], "foto": "carta/valenciana", "full": "Arroz valenciana 2 personas"}, {"id": "arroz-mixto-oriental/solo-camaron", "n": "Solo camarón", "p": 36000, "ing": ["Arroz con verdura", "300 g de camarón", "papa francesa"], "foto": null, "full": "Arroz solo camarón"}, {"id": "arroz-mixto-oriental/arroz-con-vegetales-salteados", "n": "Arroz con vegetales salteados", "p": 23000, "ing": ["Zanahoria", "pimentón", "cebolla", "brócoli", "zucchini"], "foto": null, "full": "Arroz con vegetales salteados"}]}, {"cat": "Parrilla", "d": "Todas nuestras carnes vienen acompañadas de arroz blanco u oriental, papa a la francesa y plátano maduro.", "foto": "carta/parrilla", "items": [{"id": "parrilla/baby-beef", "n": "Baby beef", "p": 39900, "ing": [], "foto": null, "full": "Baby beef"}, {"id": "parrilla/churrasco", "n": "Churrasco", "p": 35500, "ing": [], "foto": null, "full": "Churrasco"}, {"id": "parrilla/punta-de-anca", "n": "Punta de anca", "p": 36500, "ing": [], "foto": null, "full": "Punta de anca"}, {"id": "parrilla/pechuga-a-la-parrilla", "n": "Pechuga a la parrilla", "p": 28500, "ing": [], "foto": null, "full": "Pechuga a la parrilla"}, {"id": "parrilla/pechuga-en-champinones", "n": "Pechuga en champiñones", "p": 31500, "ing": [], "foto": null, "full": "Pechuga en champiñones"}, {"id": "parrilla/costilla-bbq", "n": "Costilla BBQ", "p": 30500, "ing": [], "foto": null, "full": "Costilla BBQ"}, {"id": "parrilla/chuleta-valluna", "n": "Chuleta valluna", "p": 30500, "ing": [], "foto": "carta/chuleta", "full": "Chuleta valluna"}]}, {"cat": "Cortes gruesos madurados", "d": "Tiempo de cocción de 20 a 30 min aprox. Con los acompañantes de la parrilla.", "foto": null, "items": [{"id": "cortes-gruesos-madurados/bife-chorizo-320-g", "n": "Bife chorizo 320 g", "p": 37500, "ing": [], "foto": null, "full": "Bife chorizo 320 g"}, {"id": "cortes-gruesos-madurados/bife-de-punta-320-g", "n": "Bife de punta 320 g", "p": 38500, "ing": [], "foto": null, "full": "Bife de punta 320 g"}, {"id": "cortes-gruesos-madurados/filet-mignon-340-g", "n": "Filet mignon 340 g", "p": 41000, "ing": [], "foto": null, "full": "Filet mignon 340 g"}]}, {"cat": "Hamburguesas", "d": "Todas vienen en combo con papas y vaso de gaseosa de 12 oz.", "foto": "carta/burger_doble", "items": [{"id": "hamburguesas/ranchera", "n": "Ranchera", "p": 23900, "ing": ["Pan", "carne", "queso", "chorizo", "lechuga", "tomate"], "foto": null, "full": "Hamburguesa ranchera"}, {"id": "hamburguesas/colombiana", "n": "Colombiana", "p": 24900, "ing": ["Pan", "carne", "queso", "huevo", "tajada de maduro", "lechuga", "tomate"], "foto": null, "full": "Hamburguesa colombiana"}, {"id": "hamburguesas/clasica", "n": "Clásica", "p": 21900, "ing": ["Pan", "carne", "queso", "lechuga", "tomate"], "foto": "carta/burger_clasica", "full": "Hamburguesa clásica"}, {"id": "hamburguesas/especial", "n": "Especial", "p": 27900, "ing": ["Pan", "carne", "queso", "tocineta", "salsa de champiñón", "lechuga", "tomate"], "foto": "carta/burger_especial", "full": "Hamburguesa especial"}, {"id": "hamburguesas/doble-carne", "n": "Doble carne", "p": 26900, "ing": ["Pan", "2 carnes", "2 quesos", "lechuga", "tomate"], "foto": "carta/burger_doble", "full": "Hamburguesa doble carne"}, {"id": "hamburguesas/mexicana", "n": "Mexicana", "p": 22900, "ing": ["Pan", "carne", "queso", "jalapeño", "lechuga", "tomate"], "foto": null, "full": "Hamburguesa mexicana"}, {"id": "hamburguesas/hawaiana", "n": "Hawaiana", "p": 26900, "ing": ["Pan", "carne", "queso", "piña", "tocineta", "lechuga", "tomate"], "foto": null, "full": "Hamburguesa hawaiana"}, {"id": "hamburguesas/pollo-tempura", "n": "Pollo tempura", "p": 24900, "ing": ["Pan", "queso", "pollo tempura", "lechuga", "tomate"], "foto": null, "full": "Hamburguesa pollo tempura"}, {"id": "hamburguesas/argentina", "n": "Argentina", "p": 22900, "ing": ["Pan", "carne", "queso", "chimichurri", "lechuga", "tomate"], "foto": null, "full": "Hamburguesa argentina"}]}, {"cat": "Pastas Fushion", "d": "Tallarines salteados al wok.", "foto": "carta/tallarines", "items": [{"id": "pastas-fushion/tallarines-mixtos", "n": "Tallarines mixtos", "p": 31900, "ing": ["Pollo", "res", "camarón", "verduras", "pan"], "foto": "carta/tallarines", "full": "Tallarines mixtos"}, {"id": "pastas-fushion/tallarines-solo-camaron", "n": "Tallarines solo camarón", "p": 35000, "ing": ["Verduras", "300 g de camarón", "pan"], "foto": null, "full": "Tallarines solo camarón"}]}, {"cat": "Vegetales salteados", "d": "", "foto": null, "items": [{"id": "vegetales-salteados/mixtos", "n": "Mixtos", "p": 29900, "ing": ["Pollo", "res", "camarón", "verduras"], "foto": null, "full": "Vegetales salteados mixtos"}, {"id": "vegetales-salteados/solo-camaron", "n": "Solo camarón", "p": 31000, "ing": ["Verduras", "300 g de camarón"], "foto": null, "full": "Vegetales salteados solo camarón"}, {"id": "vegetales-salteados/vegetales-salteados", "n": "Vegetales salteados", "p": 22900, "ing": ["Zanahoria", "pimentón", "cebolla", "brócoli", "zucchini"], "foto": null, "full": "Vegetales salteados"}]}, {"cat": "Fushion oriental", "d": "Con arroz con verduras, papa francesa y limonada natural.", "foto": "carta/oriental", "items": [{"id": "fushion-oriental/pollo-teriyaki", "n": "Pollo teriyaki", "p": 24500, "ing": ["Arroz con verduras", "papa francesa", "pollo en salsa teriyaki con verduras", "limonada natural"], "foto": null, "full": "Pollo teriyaki"}, {"id": "fushion-oriental/pollo-a-la-naranja", "n": "Pollo a la naranja", "p": 24500, "ing": ["Arroz con verduras", "papa francesa", "pollo en salsa de naranja", "limonada natural"], "foto": null, "full": "Pollo a la naranja"}, {"id": "fushion-oriental/cerdo-bbq", "n": "Cerdo BBQ", "p": 24500, "ing": ["Arroz con verduras", "papa francesa", "cerdo en salsa BBQ con verduras", "limonada natural"], "foto": null, "full": "Cerdo BBQ"}, {"id": "fushion-oriental/res-teriyaki", "n": "Res teriyaki", "p": 25500, "ing": ["Arroz con verduras", "papa francesa", "res en trozos en salsa teriyaki con verduras", "limonada natural"], "foto": null, "full": "Res teriyaki"}]}, {"cat": "Típico", "d": "Lo de la casa, como en la casa.", "foto": "carta/bandeja", "items": [{"id": "tipico/ajiaco", "n": "Ajiaco", "p": 25000, "ing": ["Arroz", "aguacate", "arepa", "pierna pernil", "mazorca"], "foto": "carta/ajiaco", "full": "Ajiaco"}, {"id": "tipico/sancocho-de-cola-y-murillo", "n": "Sancocho de cola y murillo", "p": 31000, "ing": ["Arroz", "aguacate", "arepa", "cola y murillo", "mazorca"], "foto": null, "full": "Sancocho de cola y murillo (sáb. y dom.)"}, {"id": "tipico/frijolada", "n": "Frijolada", "p": 26000, "ing": ["Arroz", "aguacate", "arepa", "tajada de maduro", "chicharrón"], "foto": null, "full": "Frijolada"}, {"id": "tipico/bandeja-paisa", "n": "Bandeja paisa", "p": 33500, "ing": ["Arroz", "fríjol", "carne molida", "chorizo", "aguacate", "morcilla", "chicharrón", "huevo", "arepa", "tajada de maduro"], "foto": "carta/bandeja", "full": "Bandeja paisa"}, {"id": "tipico/cazuela", "n": "Cazuela", "p": 29500, "ing": ["Fríjol", "huevo", "chicharrón", "chorizo", "aguacate", "arepa", "tajada de maduro", "arroz"], "foto": null, "full": "Cazuela de fríjol"}, {"id": "tipico/calentado-con-carne-o-chicharron", "n": "Calentado con carne o chicharrón", "p": 25000, "ing": ["Fríjol con arroz", "tajada de maduro", "arepa con queso"], "foto": null, "full": "Calentado con carne o chicharrón"}]}, {"cat": "Pescados", "d": "", "foto": "carta/mojarra", "items": [{"id": "pescados/trucha", "n": "Trucha", "p": 34000, "ing": ["Arroz oriental o blanco", "papa francesa", "ensalada"], "foto": null, "full": "Trucha"}, {"id": "pescados/trucha-en-champinones", "n": "Trucha en champiñones", "p": 36500, "ing": ["Arroz oriental o blanco", "papa francesa", "ensalada"], "foto": "carta/trucha", "full": "Trucha en champiñones"}, {"id": "pescados/mojarra", "n": "Mojarra", "p": 31900, "ing": ["Arroz oriental o blanco", "papa francesa", "patacón"], "foto": "carta/mojarra", "full": "Mojarra"}, {"id": "pescados/salmon", "n": "Salmón", "p": 41900, "ing": ["Arroz oriental o blanco", "papa francesa", "ensalada"], "foto": null, "full": "Salmón"}]}, {"cat": "Bebidas", "d": "Jugos naturales de mango, mora, lulo, maracuyá o fresa.", "foto": "carta/bebidas", "items": [{"id": "bebidas/limonada-natural", "n": "Limonada natural", "p": 4500, "ing": [], "foto": null, "full": "Limonada natural"}, {"id": "bebidas/limonada-de-coco", "n": "Limonada de coco", "p": 8900, "ing": [], "foto": null, "full": "Limonada de coco"}, {"id": "bebidas/limonada-de-yerbabuena", "n": "Limonada de yerbabuena", "p": 8000, "ing": [], "foto": null, "full": "Limonada de yerbabuena"}, {"id": "bebidas/limonada-cerezada", "n": "Limonada cerezada", "p": 8900, "ing": [], "foto": null, "full": "Limonada cerezada"}, {"id": "bebidas/jarra-de-limonada", "n": "Jarra de limonada", "p": 18900, "ing": [], "foto": null, "full": "Jarra de limonada"}, {"id": "bebidas/jarra-de-jugo-natural", "n": "Jarra de jugo natural", "p": 19000, "ing": [], "foto": null, "full": "Jarra de jugo natural"}, {"id": "bebidas/jarra-de-limonada-de-coco-o-cereza", "n": "Jarra de limonada de coco o cereza", "p": 35900, "ing": [], "foto": null, "full": "Jarra de limonada de coco o cereza"}, {"id": "bebidas/jarra-de-limonada-de-yerbabuena", "n": "Jarra de limonada de yerbabuena", "p": 29000, "ing": [], "foto": null, "full": "Jarra de limonada de yerbabuena"}, {"id": "bebidas/gaseosa-350-ml", "n": "Gaseosa 350 ml", "p": 4200, "ing": [], "foto": null, "full": "Gaseosa 350 ml"}, {"id": "bebidas/gaseosa-1,5-l-postobon", "n": "Gaseosa 1,5 L Postobón", "p": 8900, "ing": [], "foto": null, "full": "Gaseosa 1,5 L Postobón"}, {"id": "bebidas/gaseosa-1,5-l-coca-cola", "n": "Gaseosa 1,5 L Coca-Cola", "p": 9500, "ing": [], "foto": null, "full": "Gaseosa 1,5 L Coca-Cola"}, {"id": "bebidas/jugo-natural-en-agua", "n": "Jugo natural en agua", "p": 5500, "ing": ["Mango", "mora", "lulo", "maracuyá o fresa"], "foto": null, "full": "Jugo natural en agua"}, {"id": "bebidas/jugo-natural-en-leche", "n": "Jugo natural en leche", "p": 7500, "ing": ["Mango", "mora", "lulo", "maracuyá o fresa"], "foto": null, "full": "Jugo natural en leche"}]}, {"cat": "Cervezas", "d": "", "foto": null, "items": [{"id": "cervezas/aguila-o-poker", "n": "Águila o Poker", "p": 4200, "ing": [], "foto": null, "full": "Águila o Poker"}, {"id": "cervezas/club-colombia-dorada", "n": "Club Colombia Dorada", "p": 5000, "ing": [], "foto": null, "full": "Club Colombia Dorada"}, {"id": "cervezas/jarra-de-refajo", "n": "Jarra de refajo", "p": 21000, "ing": [], "foto": null, "full": "Jarra de refajo"}, {"id": "cervezas/cola-y-pola", "n": "Cola y Pola", "p": 4000, "ing": [], "foto": null, "full": "Cola y Pola"}]}, {"cat": "Porciones", "d": "", "foto": null, "items": [{"id": "porciones/papa-a-la-francesa", "n": "Papa a la francesa", "p": 5000, "ing": [], "foto": null, "full": "Porción de papa a la francesa"}, {"id": "porciones/arroz-oriental", "n": "Arroz oriental", "p": 8500, "ing": [], "foto": null, "full": "Porción de arroz oriental"}, {"id": "porciones/arroz-blanco", "n": "Arroz blanco", "p": 3500, "ing": [], "foto": null, "full": "Porción de arroz blanco"}, {"id": "porciones/pierna-pernil-o-proteina", "n": "Pierna pernil o proteína", "p": 8000, "ing": [], "foto": null, "full": "Porción de pierna pernil o proteína"}, {"id": "porciones/taza-de-sopa", "n": "Taza de sopa", "p": 8000, "ing": [], "foto": null, "full": "Taza de sopa"}, {"id": "porciones/pollo-a-la-naranja", "n": "Pollo a la naranja", "p": 10900, "ing": [], "foto": null, "full": "Porción de pollo a la naranja"}, {"id": "porciones/taza-de-sancocho", "n": "Taza de sancocho", "p": 9900, "ing": [], "foto": null, "full": "Taza de sancocho"}, {"id": "porciones/taza-de-frijol", "n": "Taza de fríjol", "p": 11000, "ing": [], "foto": null, "full": "Taza de fríjol"}, {"id": "porciones/chicharron", "n": "Chicharrón", "p": 11000, "ing": [], "foto": null, "full": "Porción de chicharrón"}]}], FAV=["tipico/bandeja-paisa", "arroz-mixto-oriental/mixto-personal", "hamburguesas/especial", "pastas-fushion/tallarines-mixtos", "pescados/mojarra"], WA="573013784539", SHEET="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdTGvPFOMjxURkk50jZ5hiIfD8jbBcJ_xepzzE9Qs1J1mXXpejl3MUd6tyX9wyFtS1ywzA1n9CqHRx/pub?output=csv";
+const $=s=>document.querySelector(s), money=v=>"$"+v.toLocaleString("es-CO"), B=document.body;
+const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/\s+/g,"-");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ITEMS={};DATA.forEach(c=>c.items.forEach(i=>{i.cat=c.cat;ITEMS[i.id]=i}));
+let cart={};try{cart=JSON.parse(localStorage.getItem("fushion_cart")||"{}")}catch(e){}
+for(const k in cart)if(!ITEMS[k])delete cart[k]; // platos que ya no están en la carta
+const save=()=>{try{localStorage.setItem("fushion_cart",JSON.stringify(cart))}catch(e){}};
+const PLUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+let DUENO=false;
+const ctrl=id=>DUENO?ctrlDueno(id):ITEMS[id].off?'<span class="ago">Agotado</span>':cart[id]?`<div class="qty"><button data-d="-1" data-id="${id}" aria-label="Quitar uno">−</button><span>${cart[id]}</span><button data-d="1" data-id="${id}" aria-label="Agregar uno">+</button></div>`
+  :`<button class="add" data-d="1" data-id="${id}" aria-label="Agregar">${PLUS}</button>`;
+const img=f=>`img/${esc(f)}.webp`;
+
+$("#navw").innerHTML=DATA.map(c=>`<a href="#${slug(c.cat)}">${esc(c.cat)}</a>`).join("");
+$("#rail").innerHTML=FAV.map(id=>{const f=ITEMS[id];return `<div class="fc" data-open="${id}"><img src="${img(f.foto)}" alt="${esc(f.full)}" loading="lazy"><h3>${esc(f.full)}</h3><div class="row2"><span class="p" data-pp="${id}">${money(f.p)}</span><span data-c="${id}">${ctrl(id)}</span></div></div>`}).join("");
+let lado=0;
+$("#cats").innerHTML=DATA.map((c,ci)=>{const s=c.foto?(lado++%2?"izq":"der"):"";return `<section class="cat rv${c.foto?" conf "+s:""}" id="${slug(c.cat)}">
+  ${c.foto?`<div class="cut"><img src="${img(c.foto)}" alt="${esc(c.cat)}" loading="lazy"></div><img class="hoja" src="img/carta/hoja${lado%2+1}.svg" alt="">`:""}
+  <div class="hd"><div class="kick">${String(ci+1).padStart(2,"0")}</div><h2 class="ttl">${esc(c.cat)}</h2>${c.d?`<p class="nota">${esc(c.d)}</p>`:""}</div>
+  <div class="lista">${c.items.map((i,k)=>`<div class="it" style="transition-delay:${Math.min(k,8)*.06}s" data-open="${i.id}">${i.foto&&i.foto!==c.foto?`<img class="mini" src="${img(i.foto)}" alt="" loading="lazy">`:""}<div class="tx"><div class="n">${esc(i.n)}</div>${i.ing.length?`<div class="d">${esc(i.ing.join(", "))}</div>`:""}</div><span class="p" data-pp="${i.id}">${money(i.p)}</span><span data-c="${i.id}">${ctrl(i.id)}</span></div>`).join("")}</div></section>`}).join("");
+
+// ficha del plato: solo muestra foto si el plato tiene la suya
+let abierto=null,cant=1;
+function ficha(id){
+  const i=ITEMS[id];abierto=id;cant=1;
+  const f=i.foto;
+  $("#pl").innerHTML=`<button class="x" data-close aria-label="Cerrar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F4EEE6" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+   ${f?`<div class="ph"><img src="${img(f)}" alt="${esc(i.full)}"></div>`:'<div class="grab"></div>'}
+   <h2>${esc(i.full)}</h2><div class="pp">${money(i.p)}</div>
+   ${i.ing.length?`<div class="lbl">${i.cat==="Bebidas"?"Sabores":"Ingredientes"}</div><div class="ings">${i.ing.map((x,k)=>`<span style="transition-delay:${.25+k*.05}s">${esc(x)}</span>`).join("")}</div>`:""}
+   ${i.off?'<div class="cta"><button class="addbig" disabled style="background:#2A2724;color:var(--soft)">Agotado por hoy</button></div>':
+   `<div class="cta"><div class="qty"><button data-q="-1" aria-label="Menos">−</button><span id="cq">1</span><button data-q="1" aria-label="Más">+</button></div>
+   <button class="addbig" id="addbig">Agregar · ${money(i.p)}</button></div>`}`;
+  $("#pl").scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>B.classList.add("open-pl")));
+}
+const cerrar=()=>{B.classList.remove("open-pl","open-ped","open-dn");if(B.classList.contains("dueno")&&!DUENO)B.classList.add("open-dn")};
+
+function render(bump){
+  document.querySelectorAll("[data-c]").forEach(e=>e.innerHTML=ctrl(e.dataset.c));
+  const ids=Object.keys(cart),n=ids.reduce((a,k)=>a+cart[k],0),t=ids.reduce((a,k)=>a+cart[k]*ITEMS[k].p,0);
+  $("#bc").textContent=n;$("#bt").textContent=money(t);$("#tt").textContent=money(t);
+  const bar=$("#bar");bar.classList.toggle("show",n>0);if(bump){bar.classList.remove("bump");void bar.offsetWidth;bar.classList.add("bump")}
+  $("#lista").innerHTML=n?ids.map(k=>`<div class="it"><div class="tx"><div class="n">${esc(ITEMS[k].full)}</div><div class="d">${money(ITEMS[k].p)} c/u</div></div><span data-c="${k}">${ctrl(k)}</span></div>`).join(""):'<p class="vacio">Aún no has agregado platos.</p>';
+  if(!n)B.classList.remove("open-ped");
+  save();
+}
+document.addEventListener("click",e=>{
+  const d=e.target.closest("[data-d]");
+  if(d){const id=d.dataset.id;cart[id]=(cart[id]||0)+ +d.dataset.d;if(cart[id]<=0)delete cart[id];render(+d.dataset.d>0);return}
+  const q=e.target.closest("[data-q]");
+  if(q){cant=Math.max(1,cant+ +q.dataset.q);$("#cq").textContent=cant;$("#addbig").textContent=`Agregar · ${money(cant*ITEMS[abierto].p)}`;return}
+  if(e.target.closest("#addbig")){cart[abierto]=(cart[abierto]||0)+cant;cerrar();render(true);return}
+  if(e.target.closest("[data-close]")||e.target.classList.contains("bg")){cerrar();return}
+  if(DUENO){const w=e.target.closest("[data-sw]");if(w){const v=edit(w.dataset.sw);v.off=!v.off;w.classList.toggle("on",!v.off);contar()}return}
+  const o=e.target.closest("[data-open]");if(o)ficha(o.dataset.open);
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
+$("#bar").onclick=()=>B.classList.add("open-ped");
+let entrega="Domicilio";
+$("#seg").onclick=e=>{const b=e.target.closest("button");if(!b)return;entrega=b.dataset.v;
+  $("#seg").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));$("#dirw").style.display=entrega==="Domicilio"?"":"none"};
+$("#send").onclick=()=>{
+  const ids=Object.keys(cart);if(!ids.length)return;
+  const nom=$("#nom").value.trim(),dir=$("#dir").value.trim(),obs=$("#obs").value.trim();
+  if(entrega==="Domicilio"&&!dir){$("#dir").focus();$("#dir").placeholder="Escribe tu dirección para el domicilio";return}
+  const t=ids.reduce((a,k)=>a+cart[k]*ITEMS[k].p,0);
+  const msg=["Hola Fushion 👋 quiero hacer este pedido:","",...ids.map(k=>`• ${cart[k]} × ${ITEMS[k].full} — ${money(cart[k]*ITEMS[k].p)}`),"",
+    `*Total: ${money(t)}*${entrega==="Domicilio"?" + domicilio":""}`,nom?`Nombre: ${nom}`:null,`Entrega: ${entrega}${entrega==="Domicilio"?" — "+dir:""}`,obs?`Notas: ${obs}`:null].filter(x=>x!==null).join("\n");
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank");
+};
+// aparecer al hacer scroll + categoría activa
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.06});
+document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+const links=[...document.querySelectorAll("#navw a")];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+  links.forEach(a=>{const on=a.getAttribute("href")==="#"+e.target.id;a.classList.toggle("on",on);if(on)a.parentNode.scrollTo({left:a.offsetLeft-a.parentNode.clientWidth/2+a.clientWidth/2,behavior:"smooth"})})}),{rootMargin:"-45% 0px -50% 0px"});
+document.querySelectorAll("section.cat").forEach(s=>spy.observe(s));
+render();
+// precios y agotados en vivo: la hoja de Drive (escondida) guarda Categoría, Plato, Precio y Disponible
+function csv(t){const R=[];let r=[""],q=false;for(let i=0;i<t.length;i++){const c=t[i];
+  if(q){if(c=='"'){if(t[i+1]=='"'){r[r.length-1]+='"';i++}else q=false}else r[r.length-1]+=c}
+  else if(c=='"')q=true;else if(c==",")r.push("");else if(c=="\n"){R.push(r);r=[""]}else if(c!="\r")r[r.length-1]+=c}
+  if(r.length>1||r[0])R.push(r);return R}
+function aplicar(){
+  for(const k in cart)if(ITEMS[k].off)delete cart[k];
+  document.querySelectorAll("[data-pp]").forEach(e=>e.textContent=money(ITEMS[e.dataset.pp].p));
+  document.querySelectorAll("[data-open]").forEach(e=>e.classList.toggle("off",!!ITEMS[e.dataset.open].off));
+  render();
+}
+async function cargarHoja(){
+  const rows=csv(await fetch(SHEET+"&t="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.text()}));
+  const h=rows.shift().map(x=>slug(x)),col=k=>h.findIndex(x=>x.startsWith(k)),C=[col("categ"),col("plato"),col("precio"),col("dispon")];
+  for(const r of rows){const i=ITEMS[slug(r[C[0]]||"")+"/"+slug(r[C[1]]||"")];if(!i)continue; // filas que no están en la carta se ignoran
+    let p=+String(r[C[2]]||"").replace(/\D/g,"");if(p&&p<1000)p*=1000;if(p)i.p=p;i.off=/^(no|agotado)/i.test((r[C[3]]||"").trim())}
+  aplicar();
+}
+if(SHEET)cargarHoja().catch(()=>{}); // si falla, se quedan los precios de la carta
+
+/*DUENO*/
+const API="https://script.google.com/macros/s/AKfycbwSgdzWSaWF9ZSqiqwA76YcgSA_wjcJjkBawtlvRNiBtfEOrW9uD_LpsFXFlowO6-c/exec";let PIN="",edits={}; // en la página de dueños el PIN no se puede cerrar
+// página de dueños (el PIN lo valida el script de la hoja; 5 errores = bloqueo de 15 min)
+const store={get(){try{return localStorage.getItem("fushion_pin")||""}catch(e){return ""}},set(v){try{v?localStorage.setItem("fushion_pin",v):localStorage.removeItem("fushion_pin")}catch(e){}}};
+const toast=(t,bad)=>{const e=$("#toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",3800)};
+const api=body=>fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pin:PIN,...body})}).then(r=>r.json());
+const edit=id=>edits[id]||(edits[id]={p:ITEMS[id].p,off:!!ITEMS[id].off});
+const cambios=()=>Object.keys(edits).filter(id=>edits[id].p!==ITEMS[id].p||edits[id].off!==!!ITEMS[id].off);
+function ctrlDueno(id){const v=edits[id]||ITEMS[id];
+  return `<label class="pe">$<input data-pe="${id}" inputmode="numeric" value="${v.p}" aria-label="Precio de ${esc(ITEMS[id].full)}"></label><button class="sw${v.off?"":" on"}" data-sw="${id}" aria-label="Disponible: ${esc(ITEMS[id].full)}"></button>`}
+function contar(){const c=cambios();
+  document.querySelectorAll(".lista .it").forEach(r=>{const id=r.dataset.open,v=edits[id];r.classList.toggle("cambio",c.includes(id));r.classList.toggle("off",!!(v?v.off:ITEMS[id].off))});
+  const b=$("#dsave");b.disabled=!c.length;b.textContent=c.length?`Guardar ${c.length} cambio${c.length>1?"s":""}`:"Sin cambios"}
+document.addEventListener("input",e=>{const id=e.target.dataset.pe;if(!id)return;
+  e.target.value=e.target.value.replace(/\D/g,"").slice(0,7);edit(id).p=+e.target.value||0;contar()});
+$("#dsave").onclick=async()=>{
+  const c=cambios(),malo=c.find(id=>edits[id].p<1000);if(malo){toast(`Revisa el precio de ${ITEMS[malo].full}`,true);return}
+  const b=$("#dsave");b.disabled=true;b.textContent="Guardando…";
+  try{const r=await api({accion:"guardar",cambios:c.map(id=>({cat:ITEMS[id].cat,plato:ITEMS[id].n,precio:edits[id].p,disponible:!edits[id].off}))});
+    if(!r.ok)throw new Error(r.error);
+    c.forEach(id=>{ITEMS[id].p=edits[id].p;ITEMS[id].off=edits[id].off});edits={};aplicar();toast("✓ Guardado. Los clientes lo verán en unos minutos.")}
+  catch(e){toast(e.message||"No se pudo guardar. Revisa tu internet.",true)}
+  contar()};
+async function entrar(pin,auto){
+  PIN=pin;$("#err").textContent="";$("#entrar").disabled=true;$("#entrar").textContent="Entrando…";
+  try{const r=await api({accion:"entrar"});if(!r.ok)throw new Error(r.error);
+    if(!auto)store.set($("#rec").checked?pin:"");
+    await cargarHoja().catch(()=>{});DUENO=true;B.classList.add("ok");cerrar();
+    document.querySelectorAll(".rv").forEach(e=>e.classList.add("in"));render();contar();$("#menu").scrollIntoView()}
+  catch(e){store.set("");PIN="";B.classList.add("open-dn");$("#err").textContent=e.message||"No hay conexión"}
+  $("#entrar").disabled=false;$("#entrar").textContent="Entrar"}
+function pedirPin(){const g=store.get();if(g)entrar(g,true);else{B.classList.add("open-dn");setTimeout(()=>$("#pin").focus(),400)}}
+$("#entrar").onclick=()=>{const v=$("#pin").value.trim();if(v)entrar(v)};
+$("#pin").addEventListener("keydown",e=>{if(e.key==="Enter")$("#entrar").click()});
+$("#dout").onclick=()=>{if(cambios().length&&!confirm("Tienes cambios sin guardar. ¿Salir igual?"))return;store.set("");location.reload()};
+addEventListener("beforeunload",e=>{if(DUENO&&cambios().length){e.preventDefault();e.returnValue=""}});
+pedirPin();
+/*/DUENO*/
+</script>
+</body>
+</html>
