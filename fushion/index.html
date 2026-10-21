@@ -29,7 +29,8 @@ a{color:inherit;text-decoration:none}
 .ttl{font:500 31px/1.08 'Playfair Display',serif;color:var(--ink);margin-top:10px;letter-spacing:-.3px}
 .nota{font:italic 400 14.5px/1.5 Lora,serif;color:var(--soft);margin-top:10px}
 /* portada con foto */
-.hero{position:relative;height:94svh;min-height:600px;max-height:900px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px 64px;background:var(--bg)}
+/* la portada llena la pantalla menos la barra: al entrar, la barra de categorías se ve completa abajo (--navh lo mide el JS) */
+.hero{position:relative;height:calc(100vh - var(--navh,86px));height:calc(100svh - var(--navh,86px));min-height:470px;max-height:900px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px 64px;background:var(--bg)}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 18s var(--ease) both;filter:saturate(.9)}
 @keyframes kb{from{transform:scale(1.18)}to{transform:scale(1)}}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,17,16,.35) 0%,rgba(18,17,16,.05) 30%,rgba(18,17,16,.78) 62%,var(--bg) 100%)}
@@ -189,7 +190,7 @@ input:focus,textarea:focus{border-color:#5A544D}
 html{scroll-padding-top:96px}
 nav{background:linear-gradient(180deg,#2E2B28,#252321);border-top:1px solid #45403A;border-bottom:1px solid #3A3631;box-shadow:0 12px 26px -12px rgba(0,0,0,.85)}
 nav .navt,nav .navs{max-width:980px;margin-left:auto;margin-right:auto}
-.navt{display:flex;justify-content:space-between;padding:10px 18px 0;font:700 10px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.navt{display:flex;justify-content:space-between;max-height:32px;overflow:hidden;transition:max-height .35s var(--ease),opacity .25s,padding .35s var(--ease);padding:10px 18px 0;font:700 10px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .navt span{letter-spacing:1px;text-transform:none;font-weight:500;color:var(--soft);animation:tira 1.6s ease-in-out infinite}
 @keyframes tira{50%{transform:translateX(5px)}}
 .navs{display:flex;gap:8px;overflow-x:auto;padding:9px 16px 12px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
@@ -208,6 +209,7 @@ nav .navs a.on{background:var(--red);border-color:var(--red);color:#fff;box-shad
 .fila .hoja{top:30px}
 @media (min-width:1000px){.cat .ttl,.fav .ttl,.lugar .ttl{font-size:34px}.cat.conf.der .fila .nota{padding-right:340px}.cat.conf.izq .fila .nota{padding-left:340px}}
 .dueno .fila{min-height:0!important}.dueno .fila .nota{padding:0!important}
+nav.pegada .navt{max-height:0;opacity:0;padding-top:0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.cut,.it,.fc img{opacity:1!important;transform:none!important}}
 </style>
 </head>
@@ -385,6 +387,10 @@ $("#volver").onclick=()=>{$("#rev").classList.remove("env");save();B.classList.r
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.06});
 document.querySelectorAll(".rv").forEach(e=>io.observe(e));
 const links=[...document.querySelectorAll("#navw a")];
+// la barra se compacta (sin el letrero "Categorías") cuando queda pegada arriba
+const navEl=$("nav"),medirNav=()=>{if(!navEl.classList.contains("pegada"))document.documentElement.style.setProperty("--navh",navEl.offsetHeight+"px")};
+medirNav();document.fonts&&document.fonts.ready.then(medirNav);addEventListener("resize",medirNav); // otra vez cuando cargan las fuentes
+addEventListener("scroll",()=>navEl.classList.toggle("pegada",navEl.getBoundingClientRect().top<=0&&scrollY>40),{passive:true});
 const navO=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;navO.disconnect();const n=$("#navw");
   setTimeout(()=>{n.scrollTo({left:90,behavior:"smooth"});setTimeout(()=>n.scrollLeft<100&&n.scrollTo({left:0,behavior:"smooth"}),900)},400)},{threshold:1});
 navO.observe($("#navw"));
