@@ -39,10 +39,10 @@ a{color:inherit;text-decoration:none}
 .meta{display:flex;justify-content:center;gap:14px;margin:16px 0 26px;font:600 10.5px Montserrat;letter-spacing:2.5px;text-transform:uppercase;color:#C9C1B7;animation:up 1.1s .45s var(--ease) both}
 .meta span+span::before{content:"·";margin-right:14px;color:var(--red)}
 .meta b{color:var(--gold);font-weight:600}
-.ctas{display:flex;gap:10px;width:100%;animation:up 1.1s .55s var(--ease) both}
+.ctas{display:flex;justify-content:center;gap:10px;width:100%;animation:up 1.1s .55s var(--ease) both}
 .btn{flex:1;display:flex;align-items:center;justify-content:center;height:52px;border-radius:30px;font:600 14px Montserrat;letter-spacing:.5px;transition:transform .2s var(--ease)}
 .btn:active{transform:scale(.96)}
-.btn.cream{background:var(--ink);color:var(--bg)}
+.btn.cream{background:var(--ink);color:var(--bg);max-width:340px}
 .btn.line{border:1px solid rgba(244,238,230,.4);color:var(--ink);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 /* navegación */
@@ -165,7 +165,11 @@ input:focus,textarea:focus{border-color:#5A544D}
 .rk{font:600 10.5px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--soft);margin:20px 0 4px}
 .rbtn{display:flex;gap:10px;margin-top:24px}
 .rbtn .send{margin-top:0;flex:1}
-#editar{height:56px;padding:0 22px;border-radius:28px;border:1px solid rgba(244,238,230,.35);color:var(--ink);font:600 15px Montserrat}
+#okv{display:none;text-align:center;padding:6px 0 4px}
+#rev.env #okv{display:block}#rev.env>h2,#rev.env>.nt,#rev.env #revc,#rev.env #rbtn{display:none}
+.okc{width:64px;height:64px;margin:6px auto 14px;border-radius:50%;background:#25D366;color:#0B3B1E;display:grid;place-items:center;font:700 30px Montserrat}
+#okv h3{font:500 25px/1.2 'Playfair Display';color:var(--ink)}#okv .nt{margin:10px auto 0;max-width:360px}
+#editar,#volver{height:56px;padding:0 22px;border-radius:28px;border:1px solid rgba(244,238,230,.35);color:var(--ink);font:600 15px Montserrat}
 .vacio{padding:30px 0;text-align:center;color:var(--soft);font:italic 400 16px Lora}
 /* tablet y PC: columna más ancha, platos en 2 columnas y las fotos ya no salen del borde */
 /* fotos reales (rectangulares): esquinas suaves en vez de recorte flotante */
@@ -212,17 +216,18 @@ input:focus,textarea:focus{border-color:#5A544D}
 /*/DUENO*/
 /* barra de categorías: debajo de favoritos, con color para que no pase desapercibida */
 html{scroll-padding-top:96px}
-nav{margin-top:20px;background:rgba(28,26,24,.97);border-top:1px solid #3A3631;border-bottom:1px solid #3A3631;box-shadow:0 12px 26px -14px rgba(0,0,0,.9)}
-.navt{display:flex;justify-content:space-between;padding:10px 18px 0;font:600 10px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+nav{background:linear-gradient(180deg,#2E2B28,#252321);border-top:1px solid #45403A;border-bottom:1px solid #3A3631;box-shadow:0 12px 26px -12px rgba(0,0,0,.85)}
+nav .navt,nav .navs{max-width:980px;margin-left:auto;margin-right:auto}
+.navt{display:flex;justify-content:space-between;padding:10px 18px 0;font:700 10px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .navt span{letter-spacing:1px;text-transform:none;font-weight:500;color:var(--soft);animation:tira 1.6s ease-in-out infinite}
 @keyframes tira{50%{transform:translateX(5px)}}
 .navs{display:flex;gap:8px;overflow-x:auto;padding:9px 16px 12px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
 .navs::-webkit-scrollbar{display:none}
-nav .navs a{flex:none;font:600 13px Montserrat;padding:10px 16px;border-radius:30px;color:var(--ink);background:rgba(244,238,230,.05);border:1px solid rgba(244,238,230,.24);transition:all .3s var(--ease)}
+nav .navs a{flex:none;font:600 13px Montserrat;padding:10px 16px;border-radius:30px;color:var(--ink);background:rgba(244,238,230,.06);border:1px solid rgba(244,238,230,.28);transition:all .3s var(--ease)}
 nav .navs a.on{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 8px 18px -8px rgba(227,38,46,.9)}
 /* títulos de categoría: mayúscula, más peso y una línea que separa la sección */
-.cat .ttl{font:600 28px/1.12 'Playfair Display',serif;text-transform:uppercase;letter-spacing:1.4px}
-.cat .hd .ttl::after{content:"";display:block;height:2px;margin-top:14px;background:linear-gradient(90deg,var(--red),rgba(227,38,46,.3) 45%,transparent)}
+.cat .ttl,.fav .ttl,.lugar .ttl{font:600 28px/1.12 'Playfair Display',serif;text-transform:uppercase;letter-spacing:1.4px}
+.cat .hd .ttl::after,.fav .ttl::after,.lugar .ttl::after{content:"";display:block;height:2px;margin-top:14px;background:linear-gradient(90deg,var(--red),rgba(227,38,46,.3) 45%,transparent)}
 .cat.conf .hd,.cat.conf.der .hd,.cat.conf.izq .hd{min-height:0;padding:0}
 .fila{position:relative}
 .cat.conf .fila{min-height:calc(var(--s) - 6px)}
@@ -230,7 +235,7 @@ nav .navs a.on{background:var(--red);border-color:var(--red);color:#fff;box-shad
 .cat.conf.der .fila .nota{padding-right:46%}.cat.conf.izq .fila .nota{padding-left:46%}
 .fila .cut{top:14px}
 .fila .hoja{top:30px}
-@media (min-width:1000px){.cat .ttl{font-size:34px}.cat.conf.der .fila .nota{padding-right:340px}.cat.conf.izq .fila .nota{padding-left:340px}}
+@media (min-width:1000px){.cat .ttl,.fav .ttl,.lugar .ttl{font-size:34px}.cat.conf.der .fila .nota{padding-right:340px}.cat.conf.izq .fila .nota{padding-left:340px}}
 .dueno .fila{min-height:0!important}.dueno .fila .nota{padding:0!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.cut,.it,.fc img{opacity:1!important;transform:none!important}}
 </style>
@@ -245,13 +250,14 @@ nav .navs a.on{background:var(--red);border-color:var(--red);color:#fff;box-shad
 <span style="display:inline-block;width:.86em;height:.86em;border-radius:50%;background:#E3262E;vertical-align:-.1em;margin:0 .02em"></span><span>N</span></div></div>
   <p class="tag">Sabores de oriente con corazón colombiano</p>
   <div class="meta"><span><b>★</b> 4,4 Google</span><span>Cajicá</span><span>Domicilios</span></div>
-  <div class="ctas wrap"><a class="btn cream" href="#menu">Ver el menú</a><a class="btn line" href="https://wa.me/573013784539" target="_blank" rel="noopener">WhatsApp</a></div>
+  <div class="ctas wrap"><a class="btn cream" href="#menu">Ver el menú</a></div>
 </header>
 
 
+<nav><div class="dtop">Modo dueño · cambia el precio o toca el interruptor para marcar agotado, y luego Guardar</div><div class="navt">Categorías <span>desliza →</span></div><div class="navs" id="navw"></div></nav>
+
 <main class="wrap" id="menu">
   <div class="fav rv"><div class="hd"><div class="kick">La casa recomienda</div><h2 class="ttl">Los favoritos</h2></div><div class="rail" id="rail"></div></div>
-  <nav><div class="dtop">Modo dueño · cambia el precio o toca el interruptor para marcar agotado, y luego Guardar</div><div class="navt">Categorías <span>desliza →</span></div><div class="navs" id="navw"></div></nav>
   <div id="cats"></div>
   <div class="frase rv"><img class="hoja" src="../img/carta/hoja1.svg" alt=""><img class="hoja h2" src="../img/carta/hoja2.svg" alt=""><p>“Lo mejor de lo que hacemos es para quien lo hacemos”</p><small>Fushion</small></div>
   <div class="lugar rv">
@@ -302,7 +308,10 @@ nav .navs a.on{background:var(--red);border-color:var(--red);color:#fff;box-shad
 <div class="sheet" id="rev" role="dialog" aria-label="Revisa tu pedido">
   <div class="grab"></div><h2>Revisa tu pedido</h2><p class="nt">Confirma que todo esté bien antes de enviarlo.</p>
   <div id="revc"></div>
-  <div class="rbtn"><button id="editar">Editar</button><button class="send" id="enviar"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B3B1E"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>Enviar por WhatsApp</button></div>
+  <div id="okv"><div class="okc">✓</div><h3>¡Pedido enviado a WhatsApp!</h3>
+    <p class="nt">Termina de enviarlo en el chat. Fushion te confirma el valor del domicilio y el tiempo de entrega.</p>
+    <div class="rbtn"><button id="volver">Volver a mi pedido</button><button class="send" id="nuevo" style="background:var(--ink);color:var(--bg)">Hacer otro pedido</button></div></div>
+  <div class="rbtn" id="rbtn"><button id="editar">Editar</button><button class="send" id="enviar"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B3B1E"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>Enviar por WhatsApp</button></div>
 </div>
 
 <script>
@@ -311,9 +320,11 @@ const $=s=>document.querySelector(s), money=v=>"$"+v.toLocaleString("es-CO"), B=
 const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/\s+/g,"-");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ITEMS={};DATA.forEach(c=>c.items.forEach(i=>{i.cat=c.cat;ITEMS[i.id]=i}));
-let cart={};try{cart=JSON.parse(localStorage.getItem("fushion_cart")||"{}")}catch(e){}
+const VENCE=6*36e5; // un carrito armado y no enviado se borra solo a las 6 horas
+let cart={};try{const g=JSON.parse(localStorage.getItem("fushion_cart")||"{}");
+  if(g.items){if(!g.enviado&&Date.now()-g.t<VENCE)cart=g.items}else cart=g}catch(e){} // sin "items" = formato viejo (solo platos)
 for(const k in cart)if(!ITEMS[k])delete cart[k]; // platos que ya no están en la carta
-const save=()=>{try{localStorage.setItem("fushion_cart",JSON.stringify(cart))}catch(e){}};
+const save=(enviado)=>{try{localStorage.setItem("fushion_cart",JSON.stringify({items:cart,t:Date.now(),enviado:enviado?1:0}))}catch(e){}};
 const PLUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
 let DUENO=false;
 const ctrl=id=>DUENO?ctrlDueno(id):ITEMS[id].off?'<span class="ago">Agotado</span>':cart[id]?`<div class="qty"><button data-d="-1" data-id="${id}" aria-label="Quitar uno">−</button><span>${cart[id]}</span><button data-d="1" data-id="${id}" aria-label="Agregar uno">+</button></div>`
@@ -343,7 +354,8 @@ function ficha(id){
    <button class="addbig" id="addbig">Agregar · ${money(i.p)}</button></div>`}`;
   $("#pl").scrollTop=0;setTimeout(()=>B.classList.add("open-pl"),30); // deja pintar la ficha antes de animarla (rAF se pausa en pestañas ocultas)
 }
-const cerrar=()=>{B.classList.remove("open-pl","open-ped","open-dn","open-rev");if(B.classList.contains("dueno")&&!DUENO)B.classList.add("open-dn")};
+const cerrar=()=>{if($("#rev").classList.contains("env"))nuevo(); // cerró tras enviar: el pedido ya salió
+  B.classList.remove("open-pl","open-ped","open-dn","open-rev");if(B.classList.contains("dueno")&&!DUENO)B.classList.add("open-dn")};
 
 function render(bump){
   document.querySelectorAll("[data-c]").forEach(e=>e.innerHTML=ctrl(e.dataset.c));
@@ -400,7 +412,12 @@ $("#enviar").onclick=()=>{
     `💰 *Total: ${money(p.t)}*${dom?" + domicilio":""}`,"",L,p.nom?`👤 *Nombre:* ${p.nom}`:null,`${dom?"🛵":"🛍️"} *Entrega:* ${entrega}`,dom?`📍 *Dirección:* ${p.dir}`:null,
     `${pago==="Transferencia"?"💳":"💵"} *Pago:* ${p.pagoTxt}`,p.obs?`📝 *Notas:* ${p.obs}`:null,"","_Pedido hecho desde el menú digital_ ✨"].filter(x=>x!==null).join("\n");
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank");
+  save(true);$("#rev").classList.add("env");$("#rev").scrollTop=0; // si vuelve a abrir el menú, ya empieza vacío
 };
+function nuevo(){$("#rev").classList.remove("env");for(const k in cart)delete cart[k];
+  ["#obs","#con"].forEach(q=>$(q).value="");render();save()} // nombre y dirección se quedan escritos para el próximo pedido
+$("#nuevo").onclick=()=>{nuevo();cerrar()};
+$("#volver").onclick=()=>{$("#rev").classList.remove("env");save();B.classList.remove("open-rev");B.classList.add("open-ped")};
 // aparecer al hacer scroll + categoría activa
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.06});
 document.querySelectorAll(".rv").forEach(e=>io.observe(e));
