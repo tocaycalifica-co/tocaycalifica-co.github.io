@@ -210,6 +210,28 @@ input:focus,textarea:focus{border-color:#5A544D}
 .toast.show{transform:translate(-50%,0)}.toast.bad{background:var(--red);color:#fff}
 .open-dn #bgDn{opacity:1;pointer-events:auto}.open-dn #dn{transform:none}
 /*/DUENO*/
+/* barra de categorías: debajo de favoritos, con color para que no pase desapercibida */
+html{scroll-padding-top:96px}
+nav{margin-top:20px;background:rgba(28,26,24,.97);border-top:1px solid #3A3631;border-bottom:1px solid #3A3631;box-shadow:0 12px 26px -14px rgba(0,0,0,.9)}
+.navt{display:flex;justify-content:space-between;padding:10px 18px 0;font:600 10px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.navt span{letter-spacing:1px;text-transform:none;font-weight:500;color:var(--soft);animation:tira 1.6s ease-in-out infinite}
+@keyframes tira{50%{transform:translateX(5px)}}
+.navs{display:flex;gap:8px;overflow-x:auto;padding:9px 16px 12px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
+.navs::-webkit-scrollbar{display:none}
+nav .navs a{flex:none;font:600 13px Montserrat;padding:10px 16px;border-radius:30px;color:var(--ink);background:rgba(244,238,230,.05);border:1px solid rgba(244,238,230,.24);transition:all .3s var(--ease)}
+nav .navs a.on{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 8px 18px -8px rgba(227,38,46,.9)}
+/* títulos de categoría: mayúscula, más peso y una línea que separa la sección */
+.cat .ttl{font:600 28px/1.12 'Playfair Display',serif;text-transform:uppercase;letter-spacing:1.4px}
+.cat .hd .ttl::after{content:"";display:block;height:2px;margin-top:14px;background:linear-gradient(90deg,var(--red),rgba(227,38,46,.3) 45%,transparent)}
+.cat.conf .hd,.cat.conf.der .hd,.cat.conf.izq .hd{min-height:0;padding:0}
+.fila{position:relative}
+.cat.conf .fila{min-height:calc(var(--s) - 6px)}
+.fila .nota{margin-top:16px}
+.cat.conf.der .fila .nota{padding-right:46%}.cat.conf.izq .fila .nota{padding-left:46%}
+.fila .cut{top:14px}
+.fila .hoja{top:30px}
+@media (min-width:1000px){.cat .ttl{font-size:34px}.cat.conf.der .fila .nota{padding-right:340px}.cat.conf.izq .fila .nota{padding-left:340px}}
+.dueno .fila{min-height:0!important}.dueno .fila .nota{padding:0!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.cut,.it,.fc img{opacity:1!important;transform:none!important}}
 </style>
 </head>
@@ -226,10 +248,10 @@ input:focus,textarea:focus{border-color:#5A544D}
   <div class="ctas wrap"><a class="btn cream" href="#menu">Ver el menú</a><a class="btn line" href="https://wa.me/573013784539" target="_blank" rel="noopener">WhatsApp</a></div>
 </header>
 
-<nav><div class="dtop">Modo dueño · cambia el precio o toca el interruptor para marcar agotado, y luego Guardar</div><div class="wrap" id="navw"></div></nav>
 
 <main class="wrap" id="menu">
   <div class="fav rv"><div class="hd"><div class="kick">La casa recomienda</div><h2 class="ttl">Los favoritos</h2></div><div class="rail" id="rail"></div></div>
+  <nav><div class="dtop">Modo dueño · cambia el precio o toca el interruptor para marcar agotado, y luego Guardar</div><div class="navt">Categorías <span>desliza →</span></div><div class="navs" id="navw"></div></nav>
   <div id="cats"></div>
   <div class="frase rv"><img class="hoja" src="../img/carta/hoja1.svg" alt=""><img class="hoja h2" src="../img/carta/hoja2.svg" alt=""><p>“Lo mejor de lo que hacemos es para quien lo hacemos”</p><small>Fushion</small></div>
   <div class="lugar rv">
@@ -303,8 +325,8 @@ $("#navw").innerHTML=DATA.map(c=>`<a href="#${slug(c.cat)}">${esc(c.cat)}</a>`).
 $("#rail").innerHTML=FAV.map(id=>{const f=ITEMS[id];return `<div class="fc" data-open="${id}"><img${ft(f.foto)} src="${img(f.foto)}" alt="${esc(f.full)}" loading="lazy"><h3>${esc(f.full)}</h3><div class="row2"><span class="p" data-pp="${id}">${money(f.p)}</span><span data-c="${id}">${ctrl(id)}</span></div></div>`}).join("");
 let lado=0;
 $("#cats").innerHTML=DATA.map((c,ci)=>{const s=c.foto?(lado++%2?"izq":"der"):"";return `<section class="cat rv${c.foto?" conf "+s:""}" id="${slug(c.cat)}">
-  ${c.foto?`<div class="cut"><img src="${img(c.foto)}" alt="${esc(c.cat)}" loading="lazy"></div><img class="hoja" src="../img/carta/hoja${lado%2+1}.svg" alt="">`:""}
-  <div class="hd"><div class="kick">${String(ci+1).padStart(2,"0")}</div><h2 class="ttl">${esc(c.cat)}</h2>${c.d?`<p class="nota">${esc(c.d)}</p>`:""}</div>
+  <div class="hd"><div class="kick">${String(ci+1).padStart(2,"0")}</div><h2 class="ttl">${esc(c.cat)}</h2></div>
+  <div class="fila">${c.foto?`<div class="cut"><img src="${img(c.foto)}" alt="${esc(c.cat)}" loading="lazy"></div><img class="hoja" src="../img/carta/hoja${lado%2+1}.svg" alt="">`:""}${c.d?`<p class="nota">${esc(c.d)}</p>`:""}</div>
   <div class="lista">${c.items.map((i,k)=>`<div class="it" style="transition-delay:${Math.min(k,8)*.06}s" data-open="${i.id}">${i.foto&&i.foto!==c.foto?`<img class="mini${ft(i.foto," ")}" src="${img(i.foto)}" alt="" loading="lazy">`:""}<div class="tx"><div class="n">${esc(i.n)}</div>${i.ing.length?`<div class="d">${esc(i.ing.join(", "))}</div>`:""}</div><span class="p" data-pp="${i.id}">${money(i.p)}</span><span data-c="${i.id}">${ctrl(i.id)}</span></div>`).join("")}</div></section>`}).join("");
 
 // ficha del plato: solo muestra foto si el plato tiene la suya
@@ -383,6 +405,9 @@ $("#enviar").onclick=()=>{
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.06});
 document.querySelectorAll(".rv").forEach(e=>io.observe(e));
 const links=[...document.querySelectorAll("#navw a")];
+const navO=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;navO.disconnect();const n=$("#navw");
+  setTimeout(()=>{n.scrollTo({left:90,behavior:"smooth"});setTimeout(()=>n.scrollLeft<100&&n.scrollTo({left:0,behavior:"smooth"}),900)},400)},{threshold:1});
+navO.observe($("#navw"));
 const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
   links.forEach(a=>{const on=a.getAttribute("href")==="#"+e.target.id;a.classList.toggle("on",on);if(on)a.parentNode.scrollTo({left:a.offsetLeft-a.parentNode.clientWidth/2+a.clientWidth/2,behavior:"smooth"})})}),{rootMargin:"-45% 0px -50% 0px"});
 document.querySelectorAll("section.cat").forEach(s=>spy.observe(s));
