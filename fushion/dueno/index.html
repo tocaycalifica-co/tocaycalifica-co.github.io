@@ -373,8 +373,10 @@ $("#send").onclick=()=>{
 $("#editar").onclick=()=>{B.classList.remove("open-rev");B.classList.add("open-ped")};
 $("#enviar").onclick=()=>{
   const p=pedido();
-  const msg=["Hola Fushion 👋 quiero hacer este pedido:","",...p.ids.map(k=>`• ${cart[k]} × ${ITEMS[k].full} — ${money(cart[k]*ITEMS[k].p)}`),"",
-    `*Total: ${money(p.t)}*${entrega==="Domicilio"?" + domicilio":""}`,p.nom?`Nombre: ${p.nom}`:null,`Entrega: ${entrega}${entrega==="Domicilio"?" — "+p.dir:""}`,`Pago: ${p.pagoTxt}`,p.obs?`Notas: ${p.obs}`:null].filter(x=>x!==null).join("\n");
+  const L="━━━━━━━━━━━━━━━",dom=entrega==="Domicilio";
+  const msg=["🍽️ *NUEVO PEDIDO · FUSHION*",L,"","🧾 *Pedido*",...p.ids.map(k=>`▪️ ${cart[k]} × ${ITEMS[k].full} — ${money(cart[k]*ITEMS[k].p)}`),"",
+    `💰 *Total: ${money(p.t)}*${dom?" + domicilio":""}`,"",L,p.nom?`👤 *Nombre:* ${p.nom}`:null,`${dom?"🛵":"🛍️"} *Entrega:* ${entrega}`,dom?`📍 *Dirección:* ${p.dir}`:null,
+    `${pago==="Transferencia"?"💳":"💵"} *Pago:* ${p.pagoTxt}`,p.obs?`📝 *Notas:* ${p.obs}`:null,"","_Pedido hecho desde el menú digital_ ✨"].filter(x=>x!==null).join("\n");
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank");
 };
 // aparecer al hacer scroll + categoría activa
