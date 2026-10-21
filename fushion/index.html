@@ -123,8 +123,8 @@ footer b{font:600 11px Montserrat;font-style:normal;letter-spacing:4px;color:var
 /* hojas deslizables (ficha del plato y pedido) */
 .bg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;max-height:92svh;overflow-y:auto;background:var(--card);border-radius:28px 28px 0 0;border-top:1px solid var(--line);padding:10px 24px calc(24px + env(safe-area-inset-bottom));overflow-x:hidden;transform:translateY(105%);transition:transform .55s var(--ease)}
-.open-ped #bgPed,.open-pl #bgPl{opacity:1;pointer-events:auto}
-.open-ped #ped,.open-pl #pl{transform:none}
+.open-ped #bgPed,.open-pl #bgPl,.open-rev #bgRev{opacity:1;pointer-events:auto}
+.open-ped #ped,.open-pl #pl,.open-rev #rev{transform:none}
 .grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 18px}
 .x{position:absolute;right:16px;top:14px;width:38px;height:38px;border-radius:50%;background:rgba(244,238,230,.1);display:grid;place-items:center;z-index:2}
 #pl .ph{height:280px;display:grid;place-items:center;position:relative;margin:0 -24px;background:radial-gradient(closest-side,rgba(216,181,122,.14),transparent 80%)}
@@ -140,7 +140,7 @@ footer b{font:600 11px Montserrat;font-style:normal;letter-spacing:4px;color:var
 .cta{display:flex;gap:10px;margin-top:28px}
 .cta .qty{height:54px;padding:0 4px}.cta .qty button{height:54px;width:40px}
 .cta .addbig{flex:1;height:54px;border-radius:27px;background:var(--red);color:#fff;font:600 15px Montserrat;letter-spacing:.3px}
-#ped h2{font:500 28px 'Playfair Display';color:var(--ink);margin-bottom:6px}
+#rev h2,#ped h2{font:500 28px 'Playfair Display';color:var(--ink);margin-bottom:6px}
 #ped .it{cursor:default;opacity:1;transform:none}
 .tot{display:flex;justify-content:space-between;font:600 18px Montserrat;padding:18px 0 4px}
 .tot span:last-child{color:var(--gold)}
@@ -152,6 +152,20 @@ input:focus,textarea:focus{border-color:#5A544D}
 .seg button{height:48px;border-radius:14px;background:var(--bg);border:1px solid var(--line);font:600 14px Montserrat;color:var(--soft)}
 .seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .send{margin-top:24px;width:100%;height:56px;border-radius:28px;background:#25D366;color:#0B3B1E;font:700 15px Montserrat;display:flex;align-items:center;justify-content:center;gap:10px}
+/* sugerencia de bebidas, pago y revisión del pedido */
+.sug{margin:18px -24px 4px;padding:16px 0 4px;border-top:1px solid var(--line)}
+.sug .lbl{margin:0 24px 10px}
+.sug .row3{display:flex;gap:10px;overflow-x:auto;padding:0 24px 6px;scrollbar-width:none}.sug .row3::-webkit-scrollbar{display:none}
+.bb{flex:none;width:132px;border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--bg);display:flex;flex-direction:column;gap:6px}
+.bb .n{font:600 13px/1.3 Montserrat;color:var(--ink);min-height:34px}
+.bb .row4{display:flex;align-items:center;justify-content:space-between}.bb .p{font:600 13px Montserrat;color:var(--gold)}
+.perr{color:#FF7A7A;font:500 13px Montserrat;margin-top:12px;min-height:16px}
+.rl{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font:500 14.5px/1.4 Montserrat;color:#DCD4CA}
+.rl b{font-weight:600;color:var(--ink);text-align:right}.rl.tt{font:600 18px Montserrat;border-bottom:0;padding-top:16px}.rl.tt b{color:var(--gold)}
+.rk{font:600 10.5px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--soft);margin:20px 0 4px}
+.rbtn{display:flex;gap:10px;margin-top:24px}
+.rbtn .send{margin-top:0;flex:1}
+#editar{height:56px;padding:0 22px;border-radius:28px;border:1px solid rgba(244,238,230,.35);color:var(--ink);font:600 15px Montserrat}
 .vacio{padding:30px 0;text-align:center;color:var(--soft);font:italic 400 16px Lora}
 /* tablet y PC: columna más ancha, platos en 2 columnas y las fotos ya no salen del borde */
 /* fotos reales (rectangulares): esquinas suaves en vez de recorte flotante */
@@ -163,7 +177,7 @@ input:focus,textarea:focus{border-color:#5A544D}
 @media (min-width:700px){.wrap{max-width:720px}.fc{width:40%}.der .cut{right:0}.izq .cut{left:0}.cat.conf{--s:300px}.hero{max-height:820px}
   /* algunas fotos vienen cortadas en el PDF: sin el borde de la pantalla, se desvanecen a los lados */
   .cut img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}}
-@media (min-width:1000px){.wrap{max-width:980px}.fc{width:30%}.lista{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}.it:last-child{border-bottom:1px solid var(--line)}.cat.conf.der .hd{padding-right:340px}.cat.conf.izq .hd{padding-left:340px}.ttl{font-size:38px}.cat.conf .ttl{font-size:34px}.sheet{max-width:600px;bottom:auto;top:50%;border-radius:28px;border:1px solid var(--line);transform:translateY(150vh)}.open-ped #ped,.open-pl #pl,.open-dn #dn{transform:translateY(-50%)}.bar{max-width:600px}}
+@media (min-width:1000px){.wrap{max-width:980px}.fc{width:30%}.lista{display:grid;grid-template-columns:1fr 1fr;column-gap:40px}.it:last-child{border-bottom:1px solid var(--line)}.cat.conf.der .hd{padding-right:340px}.cat.conf.izq .hd{padding-left:340px}.ttl{font-size:38px}.cat.conf .ttl{font-size:34px}.sheet{max-width:600px;bottom:auto;top:50%;border-radius:28px;border:1px solid var(--line);transform:translateY(150vh)}.open-ped #ped,.open-pl #pl,.open-dn #dn,.open-rev #rev{transform:translateY(-50%)}.bar{max-width:600px}}
 /* platos agotados */
 .it.off .tx,.it.off .p,.it.off .mini{opacity:.4}.fc.off img{opacity:.45!important}
 
@@ -212,13 +226,24 @@ input:focus,textarea:focus{border-color:#5A544D}
 <div class="sheet" id="ped" role="dialog" aria-label="Tu pedido">
   <div class="grab"></div><h2>Tu pedido</h2>
   <div id="lista"></div>
+  <div id="sug"></div>
   <div class="tot"><span>Total</span><span id="tt">$0</span></div>
   <p class="nt">El valor del domicilio te lo confirma el restaurante.</p>
   <label for="nom">Tu nombre</label><input id="nom" autocomplete="name" placeholder="¿A nombre de quién?">
   <label>Entrega</label><div class="seg" id="seg"><button data-v="Domicilio" class="on">Domicilio</button><button data-v="Recoger en el local">Recoger</button></div>
   <div id="dirw"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Barrio, calle y número"></div>
+  <label>Pago</label><div class="seg" id="pago"><button data-v="Efectivo">Efectivo</button><button data-v="Transferencia">Transferencia</button></div>
+  <div id="efw" style="display:none"><label for="con">¿Con cuánto pagas?</label><input id="con" inputmode="numeric" placeholder="Opcional, para llevarte el cambio"></div>
+  <p class="nt" id="trw" style="display:none;margin-top:12px">Nequi, Daviplata o Davivienda. El restaurante te envía los datos por WhatsApp.</p>
   <label for="obs">Notas</label><textarea id="obs" rows="2" placeholder="Sin cebolla, salsa aparte…"></textarea>
-  <button class="send" id="send"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B3B1E"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>Enviar pedido por WhatsApp</button>
+  <p class="perr" id="perr"></p>
+  <button class="send" id="send" style="background:var(--red);color:#fff;margin-top:8px">Revisar pedido</button>
+</div>
+<div class="bg" id="bgRev"></div>
+<div class="sheet" id="rev" role="dialog" aria-label="Revisa tu pedido">
+  <div class="grab"></div><h2>Revisa tu pedido</h2><p class="nt">Confirma que todo esté bien antes de enviarlo.</p>
+  <div id="revc"></div>
+  <div class="rbtn"><button id="editar">Editar</button><button class="send" id="enviar"><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B3B1E"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.2z"/></svg>Enviar por WhatsApp</button></div>
 </div>
 
 <script>
@@ -259,7 +284,7 @@ function ficha(id){
    <button class="addbig" id="addbig">Agregar · ${money(i.p)}</button></div>`}`;
   $("#pl").scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>B.classList.add("open-pl")));
 }
-const cerrar=()=>{B.classList.remove("open-pl","open-ped","open-dn");if(B.classList.contains("dueno")&&!DUENO)B.classList.add("open-dn")};
+const cerrar=()=>{B.classList.remove("open-pl","open-ped","open-dn","open-rev");if(B.classList.contains("dueno")&&!DUENO)B.classList.add("open-dn")};
 
 function render(bump){
   document.querySelectorAll("[data-c]").forEach(e=>e.innerHTML=ctrl(e.dataset.c));
@@ -267,7 +292,10 @@ function render(bump){
   $("#bc").textContent=n;$("#bt").textContent=money(t);$("#tt").textContent=money(t);
   const bar=$("#bar");bar.classList.toggle("show",n>0);if(bump){bar.classList.remove("bump");void bar.offsetWidth;bar.classList.add("bump")}
   $("#lista").innerHTML=n?ids.map(k=>`<div class="it"><div class="tx"><div class="n">${esc(ITEMS[k].full)}</div><div class="d">${money(ITEMS[k].p)} c/u</div></div><span data-c="${k}">${ctrl(k)}</span></div>`).join(""):'<p class="vacio">Aún no has agregado platos.</p>';
-  if(!n)B.classList.remove("open-ped");
+  // si no pidió nada de tomar, se le sugieren bebidas
+  const TOMAR=/^(Bebidas|Cervezas)$/, sug=SUG.filter(k=>ITEMS[k]&&!ITEMS[k].off);
+  $("#sug").innerHTML=n&&sug.length&&!ids.some(k=>TOMAR.test(ITEMS[k].cat))?`<div class="sug"><div class="lbl">¿Algo para tomar?</div><div class="row3">${sug.map(k=>`<div class="bb"><div class="n">${esc(ITEMS[k].n)}</div><div class="row4"><span class="p">${money(ITEMS[k].p)}</span><span data-c="${k}">${ctrl(k)}</span></div></div>`).join("")}</div></div>`:"";
+  if(!n)B.classList.remove("open-ped","open-rev");
   save();
 }
 document.addEventListener("click",e=>{
@@ -282,16 +310,34 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
 $("#bar").onclick=()=>B.classList.add("open-ped");
-let entrega="Domicilio";
+let entrega="Domicilio",pago="";
+const SUG=["bebidas/limonada-natural","bebidas/limonada-de-coco","bebidas/jugo-natural-en-agua","bebidas/gaseosa-350-ml","cervezas/aguila-o-poker"];
+$("#pago").onclick=e=>{const b=e.target.closest("button");if(!b)return;pago=b.dataset.v;$("#perr").textContent="";
+  $("#pago").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));$("#efw").style.display=pago==="Efectivo"?"":"none";$("#trw").style.display=pago==="Transferencia"?"":"none"};
+$("#con").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,"").slice(0,7);e.target.value=v?(+v).toLocaleString("es-CO"):""});
 $("#seg").onclick=e=>{const b=e.target.closest("button");if(!b)return;entrega=b.dataset.v;
   $("#seg").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));$("#dirw").style.display=entrega==="Domicilio"?"":"none"};
+// 1) revisar: valida y muestra el resumen; 2) enviar: arma el mensaje de WhatsApp
+function pedido(){
+  const ids=Object.keys(cart),con=+$("#con").value.replace(/\D/g,"");
+  return {ids,t:ids.reduce((a,k)=>a+cart[k]*ITEMS[k].p,0),nom:$("#nom").value.trim(),dir:$("#dir").value.trim(),obs:$("#obs").value.trim(),
+    pagoTxt:pago==="Efectivo"&&con?`Efectivo (paga con ${money(con)})`:pago==="Transferencia"?"Transferencia (Nequi, Daviplata o Davivienda)":pago}}
 $("#send").onclick=()=>{
-  const ids=Object.keys(cart);if(!ids.length)return;
-  const nom=$("#nom").value.trim(),dir=$("#dir").value.trim(),obs=$("#obs").value.trim();
-  if(entrega==="Domicilio"&&!dir){$("#dir").focus();$("#dir").placeholder="Escribe tu dirección para el domicilio";return}
-  const t=ids.reduce((a,k)=>a+cart[k]*ITEMS[k].p,0);
-  const msg=["Hola Fushion 👋 quiero hacer este pedido:","",...ids.map(k=>`• ${cart[k]} × ${ITEMS[k].full} — ${money(cart[k]*ITEMS[k].p)}`),"",
-    `*Total: ${money(t)}*${entrega==="Domicilio"?" + domicilio":""}`,nom?`Nombre: ${nom}`:null,`Entrega: ${entrega}${entrega==="Domicilio"?" — "+dir:""}`,obs?`Notas: ${obs}`:null].filter(x=>x!==null).join("\n");
+  const p=pedido();if(!p.ids.length)return;
+  if(entrega==="Domicilio"&&!p.dir){$("#perr").textContent="Escribe la dirección para el domicilio.";$("#dir").focus();return}
+  if(!pago){$("#perr").textContent="Elige cómo vas a pagar: efectivo o transferencia.";$("#pago").scrollIntoView({block:"center",behavior:"smooth"});return}
+  $("#perr").textContent="";
+  const fila=(k,v)=>`<div class="rl"><span>${k}</span><b>${esc(v)}</b></div>`;
+  $("#revc").innerHTML=`<div class="rk">Platos</div>${p.ids.map(k=>fila(`${cart[k]} × ${esc(ITEMS[k].full)}`,money(cart[k]*ITEMS[k].p))).join("")}
+    <div class="rl tt"><span>Total</span><b>${money(p.t)}${entrega==="Domicilio"?" + domicilio":""}</b></div>
+    <div class="rk">Entrega y pago</div>${fila("Entrega",entrega)}${entrega==="Domicilio"?fila("Dirección",p.dir):""}${fila("Pago",p.pagoTxt)}${p.nom?fila("Nombre",p.nom):""}${p.obs?fila("Notas",p.obs):""}`;
+  B.classList.remove("open-ped");B.classList.add("open-rev");$("#rev").scrollTop=0;
+};
+$("#editar").onclick=()=>{B.classList.remove("open-rev");B.classList.add("open-ped")};
+$("#enviar").onclick=()=>{
+  const p=pedido();
+  const msg=["Hola Fushion 👋 quiero hacer este pedido:","",...p.ids.map(k=>`• ${cart[k]} × ${ITEMS[k].full} — ${money(cart[k]*ITEMS[k].p)}`),"",
+    `*Total: ${money(p.t)}*${entrega==="Domicilio"?" + domicilio":""}`,p.nom?`Nombre: ${p.nom}`:null,`Entrega: ${entrega}${entrega==="Domicilio"?" — "+p.dir:""}`,`Pago: ${p.pagoTxt}`,p.obs?`Notas: ${p.obs}`:null].filter(x=>x!==null).join("\n");
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank");
 };
 // aparecer al hacer scroll + categoría activa
