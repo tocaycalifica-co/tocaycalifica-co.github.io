@@ -17,7 +17,7 @@ var CODIGOS = {
   "A012": "",
   "A013": "https://search.google.com/local/writereview?placeid=ChIJ7dHhW7d3QI4Rzymc40x3xLE", // FOTO MOLANO 2, Calle del distrito, Cl. 3 #6-20 2 Piso, Cajicá, Cundinamarca
   "A014": "https://search.google.com/local/writereview?placeid=ChIJfbqdPPV3QI4RO-9wgI2omfk", // Destellos Floristeria Cajicá, Cra. 5 #1 58, Cajicá, Cundinamarca
-  "A015": "https://search.google.com/local/writereview?placeid=ChIJI2bMz0p3QI4RenCd09coq4E", // FLEXISPORT, Conjunto Residencial RODAMONTE, Avenida Cavelier #10 B - 70 Local 06, Cajicá, Cundinamarca
+  "A015": "https://search.google.com/local/writereview?placeid=ChIJUThnVWJ3QI4Rpownz59K4Vk", // Escolares Y Papeles América, Cl. 3, Cajicá, Cundinamarca
   "A016": "",
   "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
