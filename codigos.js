@@ -34,7 +34,7 @@ var CODIGOS = {
   "A029": "",
   "A030": "",
   "A031": "",
-  "A032": "",
+  "A032": "https://search.google.com/local/writereview?placeid=ChIJ4Zok1mJ3QI4R4axvTzPRuAA", // Floristería Emmanuel Cajica cra 6 #0-99, Cra. 6 #0-99, Centro, Cajicá, Cundinamarca
   "A033": "",
   "A034": "",
   "A035": "",
