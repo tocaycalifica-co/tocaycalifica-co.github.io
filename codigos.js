@@ -33,7 +33,7 @@ var CODIGOS = {
   "A028": "",
   "A029": "",
   "A030": "",
-  "A031": "",
+  "A031": "https://search.google.com/local/writereview?placeid=ChIJ03Uu1hh5QI4R2kAW6Qh9lU4", // POWER KIDS, Cra. 5 #2-47, Cajicá, Cundinamarca
   "A032": "https://search.google.com/local/writereview?placeid=ChIJ4Zok1mJ3QI4R4axvTzPRuAA", // Floristería Emmanuel Cajica cra 6 #0-99, Cra. 6 #0-99, Centro, Cajicá, Cundinamarca
   "A033": "",
   "A034": "",
