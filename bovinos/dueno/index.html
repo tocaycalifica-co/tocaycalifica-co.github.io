@@ -355,9 +355,9 @@ function pedido(paso="lista"){const h=$("#pedido");
    if(datos.cuanto&&+datos.cuanto<total())return av.textContent="El valor con el que pagas es menor que el total.";
    pedido("revisar")};
   if(abierta!==h)abrir(h);return}
- const num=String(Math.floor(Date.now()/1000)%10000).padStart(4,"0"),hora=new Date().toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"});
- const msg=mensaje(num,hora);
- h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3>${ticket(num,hora)}<p class="nota" style="margin-top:12px">Al tocar Enviar se abre WhatsApp con tu pedido listo. Solo dale enviar.</p><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
+ const hora=new Date().toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"});
+ const msg=mensaje(hora);
+ h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3>${ticket(hora)}<p class="nota" style="margin-top:12px">Al tocar Enviar se abre WhatsApp con tu pedido listo. Solo dale enviar.</p><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
  h.querySelector(".x").onclick=cerrar;$("#edi").onclick=()=>pedido();
  $("#env").onclick=()=>{window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");cart=[];save();pintarBarra();
   h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in" style="text-align:center;padding:40px 20px"><div style="font-size:48px">🍔</div><h3>¡Pedido enviado a WhatsApp!</h3><p class="ds">Si no se abrió WhatsApp, revisa que esté instalado y vuelve a intentarlo.</p><button class="btn" id="otro">Hacer otro pedido</button></div>`;
@@ -366,15 +366,15 @@ function pedido(paso="lista"){const h=$("#pedido");
 
 const dom=()=>datos.entrega==="domicilio", cambio=()=>datos.pago==="Efectivo"&&+datos.cuanto>total()?+datos.cuanto-total():0;
 function pagoTxt(){return datos.pago==="Efectivo"&&+datos.cuanto?`Efectivo · paga con ${fmt(+datos.cuanto)}${cambio()?` (cambio ${fmt(cambio())})`:""}`:datos.pago}
-function mensaje(num,hora){
+function mensaje(hora){
  const L="━━━━━━━━━━━━━━━━";
- return ["🐂 *BOVINOS BURGER*","_¡Hechas con carne de verdad!_",L,`🧾 *PEDIDO #${num}* · ${hora}`,"",
+ return ["🐂 *BOVINOS BURGER*","_¡Hechas con carne de verdad!_",L,`🧾 *MI PEDIDO* · ${hora}`,"",
   ...cart.flatMap(i=>[`▸ *${i.q}x ${P[i.id].n}*`,`     ${fmt(P[i.id].v*i.q)}`,...(i.nota?[`     ✏️ _${i.nota}_`]:[])]),
   L,`💰 *TOTAL: ${fmt(total())}*`,...(dom()?["_+ domicilio (me confirman el valor)_"]:[]),L,
   `👤 *Nombre:* ${datos.nombre.trim()}`,dom()?`🛵 *Entrega:* Domicilio`:`🏠 *Entrega:* Recojo en el local`,...(dom()?[`📍 *Dirección:* ${datos.dir.trim()}`]:[]),
   `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_"].join("\n")}
-function ticket(num,hora){
- return `<div class="tk"><div class="tk-h"><img src="../img/logo.png" alt=""><div><b class="rye">Bovinos Burger</b><small>Pedido #${num} · ${hora}</small></div></div>
+function ticket(hora){
+ return `<div class="tk"><div class="tk-h"><img src="../img/logo.png" alt=""><div><b class="rye">Bovinos Burger</b><small>Mi pedido · ${hora}</small></div></div>
  ${cart.map(i=>`<div class="tk-i"><span class="tk-q">${i.q}x</span><span class="tk-n">${esc(P[i.id].n)}${i.nota?`<em>✏️ ${esc(i.nota)}</em>`:""}</span><span class="tk-v">${fmt(P[i.id].v*i.q)}</span></div>`).join("")}
  <div class="tk-t"><span>Total</span><b>${fmt(total())}</b></div>${dom()?`<p class="tk-s">+ valor del domicilio (te lo confirman por WhatsApp)</p>`:""}
  <div class="tk-d"><div><span>👤</span>${esc(datos.nombre.trim())}</div><div><span>${dom()?"🛵":"🏠"}</span>${dom()?"Domicilio: "+esc(datos.dir.trim()):"Recojo en el local"}</div><div><span>💳</span>${esc(pagoTxt())}</div></div></div>`}
