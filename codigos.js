@@ -4,7 +4,7 @@
 var CODIGOS = {
   "DEMO": "https://wa.me/573228286887?text=Hola%2C%20quiero%20mi%20soporte%20de%20rese%C3%B1as",
   "A001": "https://search.google.com/local/writereview?placeid=ChIJQYzJemJ3QI4Ri2X7Klj1Xu8", // Lo Máximo, Cajicá, Cundinamarca
-  "A002": "https://search.google.com/local/writereview?placeid=ChIJ4Zok1mJ3QI4R4axvTzPRuAA", // Floristería Emmanuel Cajica cra 6 #0-99, Cra. 6 #0-99, Centro, Cajicá, Cundinamarca
+  "A002": "https://search.google.com/local/writereview?placeid=ChIJtRdVaQB3QI4REirRkFclabY", // Restaurante Mi Valle, Cra. 7 #4 53, Cajicá, Cundinamarca
   "A003": "",
   "A004": "",
   "A005": "",
