@@ -4,8 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Bovinos Burger · Dueños</title><meta name="robots" content="noindex">
-<meta name="description" content="Carta de Bovinos Burger, Cajicá. Hamburguesas hechas con carne de verdad. Pide por WhatsApp.">
+<meta name="description" content="Panel del dueño: cambia precios y marca platos agotados. Solo con PIN.">
 <meta name="theme-color" content="#0E0D0B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bovinos Burger">
+<meta property="og:title" content="Bovinos Burger · Dueños">
+<meta property="og:description" content="Panel del dueño: cambia precios y marca platos agotados. Solo con PIN.">
+<meta property="og:url" content="https://tocaycalifica-co.github.io/bovinos/dueno/">
+<meta property="og:image" content="https://tocaycalifica-co.github.io/bovinos/img/og_dueno.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rye&family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -273,7 +281,7 @@ function pintarCarta(){
 let listo=false;pintarCarta();
 
 // Aparecer al bajar + categoría activa
-const marcar=()=>{const secs=[...document.querySelectorAll(".cat,#visitanos")];let a=secs[0];secs.forEach(s=>{if(s.getBoundingClientRect().top<140)a=s});const s=a.id.replace("c-","");document.querySelectorAll("nav a").forEach(x=>{const on=x.dataset.s===s;if(on&&!x.classList.contains("on"))x.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});x.classList.toggle("on",on)})};
+const marcar=()=>{const secs=[...document.querySelectorAll(".cat,#visitanos")];let a=secs[0];secs.forEach(s=>{if(s.getBoundingClientRect().top<140)a=s});const s=a.id.replace("c-","");document.querySelectorAll("nav a").forEach(x=>{const on=x.dataset.s===s;if(on&&!x.classList.contains("on")){const r=x.parentNode;r.scrollTo({left:x.offsetLeft-r.clientWidth/2+x.clientWidth/2,behavior:"smooth"})}x.classList.toggle("on",on)})}; // scrollIntoView frenaba el scroll de la página en celular
 addEventListener("scroll",marcar,{passive:true});marcar();
 
 // Hojas
