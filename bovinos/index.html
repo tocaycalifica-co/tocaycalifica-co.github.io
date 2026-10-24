@@ -163,7 +163,20 @@ label.l{display:block;font:600 13px Oswald;text-transform:uppercase;letter-spaci
 .sug img{width:36px;height:36px;border-radius:8px;object-fit:contain;background:#fff}
 .totl{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;font:700 20px Oswald;text-transform:uppercase}
 .totl span:last-child{color:var(--y)}
-.resu{background:var(--coal2);border-radius:14px;padding:14px;white-space:pre-wrap;font-size:14px;line-height:1.5;margin-top:10px}
+.tk{--zz:radial-gradient(circle at 8px 0,transparent 7px,var(--cream) 7.5px) -8px 0/16px 100%;position:relative;background:var(--cream);color:var(--ink);border-radius:4px;padding:20px 18px 18px;margin:14px 2px 0;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.tk:before,.tk:after{content:"";position:absolute;left:0;right:0;height:10px;background:radial-gradient(circle at 8px 10px,var(--coal) 6px,transparent 6.5px) 0 0/16px 10px repeat-x}
+.tk:before{top:-1px}.tk:after{bottom:-1px;transform:scaleY(-1)}
+.tk-h{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:2px dashed #CDBF9F;margin-bottom:6px}
+.tk-h img{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 2px var(--y)}
+.tk-h b{display:block;font-size:20px;line-height:1.1}.tk-h small{color:#7A6B52;font:600 12px Oswald;letter-spacing:.06em;text-transform:uppercase}
+.tk-i{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px dotted #D9CCAE}
+.tk-q{flex:none;background:var(--ink);color:var(--y);font:700 13px Oswald;border-radius:6px;padding:2px 7px}
+.tk-n{flex:1;font:600 15px/1.25 Oswald;text-transform:uppercase}.tk-n em{display:block;font:italic 500 13px Barlow;text-transform:none;color:#7A6B52;margin-top:2px}
+.tk-v{font:700 15px Oswald;white-space:nowrap}
+.tk-t{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:var(--y);border-radius:10px;padding:10px 14px;margin-top:12px;font:700 16px Oswald;text-transform:uppercase;letter-spacing:.06em}
+.tk-t b{font-size:24px}.tk-s{margin:6px 0 0;font-size:12px;color:#7A6B52;text-align:center}
+.tk-d{margin-top:14px;padding-top:12px;border-top:2px dashed #CDBF9F;display:grid;gap:7px;font-size:14px;font-weight:600}
+.tk-d div{display:flex;gap:10px;align-items:flex-start}.tk-d span{flex:none;width:20px;text-align:center}
 .hide{display:none!important}
 .card.off .ph img,.fila.off img,.reco.off img{filter:grayscale(1);opacity:.45}
 .card.off:before,.reco.off:before{content:"AGOTADO";position:absolute;top:12px;left:10px;z-index:3;background:#E5483B;color:#fff;font:700 12px Oswald;letter-spacing:.08em;padding:3px 8px;border-radius:6px;transform:rotate(-5deg)}
@@ -325,19 +338,29 @@ function pedido(paso="lista"){const h=$("#pedido");
    if(datos.cuanto&&+datos.cuanto<total())return av.textContent="El valor con el que pagas es menor que el total.";
    pedido("revisar")};
   if(abierta!==h)abrir(h);return}
- const msg=mensaje();
- h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3><div class="resu">${esc(msg)}</div><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
+ const num=String(Math.floor(Date.now()/1000)%10000).padStart(4,"0"),hora=new Date().toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"});
+ const msg=mensaje(num,hora);
+ h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3>${ticket(num,hora)}<p class="nota" style="margin-top:12px">Al tocar Enviar se abre WhatsApp con tu pedido listo. Solo dale enviar.</p><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
  h.querySelector(".x").onclick=cerrar;$("#edi").onclick=()=>pedido();
  $("#env").onclick=()=>{window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");cart=[];save();pintarBarra();
   h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in" style="text-align:center;padding:40px 20px"><div style="font-size:48px">🍔</div><h3>¡Pedido enviado a WhatsApp!</h3><p class="ds">Si no se abrió WhatsApp, revisa que esté instalado y vuelve a intentarlo.</p><button class="btn" id="otro">Hacer otro pedido</button></div>`;
   h.querySelector(".x").onclick=cerrar;$("#otro").onclick=cerrar};
  h.scrollTop=0}
 
-function mensaje(){
- const l=["🐂 *Pedido Bovinos Burger*","",...cart.map(i=>`• ${i.q} x ${P[i.id].n} — ${fmt(P[i.id].v*i.q)}${i.nota?`\n   _${i.nota}_`:""}`),"",`*Total: ${fmt(total())}*`,"",
-  `👤 ${datos.nombre.trim()}`, datos.entrega==="domicilio"?`🛵 Domicilio: ${datos.dir.trim()}`:"🏠 Recojo en el local",
-  `💳 Pago: ${datos.pago}${datos.pago==="Efectivo"&&datos.cuanto?` (pago con ${fmt(+datos.cuanto)})`:""}`];
- return l.join("\n")}
+const dom=()=>datos.entrega==="domicilio", cambio=()=>datos.pago==="Efectivo"&&+datos.cuanto>total()?+datos.cuanto-total():0;
+function pagoTxt(){return datos.pago==="Efectivo"&&+datos.cuanto?`Efectivo · paga con ${fmt(+datos.cuanto)}${cambio()?` (cambio ${fmt(cambio())})`:""}`:datos.pago}
+function mensaje(num,hora){
+ const L="━━━━━━━━━━━━━━━━";
+ return ["🐂 *BOVINOS BURGER*","_¡Hechas con carne de verdad!_",L,`🧾 *PEDIDO #${num}* · ${hora}`,"",
+  ...cart.flatMap(i=>[`▸ *${i.q}x ${P[i.id].n}*`,`     ${fmt(P[i.id].v*i.q)}`,...(i.nota?[`     ✏️ _${i.nota}_`]:[])]),
+  L,`💰 *TOTAL: ${fmt(total())}*`,...(dom()?["_+ domicilio (me confirman el valor)_"]:[]),L,
+  `👤 *Nombre:* ${datos.nombre.trim()}`,dom()?`🛵 *Entrega:* Domicilio`:`🏠 *Entrega:* Recojo en el local`,...(dom()?[`📍 *Dirección:* ${datos.dir.trim()}`]:[]),
+  `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_"].join("\n")}
+function ticket(num,hora){
+ return `<div class="tk"><div class="tk-h"><img src="img/logo.png" alt=""><div><b class="rye">Bovinos Burger</b><small>Pedido #${num} · ${hora}</small></div></div>
+ ${cart.map(i=>`<div class="tk-i"><span class="tk-q">${i.q}x</span><span class="tk-n">${esc(P[i.id].n)}${i.nota?`<em>✏️ ${esc(i.nota)}</em>`:""}</span><span class="tk-v">${fmt(P[i.id].v*i.q)}</span></div>`).join("")}
+ <div class="tk-t"><span>Total</span><b>${fmt(total())}</b></div>${dom()?`<p class="tk-s">+ valor del domicilio (te lo confirman por WhatsApp)</p>`:""}
+ <div class="tk-d"><div><span>👤</span>${esc(datos.nombre.trim())}</div><div><span>${dom()?"🛵":"🏠"}</span>${dom()?"Domicilio: "+esc(datos.dir.trim()):"Recojo en el local"}</div><div><span>💳</span>${esc(pagoTxt())}</div></div></div>`}
 
 listo=true;pintarBarra();
 // precios y agotados en vivo desde la hoja de Google (Categoría, Plato, Precio, Disponible). Vacío = precios de carta.py
