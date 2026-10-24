@@ -22,7 +22,7 @@ var CODIGOS = {
   "A017": "https://search.google.com/local/writereview?placeid=ChIJZ65ssU53QI4Rubn5sOVj0hw", // Delicias Juva, Cl. 3 #4- 74, Centro, Cajicá, Cundinamarca
   "A018": "",
   "A019": "https://search.google.com/local/writereview?placeid=ChIJXcDsFlV3QI4Ro_5K6Kozi18", // Grifos De La Sabana Cajica, 250240, Cl. 3 #11-44, Cajicá, Cundinamarca
-  "A020": "",
+  "A020": "https://search.google.com/local/writereview?placeid=ChIJtRdVaQB3QI4REirRkFclabY", // Restaurante Mi Valle, Cra. 7 #4 53, Cajicá, Cundinamarca
   "A021": "",
   "A022": "",
   "A023": "",
