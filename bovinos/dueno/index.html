@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bovinos Burger · Dueños</title><meta name="robots" content="noindex">
+<meta name="description" content="Carta de Bovinos Burger, Cajicá. Hamburguesas hechas con carne de verdad. Pide por WhatsApp.">
+<meta name="theme-color" content="#0E0D0B">
+<link rel="icon" href="../img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0E0D0B;--coal:#191714;--coal2:#24211C;--line:#36312A;--y:#FFC629;--y2:#FFDA6B;--cream:#FFF6E0;--muted:#B9AF9C;--wood:#9A6A3C;--green:#25D366;--e:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--ink);color:var(--cream);font:400 15px/1.45 Barlow,system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+main,header,nav,footer{position:relative;z-index:1}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.rye{font-family:Rye,serif;font-weight:400}
+.osw{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.02em}
+
+/* Portada */
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:40px 20px 120px;position:relative;overflow:hidden}
+.hero .bg{position:absolute;inset:0;background:url(../img/portada.webp) center/cover;transform:scale(1.08);animation:kb 18s var(--e) infinite alternate}
+.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(14,13,11,.55),rgba(14,13,11,.8) 70%),linear-gradient(180deg,transparent 60%,var(--ink))}
+@keyframes kb{to{transform:scale(1.18) translate(-2%,-1%)}}
+.hero>div:not(.bg){position:relative;z-index:2;max-width:560px}
+.hero .logo{width:min(46vw,190px);margin:0 auto 18px;border-radius:50%;box-shadow:0 0 0 4px var(--y),0 18px 50px rgba(0,0,0,.6);animation:pop .9s var(--e) both}
+@keyframes pop{from{transform:scale(.6) rotate(-12deg);opacity:0}}
+.hero h1{font-size:clamp(30px,8.5vw,52px);line-height:1.05;margin:0;color:var(--cream);text-shadow:0 4px 0 #000}
+.hero h1 b{color:var(--y);font-weight:400}
+.hero p{margin:12px 0 22px;color:#E9DFC9;font-weight:500;letter-spacing:.04em}
+.stars{display:inline-flex;gap:8px;align-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(255,198,41,.4);padding:7px 14px;border-radius:99px;font-weight:600;font-size:14px;margin-bottom:22px}
+.stars i{color:var(--y);font-style:normal;letter-spacing:1px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--y);color:var(--ink);padding:15px 30px;border-radius:12px;font:700 17px Oswald,sans-serif;text-transform:uppercase;letter-spacing:.06em;box-shadow:0 6px 0 #B88A0E;transition:transform .2s var(--e)}
+.cta:active{transform:translateY(4px);box-shadow:0 2px 0 #B88A0E}
+.scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:1;color:var(--y);font-size:12px;letter-spacing:.2em;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,6px)}}
+
+/* Barra de categorías */
+nav{position:sticky;top:0;z-index:20;background:rgba(14,13,11,.94);backdrop-filter:blur(10px);border-bottom:2px solid var(--y)}
+nav .row{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;scrollbar-width:none}
+nav .row::-webkit-scrollbar{display:none}
+nav a{flex:none;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;background:var(--coal2);color:var(--cream);text-decoration:none;font:600 14px Oswald,sans-serif;text-transform:uppercase;letter-spacing:.04em;transition:.25s var(--e)}
+nav a.on{background:var(--y);color:var(--ink);transform:translateY(-1px)}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+/* Recomendadas */
+.recos{padding:34px 0 10px}
+.tit{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+.tit h2{margin:0;font-size:clamp(24px,6vw,34px);line-height:1}
+.tit:after{content:"";flex:1;height:3px;background:repeating-linear-gradient(90deg,var(--y) 0 14px,transparent 14px 22px)}
+.carr{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:none}
+.carr::-webkit-scrollbar{display:none}
+.reco{flex:0 0 min(72vw,280px);scroll-snap-align:start;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;text-align:left;background:var(--coal)}
+.reco img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--e)}
+.reco:hover img{transform:scale(1.06)}
+.reco:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.88))}
+.reco .t{position:absolute;left:14px;right:14px;bottom:14px;z-index:1}
+.reco .t b{display:block;font:700 20px/1.1 Oswald,sans-serif;text-transform:uppercase}
+.reco .badge{position:absolute;top:12px;left:12px;z-index:1;background:var(--y);color:var(--ink);font:700 11px Oswald,sans-serif;letter-spacing:.1em;padding:4px 9px;border-radius:6px;transform:rotate(-3deg)}
+
+/* Categorías */
+.cat{padding:30px 0 8px}
+.band{position:relative;background:var(--y);color:var(--ink);border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;overflow:hidden}
+.band h2{margin:0;font-size:clamp(24px,6.4vw,34px);line-height:1}
+.band span{font:600 13px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.band:before,.band:after{content:"★";position:absolute;color:rgba(0,0,0,.08);font-size:90px;top:-22px;right:60px}
+.band:after{right:-14px;top:10px;font-size:60px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--coal);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;text-align:left;transition:transform .3s var(--e),border-color .3s;opacity:0;transform:translateY(18px)}
+.card.vis{opacity:1;transform:none}
+.card:hover{border-color:var(--y)}
+.card .ph{aspect-ratio:1;background:#0b0a09;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .bd{padding:10px 11px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.card h3{margin:0;font:600 15.5px/1.15 Oswald,sans-serif;text-transform:uppercase;letter-spacing:.01em}
+.card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .ft{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;padding-top:4px}
+.precio{font:700 17px Oswald,sans-serif;color:var(--y);white-space:nowrap}
+.mas{width:34px;height:34px;flex:none;border-radius:10px;background:var(--y);color:var(--ink);font:700 22px/1 Oswald;display:grid;place-items:center}
+.card .q{position:absolute}
+.list{display:grid;gap:8px}
+.card.fila{flex-direction:row}
+.fila{display:flex;align-items:center;gap:12px;background:var(--coal);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:left;width:100%}
+.fila img,.fila .noimg{width:56px;height:56px;border-radius:10px;object-fit:contain;background:#fff;flex:none}
+.fila .noimg{background:var(--coal2);display:grid;place-items:center;font-size:24px}
+.fila .n{flex:1;min-width:0}
+.fila b{display:block;font:600 15px/1.2 Oswald,sans-serif;text-transform:uppercase}
+.fila small{color:var(--muted)}
+.cnt{position:absolute;top:8px;right:8px;background:var(--y);color:var(--ink);font:700 13px Oswald;min-width:24px;height:24px;border-radius:12px;display:grid;place-items:center;padding:0 6px;z-index:2}
+.card,.fila{position:relative}
+
+/* Visítanos */
+.visit{padding:40px 0 20px}
+.fotos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.fotos img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px}
+.info{display:grid;gap:10px}
+.info a,.info div{display:flex;gap:12px;align-items:center;background:var(--coal);border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:var(--cream);text-decoration:none}
+.info .ic{width:38px;height:38px;border-radius:10px;background:var(--y);color:var(--ink);display:grid;place-items:center;flex:none;font-size:18px}
+.info small{display:block;color:var(--muted)}
+.redes{display:flex;gap:10px;flex-wrap:wrap}
+.redes a{flex:1 1 120px;justify-content:center;font:600 14px Oswald;text-transform:uppercase}
+.resena{margin:26px 0 10px;background:var(--cream);color:var(--ink);border-radius:20px;padding:24px 20px;text-align:center;position:relative;overflow:hidden}
+.resena h3{margin:0 0 6px;font-size:clamp(24px,6vw,32px)}
+.resena p{margin:0 0 16px;color:#5B5244}
+.resena .st{font-size:28px;color:#F2A900;letter-spacing:4px;margin-bottom:6px}
+.resena a{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--y);text-decoration:none;padding:13px 22px;border-radius:12px;font:700 16px Oswald;text-transform:uppercase;letter-spacing:.05em}
+footer{text-align:center;padding:30px 20px 130px;color:var(--muted);font-size:13px}
+footer .rye{color:var(--y);font-size:20px;display:block;margin-bottom:6px}
+
+/* Barra del pedido */
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;max-width:560px;margin:0 auto;display:flex;align-items:center;gap:12px;background:var(--y);color:var(--ink);border-radius:16px;padding:12px 14px 12px 16px;box-shadow:0 12px 30px rgba(0,0,0,.5);transform:translateY(140%);transition:transform .45s var(--e)}
+.bar.show{transform:none}
+.bar .bub{background:var(--ink);color:var(--y);font:700 15px Oswald;min-width:30px;height:30px;border-radius:9px;display:grid;place-items:center}
+.bar .tx{flex:1;font:700 16px Oswald;text-transform:uppercase;letter-spacing:.03em}
+.bar .tot{font:700 18px Oswald}
+.bar.bump{animation:bump .4s var(--e)}
+@keyframes bump{40%{transform:scale(1.04)}}
+
+/* Hojas (ficha y pedido) */
+.velo{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:40;opacity:0;pointer-events:none;transition:opacity .3s}
+.velo.on{opacity:1;pointer-events:auto}
+.hoja{position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:92svh;overflow:auto;background:var(--coal);border-radius:22px 22px 0 0;transform:translateY(105%);transition:transform .45s var(--e);max-width:620px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom)}
+.hoja.on{transform:none}
+.hoja .x{position:sticky;top:10px;float:right;margin:10px 10px -50px 0;z-index:3;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:20px}
+.hoja .ph{aspect-ratio:4/3;background:#0b0a09}
+.hoja .ph img{width:100%;height:100%;object-fit:cover}
+.hoja .in{padding:18px 18px 22px}
+.hoja h3{margin:0 0 6px;font:700 24px/1.1 Oswald;text-transform:uppercase}
+.hoja .ds{color:#D8CDB8;margin:0 0 14px}
+textarea,input{width:100%;background:var(--coal2);border:1px solid var(--line);border-radius:12px;color:var(--cream);font:inherit;padding:11px 12px;outline:none}
+textarea:focus,input:focus{border-color:var(--y)}
+textarea{resize:none;height:62px}
+label.l{display:block;font:600 13px Oswald;text-transform:uppercase;letter-spacing:.06em;color:var(--y);margin:14px 0 6px}
+.qty{display:flex;align-items:center;gap:6px;background:var(--coal2);border-radius:12px;padding:4px}
+.qty button{width:38px;height:38px;border-radius:9px;background:var(--line);font:700 20px Oswald}
+.qty span{min-width:26px;text-align:center;font:700 17px Oswald}
+.acc{display:flex;gap:10px;align-items:center;margin-top:16px}
+.btn{flex:1;background:var(--y);color:var(--ink);border-radius:12px;padding:14px;font:700 16px Oswald;text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:center;gap:8px}
+.btn.wa{background:var(--green);color:#06290F}
+.btn.sec{background:var(--coal2);color:var(--cream);border:1px solid var(--line)}
+.it{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.it .n{flex:1;min-width:0}
+.it b{display:block;font:600 15px/1.2 Oswald;text-transform:uppercase}
+.it small{color:var(--muted);display:block}
+.opts{display:flex;gap:8px}
+.opts button{flex:1;padding:11px 8px;border-radius:12px;background:var(--coal2);border:1px solid var(--line);font:600 14px Oswald;text-transform:uppercase}
+.opts button.on{background:var(--y);color:var(--ink);border-color:var(--y)}
+.sug{display:flex;gap:8px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none}
+.sug button{flex:none;display:flex;align-items:center;gap:8px;background:var(--coal2);border:1px solid var(--line);border-radius:12px;padding:6px 10px 6px 6px;font-size:13px;text-align:left}
+.sug img{width:36px;height:36px;border-radius:8px;object-fit:contain;background:#fff}
+.totl{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;font:700 20px Oswald;text-transform:uppercase}
+.totl span:last-child{color:var(--y)}
+.resu{background:var(--coal2);border-radius:14px;padding:14px;white-space:pre-wrap;font-size:14px;line-height:1.5;margin-top:10px}
+.hide{display:none!important}
+.card.off .ph img,.fila.off img,.reco.off img{filter:grayscale(1);opacity:.45}
+.card.off:before,.reco.off:before{content:"AGOTADO";position:absolute;top:12px;left:10px;z-index:3;background:#E5483B;color:#fff;font:700 12px Oswald;letter-spacing:.08em;padding:3px 8px;border-radius:6px;transform:rotate(-5deg)}
+.card.off .mas{visibility:hidden}.card.off .precio{color:var(--muted);text-decoration:line-through}
+
+body.dueno .mas,body.dueno .bar,body.dueno .fila>.precio{display:none}body.dueno .card{cursor:default}
+.dtop{background:var(--y);color:var(--ink);font:700 12px Oswald;letter-spacing:.06em;text-align:center;padding:7px 10px}
+body:not(.dueno) .dtop,body:not(.dueno) .dbar{display:none}
+.dctl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.fila .dctl{flex-direction:row;flex-wrap:wrap}
+.pe{display:flex;align-items:center;gap:2px;background:var(--coal2);border:1px solid var(--line);border-radius:10px;padding:0 8px;font:700 15px Oswald;color:var(--y)}
+.pe input{border:0;background:none;padding:7px 2px;font:700 15px Oswald;color:var(--cream);width:100%;min-width:60px}
+.sw{display:flex;align-items:center;gap:8px;border-radius:10px;padding:7px 9px;background:#3A1E1B;color:#FF9C8F;font:600 12px Oswald;text-transform:uppercase;letter-spacing:.04em}
+.sw i{width:30px;height:17px;border-radius:9px;background:#E5483B;position:relative;flex:none;transition:.25s}
+.sw i:after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff;transition:.25s var(--e)}
+.sw.on{background:#173A22;color:#7FE3A0}.sw.on i{background:var(--green)}.sw.on i:after{left:15px}
+.card.cambio{border-color:var(--y);box-shadow:0 0 0 2px var(--y)}
+.dbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;max-width:560px;margin:0 auto;display:flex;gap:10px;background:var(--coal);border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.dbar #dout{flex:0 0 90px}.dbar #dsave:disabled{opacity:.55}
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,30px);opacity:0;z-index:50;background:#173A22;color:#C9F5D7;padding:10px 16px;border-radius:12px;font-weight:600;transition:.35s var(--e);max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}.toast.bad{background:#4A1C17;color:#FFC9C1}
+
+.nota{color:var(--muted);font-size:12px;text-align:center;margin:18px 0 0}
+
+@media (min-width:720px){
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+ .list{grid-template-columns:1fr 1fr}
+ .fotos img{aspect-ratio:4/3}
+ .hoja{bottom:auto;top:50%;border-radius:22px;transform:translateY(-40%) scale(.96);opacity:0;pointer-events:none;transition:.35s var(--e)}
+ .hoja.on{transform:translateY(-50%);opacity:1;pointer-events:auto}
+}
+@media (min-width:1040px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.list{grid-template-columns:1fr 1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.card{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="bg"></div>
+ <div>
+  <img class="logo" src="../img/logo.png" alt="Bovinos Hamburgueserías">
+  <h1 class="rye">¡Hechas con carne <b>de verdad!</b></h1>
+  <p>Hamburguesería artesanal · Cajicá</p>
+  <div class="stars"><i>★★★★★</i> 4,5 en Google · 224 reseñas</div><br>
+  <a class="cta" href="#carta">Ver la carta ↓</a>
+ </div>
+ <div class="scroll">DESLIZA</div>
+</header>
+
+<nav id="nav"><div class="dtop">🔒 MODO DUEÑO · cambia el precio o toca Disponible/Agotado y luego Guardar</div><div class="row" id="chips"></div></nav>
+
+<main id="carta">
+ <div class="wrap">
+  <section class="recos">
+   <div class="tit"><h2 class="rye">Las de la casa</h2></div>
+   <div class="carr" id="recos"></div>
+  </section>
+  <div id="cats"></div>
+
+  <section class="visit" id="visitanos">
+   <div class="tit"><h2 class="rye">Visítanos</h2></div>
+   <div class="fotos"><img src="../img/local_fachada.webp" alt="Fachada de Bovinos Burger" loading="lazy"><img src="../img/local_interior.webp" alt="Hamburguesas en el local" loading="lazy"></div>
+   <div class="info">
+    <a href="https://www.google.com/maps/search/?api=1&query=Bovinos%20Burger%20Cajic%C3%A1&query_place_id=ChIJGQDeIWN3QI4R4qbHEYBqi1o" target="_blank" rel="noopener"><span class="ic">📍</span><span><b>Cra. 6 #1-49, Cajicá</b><small>Cómo llegar en Google Maps</small></span></a>
+    <a href="https://wa.me/573102499039" target="_blank" rel="noopener"><span class="ic">💬</span><span><b>310 249 9039</b><small>Pedidos y domicilios por WhatsApp</small></span></a>
+    <div class="redes">
+     <a href="https://www.instagram.com/bovinos_burger12/" target="_blank" rel="noopener">Instagram</a>
+     <a href="https://www.tiktok.com/@bovinos_burger12" target="_blank" rel="noopener">TikTok</a>
+     <a href="https://www.facebook.com/search/top?q=Bovinos%20Burger" target="_blank" rel="noopener">Facebook</a>
+    </div>
+   </div>
+   <div class="resena">
+    <div class="st">★★★★★</div>
+    <h3 class="rye">¿Te gustó?</h3>
+    <p>Tu reseña en Google nos ayuda a seguir haciendo hamburguesas de verdad.</p>
+    <a href="https://search.google.com/local/writereview?placeid=ChIJGQDeIWN3QI4R4qbHEYBqi1o" target="_blank" rel="noopener">Califícanos en Google</a>
+   </div>
+  </section>
+ </div>
+</main>
+<footer><span class="rye">Cuidamos tu comida, cuidamos de ti</span>Bovinos Burger · Cajicá · Precios en pesos colombianos, sujetos a cambio.</footer>
+
+<button class="bar" id="bar" aria-label="Ver mi pedido"><span class="bub" id="barN">0</span><span class="tx">Ver mi pedido</span><span class="tot" id="barT">$0</span></button>
+
+<div class="velo" id="velo"></div>
+<div class="hoja" id="ficha" role="dialog" aria-modal="true" aria-label="Detalle del plato"></div>
+<div class="hoja" id="pedido" role="dialog" aria-modal="true" aria-label="Mi pedido"></div>
+<div class="hoja" id="pinH" role="dialog" aria-modal="true" aria-label="Entrar como dueño"><div class="in" style="text-align:center;padding:28px 22px 30px"><img src="../img/logo.png" alt="" style="width:84px;margin:0 auto 12px;border-radius:50%;box-shadow:0 0 0 3px var(--y)"><h3>Modo dueño</h3><p class="ds">Escribe tu PIN para cambiar precios y marcar platos agotados.</p><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="12" aria-label="PIN" style="text-align:center;font:700 22px Oswald;letter-spacing:.4em"><p class="nota" id="err" style="color:#FF8A7A;min-height:16px"></p><button class="btn" id="entrar" style="width:100%;margin-top:6px">Entrar</button></div></div>
+<div class="dbar"><button id="dout" class="btn sec">Salir</button><button id="dsave" class="btn" disabled>Sin cambios</button></div><div class="toast" id="toast"></div>
+
+<script>
+const DATA=[{"n": "Hamburguesas", "i": "🍔", "s": "hamburguesas", "p": [{"id": "burger_tradicional", "n": "Burger Tradicional", "v": 20500, "d": "140 g de carne de res, queso cheddar, cogollo, tomate, cebolla encurtida y salsa de la casa.", "f": "burger_tradicional.webp"}, {"id": "hamburguesa_doble_carne", "n": "Hamburguesa Doble Carne", "v": 30900, "d": "2 carnes de res de 140 g c/u, doble queso cheddar, cogollo, tomate, cebolla encurtida y salsas de la casa.", "f": "hamburguesa_doble_carne.webp"}, {"id": "hamburguesa_americana", "n": "Hamburguesa Americana", "v": 30900, "d": "170 g de carne de res en pan brioche sellado con mantequilla, cheddar, tocineta ahumada, pepinillos, cogollo, tomate, cebolla encurtida y salsa BBQ chipotle.", "f": "hamburguesa_americana.webp"}, {"id": "hamburguesa_hawaiana", "n": "Hamburguesa Hawaiana", "v": 32700, "d": "170 g de carne de res madurada, cheddar, tocineta ahumada, piña caramelizada, cogollo, tomate, cebolla encurtida y salsa de la casa.", "f": "hamburguesa_hawaiana.webp"}, {"id": "burger_criolla", "n": "Burger Criolla", "v": 32900, "d": "170 g de carne de res, huevo con mazorca desgranada, queso cheddar, cogollo, tomate, cebolla encurtida y salsa de la casa.", "f": "burger_criolla.webp"}, {"id": "burger_ranchera", "n": "Burger Ranchera", "v": 32900, "d": "170 g de carne de res, tocineta, huevo ranchero, queso cheddar, cogollo, tomate, cebolla encurtida y salsa de la casa.", "f": "burger_ranchera.webp"}, {"id": "bovinos_chicken", "n": "Bovinos Chicken", "v": 32900, "d": "Pan brioche, pechuga de pollo apanada, queso cheddar, vegetales frescos y salsas de la casa.", "f": "bovinos_chicken.webp"}, {"id": "hamburguesa_bovinos_ripe", "n": "Hamburguesa Bovinos Ripe", "v": 33900, "d": "170 g de carne de res, queso cheddar, tajadas de plátano maduro en salsa de papelón, queso rallado y zeste de limón.", "f": "hamburguesa_bovinos_ripe.webp"}, {"id": "burger_choritocineta", "n": "Burger Choritocineta", "v": 34900, "d": "170 g de carne de res, queso cheddar, tocineta, chorizo ahumado, cogollo, tomate, cebolla encurtida y salsa de la casa.", "f": "burger_choritocineta.webp"}, {"id": "burger_chipotle", "n": "Burger Chipotle", "v": 34900, "d": "170 g de carne madurada, cheddar, chipotle de pimentones, cebollas y jalapeños grillados, guacamole, ajonjolí, cogollo, tomate y salsa de la casa.", "f": "burger_chipotle.webp"}, {"id": "bovinos_porky", "n": "Bovinos Porky", "v": 37900, "d": "170 g de res, pan brioche sellado con mantequilla, tocineta, chicharrón carnudo limonado, queso cheddar, vegetales y salsas de la casa.", "f": "bovinos_porky.webp"}, {"id": "bacon_cheddar_doble", "n": "Bacon Cheddar Doble", "v": 37900, "d": "2 carnes de 140 g en pan brioche sellado con mantequilla, bañadas en cheddar fundido con trocitos de tocineta crujiente, pepinillos y salsas de la casa.", "f": "bacon_cheddar_doble.webp"}, {"id": "burger_al_champinon", "n": "Burger al Champiñón", "v": 38900, "d": "170 g de carne de res, queso cheddar, tocineta ahumada, champiñones a la crema, cogollo, tomate y cebolla encurtida.", "f": "burger_al_champinon.webp"}, {"id": "bovinos_encebollada", "n": "Bovinos Encebollada", "v": 38900, "d": "170 g de carne de res encebollada, queso cheddar, compota de cebolla al vino, aros de cebolla crispy y salsa de la casa.", "f": "bovinos_encebollada.webp"}, {"id": "bovinos_bacon_cheddar", "n": "Bovinos Bacon Cheddar", "v": 38900, "d": "170 g de carne de res en pan brioche sellado con mantequilla, bañada en cheddar fundido con tocineta crujiente, pepinillos y salsa de la casa.", "f": "bovinos_bacon_cheddar.webp"}, {"id": "burger_la_mega_bacon", "n": "Burger la Mega Bacon", "v": 39900, "d": "170 g de carne de res, extra de tocineta ahumada, cogollo, tomate, cebolla encurtida y salsa de la casa.", "f": "burger_la_mega_bacon.webp"}, {"id": "bovinos_doble_choritocineta", "n": "Bovinos Doble Choritocineta", "v": 40900, "d": "2 carnes de res, pan brioche sellado con mantequilla, doble cheddar, tocineta crujiente, chorizo ahumado, vegetales y salsas de la casa.", "f": "bovinos_doble_choritocineta.webp"}, {"id": "bovinos_asesina", "n": "Bovinos Asesina", "v": 41900, "d": "Pan brioche, 140 g de carne de res, pechuga apanada, vegetales y salsas de la casa.", "f": "bovinos_asesina.webp"}, {"id": "bovinos_doble_encebollada", "n": "Bovinos Doble Encebollada", "v": 43900, "d": "2 carnes encebolladas de 140 g c/u, doble cheddar, compota de cebolla al vino, aros de cebolla crispy y salsa de la casa.", "f": "bovinos_doble_encebollada.webp"}, {"id": "hamburguesa_doble_ripe", "n": "Hamburguesa Doble Ripe", "v": 45900, "d": "2 carnes de res, pan brioche sellado con mantequilla, doble cheddar, plátano maduro en salsa de papelón, queso rallado y limón.", "f": "hamburguesa_doble_ripe.webp"}, {"id": "hamburguesa_triple_carne", "n": "Hamburguesa Triple Carne", "v": 45900, "d": "3 carnes de res, pan brioche sellado con mantequilla, triple queso cheddar, vegetales y salsas de la casa.", "f": "hamburguesa_triple_carne.webp"}, {"id": "hamburguesa_caperucita", "n": "Hamburguesa Caperucita", "v": 48900, "d": "170 g de carne de res artesanal, queso tipo crema, mermelada caperucita (de pimentón), lluvia de frutos secos, cogollo, tomate y mayonesa de pesto.", "f": "hamburguesa_caperucita.webp"}, {"id": "bovinos_triple_chori", "n": "Bovinos Triple Chori", "v": 49900, "d": "3 carnes de res, pan brioche sellado con mantequilla, triple cheddar, tocineta crujiente, chorizo ahumado, vegetales y salsas de la casa.", "f": "bovinos_triple_chori.webp"}, {"id": "hamburguesa_campestre", "n": "Hamburguesa Campestre", "v": 52000, "d": "170 g de carne de res artesanal, tocineta tostada, queso burrata, mermelada caperucita (pimentón), tomates cherry deshidratados, cogollo y mayonesa de pesto.", "f": "hamburguesa_campestre.webp"}]}, {"n": "Combos", "i": "🍟", "s": "combos", "p": [{"id": "combo_tradicional", "n": "Combo Tradicional", "v": 33900, "d": "Hamburguesa de 140 g de carne madurada, pan brioche, cheddar, tomate, cebolla y lechuga + papas a la francesa + Coca-Cola 250 ml.", "f": "combo_tradicional.webp"}, {"id": "combo_doble", "n": "Combo Doble", "v": 43900, "d": "2 carnes de 140 g c/u, doble cheddar, lechuga, tomate, cebolla grille y salsa de la casa + papas francesas + gaseosa 250 ml.", "f": "combo_doble.webp"}, {"id": "combo_doble_con_tocineta", "n": "Combo Doble con Tocineta", "v": 45900, "d": "2 carnes de 140 g c/u, doble cheddar, tocineta, lechuga, tomate, cebolla y salsa de la casa + papas francesas + gaseosa 250 ml.", "f": "combo_doble_con_tocineta.webp"}, {"id": "combo_doble_mixto", "n": "Combo Doble Mixto", "v": 45900, "d": "1 carne de res y 1 de pollo de 140 g, artesanales, queso mozzarella o cheddar, vegetales y salsa de la casa + papas + bebida personal.", "f": "combo_doble_mixto.webp"}, {"id": "combo_doble_de_pollo", "n": "Combo Doble de Pollo", "v": 45900, "d": "2 carnes de pollo de 140 g c/u, queso mozzarella, vegetales y salsa de la casa + papas francesas + bebida personal.", "f": "combo_doble_de_pollo.webp"}, {"id": "combo_partners", "n": "Combo Partners", "v": 78900, "d": "2 hamburguesas de 140 g con tocineta ahumada, cheddar, cogollo, cebolla, tomate y salsa de la casa + 2 papas francesas + Coca-Cola 1 L.", "f": "combo_partners.webp"}, {"id": "combo_duo_mixto", "n": "Combo Dúo Mixto", "v": 95900, "d": "2 hamburguesas: 1 de res de 280 g y 1 de pollo de 280 g, mozzarella, vegetales y salsa de la casa + 2 papas + gaseosa 1,5 L.", "f": "combo_duo_mixto.webp"}, {"id": "combo_family", "n": "Combo Family", "v": 97000, "d": "3 hamburguesas artesanales con tocineta ahumada, cheddar, cogollo, cebolla encurtida, tomate y salsa de la casa + 3 papas francesas + gaseosa 1,5 L.", "f": "combo_family.webp"}, {"id": "combo_familiar_mixto", "n": "Combo Familiar Mixto", "v": 131900, "d": "3 hamburguesas mixtas de 280 g (res y pollo), cheddar y mozzarella, vegetales y salsas de la casa + 3 papas francesas + gaseosa 1,5 L.", "f": "combo_familiar_mixto.webp"}]}, {"n": "Salchipapas", "i": "🌭", "s": "salchipapas", "p": [{"id": "salchipapa", "n": "Salchipapa", "v": 28900, "d": "300 g de papas a la francesa, papitas fosforito, cheddar, tocineta crujiente, salchicha americana, salsas de la casa y parmesano.", "f": "salchipapa.webp"}, {"id": "salchipapa_bovinos", "n": "Salchipapa Bovinos", "v": 42900, "d": "350 g de papas a la francesa con pollo, carne de res, chorizo, salchicha, queso, tocineta, papa chips y salsas de la casa.", "f": "salchipapa_bovinos.webp"}]}, {"n": "Mazorcadas", "i": "🌽", "s": "mazorcadas", "p": [{"id": "mazorcada", "n": "Mazorcada", "v": 30900, "d": "170 g de maíz tierno con huevo salteado a la plancha, pollo, tocineta, pimentón, queso cheddar y papa chips.", "f": "mazorcada.webp"}, {"id": "mazorcada_bovinos", "n": "Mazorcada Bovinos", "v": 37900, "d": "170 g de maíz tierno con huevo a la plancha, pollo, carne, chorizo, tocineta, pimentón, queso cheddar y papa chips.", "f": "mazorcada_bovinos.webp"}]}, {"n": "Hot dog", "i": "🌭", "s": "hot_dog", "p": [{"id": "hot_dog_americano", "n": "Hot Dog Americano", "v": 23900, "d": "Pan artesanal, salchicha americana, cebolla, tocineta, queso cheddar, papa chips y salsas de la casa.", "f": "hot_dog_americano.webp"}]}, {"n": "Carnes", "i": "🥩", "s": "carnes", "p": [{"id": "pechuga_a_la_plancha", "n": "Pechuga a la Plancha", "v": 39900, "d": "350 g de pechuga a la plancha con salsa de la casa, papa francesa y tajadas de maduro.", "f": "pechuga_a_la_plancha.webp"}, {"id": "churrasco_argentino", "n": "Churrasco Argentino", "v": 43900, "d": "350 g de chatas maduradas a la plancha, papas a la francesa, tajada de maduro, chimichurri y salsas de la casa.", "f": "churrasco_argentino.webp"}, {"id": "parrilla_personal", "n": "Parrilla Personal", "v": 53900, "d": "320 g de pechuga de pollo, cerdo, res y chorizo santarrosano, papa francesa, tomate, plátano y salsa de la casa.", "f": "parrilla_personal.webp"}]}, {"n": "Acompañamientos", "i": "🧅", "s": "acompanamientos", "p": [{"id": "papas_francesas", "n": "Papas Francesas", "v": 10900, "d": "Porción de papas a la francesa.", "f": "papas_francesas.webp"}, {"id": "papas_en_casco", "n": "Papas en Casco", "v": 10900, "d": "150 g de papas en casco, crujientes y doradas.", "f": "papas_en_casco.webp"}, {"id": "yuca_frita", "n": "Yuca Frita", "v": 10900, "d": "150 g de yuca frita.", "f": "yuca_frita.webp"}, {"id": "dedos_de_queso", "n": "Dedos de Queso", "v": 16900, "d": "6 deditos rellenos de queso + salsa de la casa.", "f": "dedos_de_queso.webp"}, {"id": "aros_de_cebolla", "n": "Aros de Cebolla", "v": 21900, "d": "10 aros de cebolla + salsa de la casa.", "f": "aros_de_cebolla.webp"}]}, {"n": "Bebidas", "i": "🥤", "s": "bebidas", "p": [{"id": "coca_cola_original_250_ml", "n": "Coca-Cola Original 250 ml", "v": 4000, "d": "Gaseosa.", "f": "coca_cola_original_250_ml.webp"}, {"id": "coca_cola_sin_azucar_400_ml", "n": "Coca-Cola Sin Azúcar 400 ml", "v": 6500, "d": "Gaseosa.", "f": "coca_cola_sin_azucar_400_ml.webp"}, {"id": "coca_cola_original_1_5_l", "n": "Coca-Cola Original 1,5 L", "v": 14900, "d": "Gaseosa para compartir.", "f": "coca_cola_original_1_5_l.webp"}, {"id": "coca_cola_sin_azucar_1_5_l", "n": "Coca-Cola Sin Azúcar 1,5 L", "v": 14900, "d": "Gaseosa para compartir.", "f": ""}, {"id": "schweppes_soda_400_ml", "n": "Schweppes Soda 400 ml", "v": 6500, "d": "Soda.", "f": ""}, {"id": "fuze_tea_mango_manzanilla_400_ml", "n": "Fuze Tea Mango Manzanilla 400 ml", "v": 6200, "d": "Té frío.", "f": "fuze_tea_mango_manzanilla_400_ml.webp"}, {"id": "fuze_tea_manzana_limonaria_400_ml", "n": "Fuze Tea Manzana Limonaria 400 ml", "v": 6200, "d": "Té frío.", "f": ""}, {"id": "brisa_con_gas_600_ml", "n": "Brisa con Gas 600 ml", "v": 5000, "d": "Agua.", "f": "brisa_con_gas_600_ml.webp"}, {"id": "brisa_sin_gas_500_ml", "n": "Brisa sin Gas 500 ml", "v": 5000, "d": "Agua.", "f": "brisa_sin_gas_500_ml.webp"}, {"id": "del_valle_mango_y_fresa_500_ml", "n": "Del Valle Mango y Fresa 500 ml", "v": 7000, "d": "Jugo.", "f": "del_valle_mango_y_fresa_500_ml.webp"}, {"id": "del_valle_mango_500_ml", "n": "Del Valle Mango 500 ml", "v": 7000, "d": "Jugo.", "f": "del_valle_mango_500_ml.webp"}, {"id": "hatsu_frambuesa_y_rosas_300_ml", "n": "Hatsu Frambuesa y Rosas 300 ml", "v": 8100, "d": "Soda saborizada.", "f": "hatsu_frambuesa_y_rosas_300_ml.webp"}, {"id": "hatsu_sandia_y_albahaca_300_ml", "n": "Hatsu Sandía y Albahaca 300 ml", "v": 8100, "d": "Soda saborizada.", "f": "hatsu_sandia_y_albahaca_300_ml.webp"}, {"id": "hatsu_uva_blanca_y_romero_300_ml", "n": "Hatsu Uva Blanca y Romero 300 ml", "v": 8100, "d": "Soda saborizada.", "f": "hatsu_uva_blanca_y_romero_300_ml.webp"}, {"id": "hatsu_limon_y_hierbabuena_300_ml", "n": "Hatsu Limón y Hierbabuena 300 ml", "v": 8100, "d": "Soda saborizada.", "f": "hatsu_limon_y_hierbabuena_300_ml.webp"}, {"id": "te_hatsu_rosa_400_ml", "n": "Té Hatsu Rosa 400 ml", "v": 13000, "d": "Té.", "f": "te_hatsu_rosa_400_ml.webp"}, {"id": "te_hatsu_verde_400_ml", "n": "Té Hatsu Verde 400 ml", "v": 13000, "d": "Té.", "f": "te_hatsu_verde_400_ml.webp"}, {"id": "te_hatsu_blanco_400_ml", "n": "Té Hatsu Blanco 400 ml", "v": 13000, "d": "Té.", "f": "te_hatsu_blanco_400_ml.webp"}, {"id": "hatsu_carambolo_y_flor_de_loto_400_ml", "n": "Hatsu Carambolo y Flor de Loto 400 ml", "v": 13000, "d": "Té.", "f": ""}]}, {"n": "Cervezas", "i": "🍺", "s": "cervezas", "p": [{"id": "club_colombia_dorada_330_ml", "n": "Club Colombia Dorada 330 ml", "v": 8800, "d": "Cerveza.", "f": "club_colombia_dorada_330_ml.webp"}, {"id": "poker_355_ml", "n": "Poker 355 ml", "v": 7900, "d": "Cerveza.", "f": "poker_355_ml.webp"}]}], FAV=["burger_al_champinon", "hamburguesa_bovinos_ripe", "bovinos_encebollada", "burger_la_mega_bacon", "salchipapa_bovinos", "combo_family"], WA="573102499039";
+const $=s=>document.querySelector(s), fmt=n=>"$"+n.toLocaleString("es-CO");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const P={};DATA.forEach((c,ci)=>c.p.forEach((p,pi)=>P[p.id]={...p,cat:c.n}));
+const GRID=new Set(["Hamburguesas","Combos","Salchipapas","Mazorcadas","Hot dog","Carnes","Acompañamientos"]);
+const VENCE=6*3600e3, KEY="bovinos_pedido";
+let cart=[], datos={nombre:"",dir:"",entrega:"recoger",pago:"",cuanto:""};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");if(s.t&&Date.now()-s.t<VENCE)cart=(s.c||[]).filter(i=>P[i.id]);if(s.d)datos={...datos,...s.d,pago:"",cuanto:""}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({t:Date.now(),c:cart,d:{nombre:datos.nombre,dir:datos.dir,entrega:datos.entrega}}))}catch(e){}};
+
+// Pintar la carta
+$("#chips").innerHTML=DATA.map(c=>`<a href="#c-${c.s}" data-s="${c.s}">${c.i} ${esc(c.n)}</a>`).join("")+`<a href="#visitanos" data-s="visitanos">📍 Visítanos</a>`;
+$("#recos").innerHTML=FAV.map(id=>{const p=P[id];return `<button class="reco" data-id="${id}"><span class="badge">RECOMENDADA</span><img src="../img/${p.f}" alt="" loading="lazy"><span class="t"><b>${esc(p.n)}</b><span class="precio">${fmt(p.v)}</span></span></button>`}).join("");
+let dctl=()=>""; // controles de precio/disponible (solo en la versión con PIN)
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("vis");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
+function pintarCarta(){
+ $("#cats").innerHTML=DATA.map(c=>{
+  const g=GRID.has(c.n);
+  const items=c.p.map(q=>{const p=P[q.id],cl=`card${g?"":" fila"}${p.off?" off":""}`,at=`class="${cl}" data-id="${p.id}" role="button" tabindex="0"`;return g
+   ?`<div ${at}><div class="ph">${p.f?`<img src="../img/${p.f}" alt="" loading="lazy">`:""}</div><div class="bd"><h3>${esc(p.n)}</h3><p>${esc(p.d)}</p><div class="ft"><span class="precio">${fmt(p.v)}</span><span class="mas">+</span></div>${dctl(p)}</div></div>`
+   :`<div ${at}>${p.f?`<img src="../img/${p.f}" alt="" loading="lazy">`:`<span class="noimg">${c.i}</span>`}<span class="n"><b>${esc(p.n)}</b><small>${esc(p.d)}</small>${dctl(p)}</span><span class="precio">${fmt(p.v)}</span><span class="mas">+</span></div>`}).join("");
+  return `<section class="cat" id="c-${c.s}"><div class="band"><h2 class="rye">${esc(c.n)}</h2><span>${c.p.length} ${c.p.length>1?"opciones":"opción"}</span></div><div class="${g?"grid":"list"}">${items}</div></section>`}).join("");
+ document.querySelectorAll("#cats .card").forEach(c=>io.observe(c));
+ document.querySelectorAll(".reco").forEach(r=>{r.classList.toggle("off",!!P[r.dataset.id].off);r.querySelector(".precio").textContent=fmt(P[r.dataset.id].v)});
+ listo&&pintarBarra()}
+let listo=false;pintarCarta();
+
+// Aparecer al bajar + categoría activa
+const marcar=()=>{const secs=[...document.querySelectorAll(".cat,#visitanos")];let a=secs[0];secs.forEach(s=>{if(s.getBoundingClientRect().top<140)a=s});const s=a.id.replace("c-","");document.querySelectorAll("nav a").forEach(x=>{const on=x.dataset.s===s;if(on&&!x.classList.contains("on"))x.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});x.classList.toggle("on",on)})};
+addEventListener("scroll",marcar,{passive:true});marcar();
+
+// Hojas
+let abierta=null;
+const abrir=h=>{abierta&&abierta.classList.remove("on");abierta=h;h.classList.add("on");$("#velo").classList.add("on");document.body.style.overflow="hidden";h.scrollTop=0};
+const cerrar=()=>{abierta&&abierta.classList.remove("on");abierta=null;$("#velo").classList.remove("on");document.body.style.overflow=""};
+$("#velo").onclick=cerrar;addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
+
+function ficha(id){const p=P[id];let q=1;
+ const h=$("#ficha");
+ h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button>${p.f?`<div class="ph"><img src="../img/${p.f}" alt="${esc(p.n)}"></div>`:""}<div class="in"><h3>${esc(p.n)}</h3><p class="ds">${esc(p.d)}</p><span class="precio" style="font-size:22px">${fmt(p.v)}</span><label class="l" for="nt">¿Algo especial?</label><textarea id="nt" maxlength="120" placeholder="Ej: sin cebolla, salsas aparte…"></textarea><div class="acc"><div class="qty"><button data-d="-1" aria-label="Menos">−</button><span id="fq">1</span><button data-d="1" aria-label="Más">+</button></div>${p.off?`<button class="btn" disabled style="opacity:.5">Agotado por hoy</button>`:`<button class="btn" id="add">Agregar ${fmt(p.v)}</button>`}</div></div>`;
+ h.querySelector(".x").onclick=cerrar;
+ h.querySelectorAll(".qty button").forEach(b=>b.onclick=()=>{q=Math.max(1,Math.min(20,q+ +b.dataset.d));$("#fq").textContent=q;$("#add").textContent="Agregar "+fmt(p.v*q)});
+ if(!p.off)$("#add").onclick=()=>{agregar(id,q,$("#nt").value.trim());cerrar()};
+ abrir(h)}
+function agregar(id,q,nota=""){if(P[id].off)return;const i=cart.find(x=>x.id===id&&x.nota===nota);if(i)i.q=Math.min(20,i.q+q);else cart.push({id,q,nota});save();pintarBarra(true)}
+let DUENO=false;
+document.addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b&&!DUENO&&!b.closest(".hoja"))ficha(b.dataset.id)});
+document.addEventListener("keydown",e=>{const b=e.target.closest&&e.target.closest(".card[role=button]");if(b&&e.target===b&&(e.key==="Enter"||e.key===" ")){e.preventDefault();b.click()}});
+
+const total=()=>cart.reduce((s,i)=>s+P[i.id].v*i.q,0), cuantos=()=>cart.reduce((s,i)=>s+i.q,0);
+function pintarBarra(bump){const n=cuantos(),bar=$("#bar");bar.classList.toggle("show",n>0);$("#barN").textContent=n;$("#barT").textContent=fmt(total());
+ document.querySelectorAll(".cnt").forEach(c=>c.remove());
+ cart.forEach(i=>document.querySelectorAll(`.card[data-id="${i.id}"]`).forEach(el=>{let c=el.querySelector(".cnt");if(!c){c=document.createElement("span");c.className="cnt";c.dataset.n=0;el.appendChild(c)}c.dataset.n=+c.dataset.n+i.q;c.textContent=c.dataset.n}));
+ if(bump){bar.classList.remove("bump");void bar.offsetWidth;bar.classList.add("bump")}}
+$("#bar").onclick=()=>pedido();
+
+const BEB=["Bebidas","Cervezas"];
+function pedido(paso="lista"){const h=$("#pedido");
+ if(!cart.length){cerrar();return}
+ if(paso==="lista"){
+  const tieneBeb=cart.some(i=>BEB.includes(P[i.id].cat));
+  const sug=tieneBeb?"":`<label class="l">¿Algo de tomar?</label><div class="sug">${["coca_cola_original_250_ml","club_colombia_dorada_330_ml","del_valle_mango_500_ml","brisa_sin_gas_500_ml","fuze_tea_mango_manzanilla_400_ml"].filter(id=>P[id]).map(id=>`<button data-s="${id}"><img src="../img/${P[id].f}" alt="">${esc(P[id].n)}<br><b>${fmt(P[id].v)}</b></button>`).join("")}</div>`;
+  h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Mi pedido</h3>
+  ${cart.map((i,k)=>`<div class="it"><span class="n"><b>${esc(P[i.id].n)}</b><small>${fmt(P[i.id].v)} c/u${i.nota?" · "+esc(i.nota):""}</small></span><div class="qty"><button data-k="${k}" data-d="-1" aria-label="Menos">−</button><span>${i.q}</span><button data-k="${k}" data-d="1" aria-label="Más">+</button></div></div>`).join("")}
+  ${sug}
+  <label class="l">Entrega</label><div class="opts" id="ent"><button data-v="recoger">Recojo en el local</button><button data-v="domicilio">Domicilio</button></div>
+  <label class="l" for="nom">Tu nombre</label><input id="nom" maxlength="40" autocomplete="name" value="${esc(datos.nombre)}">
+  <div id="dirW"><label class="l" for="dir">Dirección</label><input id="dir" maxlength="120" autocomplete="street-address" placeholder="Barrio, calle, casa/apto" value="${esc(datos.dir)}"></div>
+  <label class="l">Forma de pago</label><div class="opts" id="pag"><button data-v="Efectivo">Efectivo</button><button data-v="Transferencia">Transferencia</button></div>
+  <div id="cuW" class="hide"><label class="l" for="cu">¿Con cuánto pagas? (opcional)</label><input id="cu" inputmode="numeric" maxlength="9" placeholder="Ej: 100000" value="${esc(datos.cuanto)}"></div>
+  <div class="totl"><span>Total</span><span>${fmt(total())}</span></div>
+  <p class="nota" id="aviso" style="color:#FF8A7A;min-height:16px"></p>
+  <div class="acc"><button class="btn" id="rev">Revisar pedido</button></div>
+  <p class="nota">${datos.entrega==="domicilio"?"El valor del domicilio te lo confirman por WhatsApp.":"Te avisamos por WhatsApp cuando esté listo."}</p></div>`;
+  h.querySelector(".x").onclick=cerrar;
+  h.querySelectorAll(".qty button").forEach(b=>b.onclick=()=>{const i=cart[b.dataset.k];i.q+= +b.dataset.d;if(i.q<1)cart.splice(b.dataset.k,1);else i.q=Math.min(20,i.q);save();pintarBarra();pedido()});
+  h.querySelectorAll(".sug button").forEach(b=>b.onclick=()=>{agregar(b.dataset.s,1);pedido()});
+  const opt=(sel,key,cb)=>{h.querySelectorAll(sel+" button").forEach(b=>{b.classList.toggle("on",datos[key]===b.dataset.v);b.onclick=()=>{datos[key]=b.dataset.v;save();h.querySelectorAll(sel+" button").forEach(x=>x.classList.toggle("on",x===b));cb&&cb()}})};
+  const vis=()=>{$("#dirW").classList.toggle("hide",datos.entrega!=="domicilio");$("#cuW").classList.toggle("hide",datos.pago!=="Efectivo")};
+  opt("#ent","entrega",vis);opt("#pag","pago",vis);vis();
+  $("#nom").oninput=e=>{datos.nombre=e.target.value;save()};$("#dir").oninput=e=>{datos.dir=e.target.value;save()};
+  $("#cu").oninput=e=>{e.target.value=e.target.value.replace(/\D/g,"");datos.cuanto=e.target.value};
+  $("#rev").onclick=()=>{const av=$("#aviso");
+   if(!datos.nombre.trim())return av.textContent="Escribe tu nombre.";
+   if(datos.entrega==="domicilio"&&datos.dir.trim().length<5)return av.textContent="Escribe la dirección del domicilio.";
+   if(!datos.pago)return av.textContent="Elige la forma de pago.";
+   if(datos.cuanto&&+datos.cuanto<total())return av.textContent="El valor con el que pagas es menor que el total.";
+   pedido("revisar")};
+  if(abierta!==h)abrir(h);return}
+ const msg=mensaje();
+ h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3><div class="resu">${esc(msg)}</div><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
+ h.querySelector(".x").onclick=cerrar;$("#edi").onclick=()=>pedido();
+ $("#env").onclick=()=>{window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");cart=[];save();pintarBarra();
+  h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in" style="text-align:center;padding:40px 20px"><div style="font-size:48px">🍔</div><h3>¡Pedido enviado a WhatsApp!</h3><p class="ds">Si no se abrió WhatsApp, revisa que esté instalado y vuelve a intentarlo.</p><button class="btn" id="otro">Hacer otro pedido</button></div>`;
+  h.querySelector(".x").onclick=cerrar;$("#otro").onclick=cerrar};
+ h.scrollTop=0}
+
+function mensaje(){
+ const l=["🐂 *Pedido Bovinos Burger*","",...cart.map(i=>`• ${i.q} x ${P[i.id].n} — ${fmt(P[i.id].v*i.q)}${i.nota?`\n   _${i.nota}_`:""}`),"",`*Total: ${fmt(total())}*`,"",
+  `👤 ${datos.nombre.trim()}`, datos.entrega==="domicilio"?`🛵 Domicilio: ${datos.dir.trim()}`:"🏠 Recojo en el local",
+  `💳 Pago: ${datos.pago}${datos.pago==="Efectivo"&&datos.cuanto?` (pago con ${fmt(+datos.cuanto)})`:""}`];
+ return l.join("\n")}
+
+listo=true;pintarBarra();
+// precios y agotados en vivo desde la hoja de Google (Categoría, Plato, Precio, Disponible). Vacío = precios de carta.py
+const SHEET="";
+function csv(t){const R=[];let r=[""],q=false;for(let i=0;i<t.length;i++){const c=t[i];
+ if(q){if(c=='"'){if(t[i+1]=='"'){r[r.length-1]+='"';i++}else q=false}else r[r.length-1]+=c}
+ else if(c=='"')q=true;else if(c==",")r.push("");else if(c=="\n"){R.push(r);r=[""]}else if(c!="\r")r[r.length-1]+=c}
+ if(r.length>1||r[0])R.push(r);return R}
+const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+async function cargarHoja(){
+ const rows=csv(await fetch(SHEET+(SHEET.includes("?")?"&":"?")+"t="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.text()}));
+ const h=rows.shift().map(norm),col=k=>h.findIndex(x=>x.startsWith(k)),C=[col("plato"),col("precio"),col("dispon")];
+ for(const r of rows){const p=P[norm(r[C[0]]||"")];if(!p)continue; // filas que no están en la carta se ignoran
+  const v=+String(r[C[1]]||"").replace(/\D/g,"");if(v>=1000)p.v=v;p.off=/^(no|agotado)/i.test((r[C[2]]||"").trim())}
+ cart=cart.filter(i=>!P[i.id].off);save();pintarCarta()}
+if(SHEET)cargarHoja().catch(()=>{});
+
+// Página de dueños: PIN + precio y disponible por plato. El PIN lo valida el Apps Script de la hoja (API).
+const API="";let PIN="",edits={};
+const toast=(t,bad)=>{const e=$("#toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",3800)};
+const api=body=>API?fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pin:PIN,...body})}).then(r=>r.json()):Promise.reject(new Error("Falta conectar la hoja de precios."));
+const edit=id=>edits[id]||(edits[id]={v:P[id].v,off:!!P[id].off});
+const cambios=()=>Object.keys(edits).filter(id=>edits[id].v!==P[id].v||edits[id].off!==!!P[id].off);
+dctl=p=>{const e=edits[p.id]||p;return `<div class="dctl"><label class="pe">$<input data-pe="${p.id}" inputmode="numeric" value="${e.v}" aria-label="Precio de ${esc(p.n)}"></label><button class="sw${e.off?"":" on"}" data-sw="${p.id}" aria-label="Disponible: ${esc(p.n)}"><i></i><span>${e.off?"Agotado":"Disponible"}</span></button></div>`};
+function contar(){const c=cambios();
+ document.querySelectorAll("#cats .card").forEach(el=>{const id=el.dataset.id,e=edits[id];el.classList.toggle("cambio",c.includes(id));el.classList.toggle("off",!!(e?e.off:P[id].off))});
+ const b=$("#dsave");b.disabled=!c.length;b.textContent=c.length?`Guardar ${c.length} cambio${c.length>1?"s":""}`:"Sin cambios"}
+document.addEventListener("input",e=>{const id=e.target.dataset.pe;if(!id)return;e.target.value=e.target.value.replace(/\D/g,"").slice(0,7);edit(id).v=+e.target.value||0;contar()});
+document.addEventListener("click",e=>{const w=e.target.closest("[data-sw]");if(!w||!DUENO)return;e.stopPropagation();const v=edit(w.dataset.sw);v.off=!v.off;w.classList.toggle("on",!v.off);w.querySelector("span").textContent=v.off?"Agotado":"Disponible";contar()},true);
+$("#dsave").onclick=async()=>{const c=cambios(),malo=c.find(id=>edits[id].v<1000);if(malo)return toast(`Revisa el precio de ${P[malo].n}`,true);
+ const b=$("#dsave");b.disabled=true;b.textContent="Guardando…";
+ try{const r=await api({accion:"guardar",cambios:c.map(id=>({cat:P[id].cat,plato:P[id].n,precio:edits[id].v,disponible:!edits[id].off}))});if(!r.ok)throw new Error(r.error);
+  c.forEach(id=>{P[id].v=edits[id].v;P[id].off=edits[id].off});edits={};pintarCarta();toast("✓ Guardado. Los clientes lo verán en unos minutos.")}
+ catch(e){toast(e.message||"No se pudo guardar. Revisa tu internet.",true)}
+ contar()};
+function modoDueno(){DUENO=true;document.body.classList.add("dueno");cerrar();pintarCarta();contar()}
+async function entrar(pin){PIN=pin;$("#err").textContent="";$("#entrar").disabled=true;$("#entrar").textContent="Entrando…";
+ try{const r=await api({accion:"entrar"});if(!r.ok)throw new Error(r.error);if(SHEET)await cargarHoja().catch(()=>{});modoDueno();$("#carta").scrollIntoView()}
+ catch(e){PIN="";$("#err").textContent=e.message||"No hay conexión"}
+ $("#entrar").disabled=false;$("#entrar").textContent="Entrar"}
+$("#entrar").onclick=()=>{const v=$("#pin").value.trim();if(v)entrar(v)};
+$("#pin").addEventListener("keydown",e=>{if(e.key==="Enter")$("#entrar").click()});
+$("#pin").addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,""));
+$("#dout").onclick=()=>{if(cambios().length&&!confirm("Tienes cambios sin guardar. ¿Salir igual?"))return;location.reload()};
+addEventListener("beforeunload",e=>{if(DUENO&&cambios().length){e.preventDefault();e.returnValue=""}});
+$("#velo").onclick=()=>{if(DUENO||abierta!==$("#pinH"))cerrar()}; // el PIN no se cierra sin entrar
+addEventListener("keydown",e=>{if(e.key==="Escape"&&abierta===$("#pinH"))e.stopImmediatePropagation()},true);
+abrir($("#pinH"));setTimeout(()=>$("#pin").focus(),400);
+
+</script>
+</body>
+</html>
