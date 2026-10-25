@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Bovinos Burger · Dueños</title><meta name="robots" content="noindex">
 <meta name="description" content="Panel del dueño: cambia precios, marca agotados y elige el Top de la semana. Solo con PIN.">
@@ -14,7 +15,7 @@
 <meta property="og:image" content="https://tocaycalifica-co.github.io/bovinos/img/og_dueno.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../img/logo.png">
+<link rel="icon" href="../img/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rye&family=Oswald:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
@@ -75,7 +76,7 @@ nav a.on{background:var(--bone);color:var(--ink);border-color:var(--bone)}
 .reco .t{position:absolute;left:14px;right:14px;bottom:14px;z-index:1}
 .reco .t b{display:block;font:700 20px/1.1 Oswald;text-transform:uppercase}
 .reco .num{position:absolute;top:10px;left:10px;z-index:2;width:46px;height:52px;display:grid;place-items:center;background:var(--tan);color:var(--ink);font:400 22px Rye;border-radius:50% 50% 50% 50%/58% 58% 42% 42%;box-shadow:0 4px 14px rgba(0,0,0,.5)}
-.sinf{display:block;width:100%;height:100%;background:url(../img/logo.png) center/58% no-repeat,radial-gradient(circle,var(--coal2),var(--ink));filter:grayscale(1);opacity:.35}
+.sinf{display:block;width:100%;height:100%;background:url(../img/logo.webp) center/58% no-repeat,radial-gradient(circle,var(--coal2),var(--ink));filter:grayscale(1);opacity:.35}
 
 /* Categorías */
 .cat{padding:34px 0 6px}
@@ -143,7 +144,7 @@ footer .rye{color:var(--tan);font-size:20px;display:block;margin-bottom:6px}
 .hoja .in{padding:18px 18px 22px}
 .hoja h3{margin:0 0 6px;font:700 24px/1.1 Oswald;text-transform:uppercase}
 .hoja .ds{color:#D6CCBA;margin:0 0 10px}
-textarea,input{width:100%;background:var(--coal2);border:1px solid var(--line);border-radius:8px;color:var(--bone);font:inherit;padding:11px 12px;outline:none}
+textarea,input{width:100%;background:var(--coal2);border:1px solid var(--line);border-radius:8px;color:var(--bone);font:inherit;font-size:16px;padding:11px 12px;outline:none}
 textarea:focus,input:focus{border-color:var(--tan)}
 textarea{resize:none;height:62px}
 label.l{display:block;font:600 13px Oswald;text-transform:uppercase;letter-spacing:.06em;color:var(--tan);margin:14px 0 6px}
@@ -221,7 +222,7 @@ body:not(.dueno) .dtop,body:not(.dueno) .dbar{display:none}
 .dctl{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .pe{flex:1 1 100%;display:flex;align-items:center;gap:2px;background:var(--coal2);border:1px solid var(--line);border-radius:8px;padding:0 8px;font:700 15px Oswald;color:var(--or)}
 .fila .pe{flex:0 1 120px}
-.pe input{border:0;background:none;padding:7px 2px;font:700 15px Oswald;color:var(--bone);width:100%;min-width:60px}
+.pe input{border:0;background:none;padding:7px 2px;font:700 16px Oswald;color:var(--bone);width:100%;min-width:60px}
 .sw{flex:1;display:flex;align-items:center;gap:8px;border-radius:8px;padding:7px 9px;background:#3A1E1B;color:#FF9C8F;font:600 12px Oswald;text-transform:uppercase;letter-spacing:.04em}
 .sw i{width:30px;height:17px;border-radius:9px;background:var(--red);position:relative;flex:none;transition:.25s}
 .sw i:after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff;transition:.25s var(--e)}
@@ -250,7 +251,7 @@ body:not(.dueno) .dtop,body:not(.dueno) .dbar{display:none}
 <header class="hero">
  <div class="bg"></div>
  <div>
-  <img class="logo" src="../img/logo.png" alt="Bovinos Hamburgueserías · Carne, madera, rock">
+  <img class="logo" src="../img/logo.webp" alt="Bovinos Hamburgueserías · Carne, madera, rock">
   <div class="lema">Carne <i>·</i> Madera <i>·</i> Rock</div>
   <h1 class="rye">Hamburguesas que <b>suenan duro</b></h1>
   <div class="stars"><i>★★★★★</i> 4,5 en Google · 224 reseñas</div><br>
@@ -296,7 +297,7 @@ body:not(.dueno) .dtop,body:not(.dueno) .dbar{display:none}
 <div class="velo" id="velo"></div>
 <div class="hoja" id="ficha" role="dialog" aria-modal="true" aria-label="Detalle del plato"></div>
 <div class="hoja" id="pedido" role="dialog" aria-modal="true" aria-label="Mi pedido"></div>
-<div class="hoja" id="pinH" role="dialog" aria-modal="true" aria-label="Entrar como dueño"><div class="in" style="text-align:center;padding:28px 22px 30px"><img src="../img/logo.png" alt="" style="width:96px;margin:0 auto 12px;border-radius:50%"><h3>Modo dueño</h3><p class="ds">Escribe tu PIN para cambiar precios, marcar agotados y elegir el Top de la semana.</p><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="12" aria-label="PIN" style="text-align:center;font:700 22px Oswald;letter-spacing:.4em"><p class="nota" id="err" style="color:#FF8A7A;min-height:16px"></p><button class="btn" id="entrar" style="width:100%;margin-top:6px">Entrar</button></div></div>
+<div class="hoja" id="pinH" role="dialog" aria-modal="true" aria-label="Entrar como dueño"><div class="in" style="text-align:center;padding:28px 22px 30px"><img src="../img/logo.webp" alt="" style="width:96px;margin:0 auto 12px;border-radius:50%"><h3>Modo dueño</h3><p class="ds">Escribe tu PIN para cambiar precios, marcar agotados y elegir el Top de la semana.</p><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="12" aria-label="PIN" style="text-align:center;font:700 22px Oswald;letter-spacing:.4em"><p class="nota" id="err" style="color:#FF8A7A;min-height:16px"></p><button class="btn" id="entrar" style="width:100%;margin-top:6px">Entrar</button></div></div>
 <div class="dbar"><button id="dout" class="btn sec">Salir</button><button id="dsave" class="btn" disabled>Sin cambios</button></div><div class="toast" id="toast"></div>
 
 <script>
@@ -307,7 +308,7 @@ const P={};DATA.forEach(c=>c.p.forEach(p=>P[p.id]={...p,cat:c.n,ci:c.i,fav:FAV0.
 const LISTA=new Set(["Bebidas","Cervezas y Cócteles","Postres","Combos"]); // sin foto: en filas
 const VENCE=6*3600e3, KEY="bovinos_pedido2";
 let cart=[], datos={nombre:"",dir:"",ref:"",geo:"",entrega:"recoger",pago:"",cuanto:""};
-try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");if(s.t&&Date.now()-s.t<VENCE)cart=(s.c||[]).filter(i=>P[i.id]);if(s.d)datos={...datos,...s.d,pago:"",cuanto:""}}catch(e){}
+try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");if(s.t&&Date.now()-s.t<VENCE)cart=(s.c||[]).filter(i=>i&&P[i.id]&&i.op&&Array.isArray(i.op.ad)&&Array.isArray(i.op.quitar)&&i.q>0).map(i=>({...i,q:Math.min(20,Math.floor(i.q)||1)}));if(s.d)datos={...datos,...s.d,pago:"",cuanto:""}}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({t:Date.now(),c:cart,d:{nombre:datos.nombre,dir:datos.dir,ref:datos.ref,geo:datos.geo,entrega:datos.entrega}}))}catch(e){}};
 const foto=(p,cl="")=>p.f?`<img src="../img/${p.f}" alt="" loading="lazy"${cl}>`:"";
 
@@ -335,12 +336,15 @@ addEventListener("scroll",marcar,{passive:true});marcar();
 
 // Hojas
 let abierta=null;
-const abrir=h=>{abierta&&abierta.classList.remove("on");abierta=h;h.classList.add("on");$("#velo").classList.add("on");document.body.style.overflow="hidden";h.scrollTop=0};
-const cerrar=()=>{abierta&&abierta.classList.remove("on");abierta=null;$("#velo").classList.remove("on");document.body.style.overflow=""};
+let enHist=false; // cada ventana agrega una entrada al historial: el "atrás" del celular la cierra
+const abrir=h=>{abierta&&abierta.classList.remove("on");abierta=h;h.classList.add("on");$("#velo").classList.add("on");document.body.style.overflow="hidden";h.scrollTop=0;if(!enHist){history.pushState({hoja:1},"");enHist=true}};
+const cerrarSinHist=()=>{abierta&&abierta.classList.remove("on");abierta=null;$("#velo").classList.remove("on");document.body.style.overflow=""};
+const cerrar=()=>{cerrarSinHist();if(enHist){enHist=false;history.back()}};
+addEventListener("popstate",()=>{if(enHist){enHist=false;if(abierta&&abierta.id==="pinH"){history.pushState({hoja:1},"");enHist=true}else cerrarSinHist()}});
 $("#velo").onclick=cerrar;addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
 
 // Ficha con opciones: combo (elige 1 + bebida), adiciones (cantidad) y quitar ingredientes
-const grupos=p=>(OPC[p.cat]||[]).map(g=>({...g,o:g.o.filter(o=>!o.pid||!P[o.pid]||!P[o.pid].off)}));
+const grupos=p=>(OPC[p.cat]||[]).map(g=>({...g,o:g.o.filter(o=>!o.pid||!P[o.pid]||!P[o.pid].off).map(o=>o.pid&&P[o.pid]?{...o,v:P[o.pid].v}:o)}));
 function precioU(p,sel){return p.v+(sel.combo?sel.combo.v:0)+sel.ad.reduce((s,a)=>s+a.v*a.q,0)}
 function ficha(id){const p=P[id],G=grupos(p);let q=1,sel={combo:null,beb:"",ad:[],quitar:[]};
  const h=$("#ficha");
@@ -388,7 +392,8 @@ function pintarBarra(bump){const n=cuantos(),bar=$("#bar");bar.classList.toggle(
 $("#bar").onclick=()=>pedido();
 
 // Ubicación del cliente: GPS del celular o enlace de Google Maps pegado
-const mapa=g=>/^https?:\/\//.test(g)?g:`https://maps.google.com/?q=${g}`;
+const MAPS=/^https:\/\/(maps\.app\.goo\.gl|goo\.gl\/maps|(www\.)?google\.[a-z.]+\/maps|maps\.google\.[a-z.]+)\//i;
+const mapa=g=>MAPS.test(g)?g:/^-?\d{1,2}\.\d+,-?\d{1,3}\.\d+$/.test(g)?`https://maps.google.com/?q=${g}`:"";
 function ubicar(btn){if(!navigator.geolocation)return alert("Tu celular no permite compartir la ubicación desde aquí. Escribe la dirección.");
  btn.textContent="Buscando ubicación…";
  navigator.geolocation.getCurrentPosition(p=>{datos.geo=p.coords.latitude.toFixed(6)+","+p.coords.longitude.toFixed(6);save();pedido()},
@@ -407,7 +412,7 @@ function pedido(paso="lista"){const h=$("#pedido");
   <label class="l" for="nom">Tu nombre</label><input id="nom" maxlength="40" autocomplete="name" value="${esc(datos.nombre)}">
   <div id="dirW"><label class="l" for="dir">Dirección</label><input id="dir" maxlength="120" autocomplete="street-address" placeholder="Calle, número, barrio" value="${esc(datos.dir)}">
    <input id="ref" maxlength="100" placeholder="Torre, apto o referencia (opcional)" value="${esc(datos.ref)}" style="margin-top:8px">
-   <div class="geo">${datos.geo?`<button class="ok" id="geoB">✓ Ubicación agregada</button><a href="${esc(mapa(datos.geo))}" target="_blank" rel="noopener">Ver</a><a href="#" id="geoX" aria-label="Quitar ubicación">✕</a>`:`<button id="geoB">📍 Usar mi ubicación actual</button>`}</div>
+   <div class="geo">${mapa(datos.geo)?`<button class="ok" id="geoB">✓ Ubicación agregada</button><a href="${esc(mapa(datos.geo))}" target="_blank" rel="noopener">Ver</a><a href="#" id="geoX" aria-label="Quitar ubicación">✕</a>`:`<button id="geoB">📍 Usar mi ubicación actual</button>`}</div>
    ${datos.geo?"":`<input id="geoL" inputmode="url" maxlength="300" placeholder="…o pega aquí tu enlace de Google Maps" style="margin-top:8px">`}</div>
   <label class="l">Forma de pago</label><div class="opts" id="pag"><button data-v="Efectivo">Efectivo</button><button data-v="Transferencia">Transferencia</button></div>
   <div id="cuW" class="hide"><label class="l" for="cu">¿Con cuánto pagas? (opcional)</label><input id="cu" inputmode="numeric" maxlength="9" placeholder="Ej: 100000" value="${esc(datos.cuanto)}"></div>
@@ -424,7 +429,7 @@ function pedido(paso="lista"){const h=$("#pedido");
   $("#nom").oninput=e=>{datos.nombre=e.target.value;save()};$("#dir").oninput=e=>{datos.dir=e.target.value;save()};$("#ref").oninput=e=>{datos.ref=e.target.value;save()};
   $("#geoB").onclick=e=>{if(!datos.geo)ubicar(e.currentTarget)};
   if($("#geoX"))$("#geoX").onclick=e=>{e.preventDefault();datos.geo="";save();pedido()};
-  if($("#geoL"))$("#geoL").onchange=e=>{const v=e.target.value.trim();if(/^https?:\/\/(maps\.app\.goo\.gl|goo\.gl\/maps|(www\.)?google\.[a-z.]+\/maps|maps\.google\.)/i.test(v)){datos.geo=v;save();pedido()}else if(v)$("#aviso").textContent="Ese enlace no es de Google Maps."};
+  if($("#geoL"))$("#geoL").onchange=e=>{const v=e.target.value.trim();if(MAPS.test(v)){datos.geo=v;save();pedido()}else if(v)$("#aviso").textContent="Ese enlace no es de Google Maps."};
   $("#cu").oninput=e=>{e.target.value=e.target.value.replace(/\D/g,"");datos.cuanto=e.target.value};
   $("#rev").onclick=()=>{const av=$("#aviso");
    if(!datos.nombre.trim())return av.textContent="Escribe tu nombre.";
@@ -437,7 +442,7 @@ function pedido(paso="lista"){const h=$("#pedido");
  const msg=mensaje(hora);
  h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3>${ticket(hora)}<p class="nota" style="margin-top:12px">Al tocar Enviar se abre WhatsApp con tu pedido listo. Solo dale enviar.</p><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
  h.querySelector(".x").onclick=cerrar;$("#edi").onclick=()=>pedido();
- $("#env").onclick=()=>{window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");cart=[];save();pintarBarra();
+ $("#env").onclick=()=>{const url="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);cart=[];save();pintarBarra();if(!window.open(url,"_blank"))location.href=url;
   h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in" style="text-align:center;padding:40px 20px"><div style="font-size:48px">🤘</div><h3>¡Pedido enviado a WhatsApp!</h3><p class="ds">Si no se abrió WhatsApp, revisa que esté instalado y vuelve a intentarlo.</p><button class="btn" id="otro">Hacer otro pedido</button></div>`;
   h.querySelector(".x").onclick=cerrar;$("#otro").onclick=cerrar};
  h.scrollTop=0}
@@ -451,13 +456,13 @@ function mensaje(hora){
   L,`💰 *TOTAL: ${fmt(total())}*`,...(dom()?["_+ domicilio (me confirman el valor)_"]:[]),L,
   `👤 *Nombre:* ${datos.nombre.trim()}`,dom()?`🛵 *Entrega:* Domicilio`:`🏠 *Entrega:* Recojo en el local`,
   ...(dom()&&datos.dir.trim()?[`📍 *Dirección:* ${datos.dir.trim()}`]:[]),...(dom()&&datos.ref.trim()?[`🏢 *Referencia:* ${datos.ref.trim()}`]:[]),
-  ...(dom()&&datos.geo?[`🗺️ *Ubicación:* ${mapa(datos.geo)}`]:[]),
+  ...(dom()&&mapa(datos.geo)?[`🗺️ *Ubicación:* ${mapa(datos.geo)}`]:[]),
   `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_"].join("\n")}
 function ticket(hora){
- return `<div class="tk"><div class="tk-h"><img src="../img/logo.png" alt=""><div><b class="rye">Bovinos Burger</b><small>Mi pedido · ${hora}</small></div></div>
+ return `<div class="tk"><div class="tk-h"><img src="../img/logo.webp" alt=""><div><b class="rye">Bovinos Burger</b><small>Mi pedido · ${hora}</small></div></div>
  ${cart.map(i=>`<div class="tk-i"><span class="tk-q">${i.q}x</span><span class="tk-n">${esc(P[i.id].n)}${extras(i).map(x=>`<em>${esc(x)}</em>`).join("")}</span><span class="tk-v">${fmt(unit(i)*i.q)}</span></div>`).join("")}
  <div class="tk-t"><span>Total</span><b>${fmt(total())}</b></div>${dom()?`<p class="tk-s">+ valor del domicilio (te lo confirman por WhatsApp)</p>`:""}
- <div class="tk-d"><div><span>👤</span>${esc(datos.nombre.trim())}</div><div><span>${dom()?"🛵":"🏠"}</span>${dom()?"Domicilio"+(datos.dir.trim()?": "+esc(datos.dir.trim()):"")+(datos.ref.trim()?" · "+esc(datos.ref.trim()):""):"Recojo en el local"}</div>${dom()&&datos.geo?`<div><span>🗺️</span>Ubicación de Google Maps incluida</div>`:""}<div><span>💳</span>${esc(pagoTxt())}</div></div></div>`}
+ <div class="tk-d"><div><span>👤</span>${esc(datos.nombre.trim())}</div><div><span>${dom()?"🛵":"🏠"}</span>${dom()?"Domicilio"+(datos.dir.trim()?": "+esc(datos.dir.trim()):"")+(datos.ref.trim()?" · "+esc(datos.ref.trim()):""):"Recojo en el local"}</div>${dom()&&mapa(datos.geo)?`<div><span>🗺️</span>Ubicación de Google Maps incluida</div>`:""}<div><span>💳</span>${esc(pagoTxt())}</div></div></div>`}
 
 listo=true;pintarBarra();
 // precios, agotados y top en vivo desde la hoja de Google (Categoría, Plato, Precio, Disponible, Top). Vacío = datos de carta.py
@@ -478,7 +483,14 @@ if(SHEET)cargarHoja().catch(()=>{});
 // Página de dueños: PIN + precio, disponible y top por plato. El PIN lo valida el Apps Script de la hoja (API).
 const API="https://script.google.com/macros/s/AKfycbwrRPOHNrfK_ahFaKp-n-IGHCiBrAJYA2Vkt-G2dz1-jS3IJ5XLflfDJh5r81QAJSs/exec";let PIN="",edits={};
 const toast=(t,bad)=>{const e=$("#toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",3800)};
-const api=body=>API?fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pin:PIN,...body})}).then(r=>r.json()):Promise.reject(new Error("Falta conectar la hoja de precios."));
+async function api(body,intento=0){if(!API)throw new Error("Falta conectar la hoja de precios.");
+ const ab=new AbortController(),t=setTimeout(()=>ab.abort(),25000);
+ try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pin:PIN,...body}),signal:ab.signal});
+  const x=await r.text();try{return JSON.parse(x)}catch(e){throw new Error("RED")}}
+ catch(e){if(intento<2){await new Promise(z=>setTimeout(z,1500*(intento+1)));return api(body,intento+1)}throw new Error("Google no respondió. Revisa tu internet e intenta de nuevo.")}
+ finally{clearTimeout(t)}}
+if(API)fetch(API,{mode:"no-cors"}).catch(()=>{}); // despierta el script mientras escriben el PIN (arranque en frío de varios segundos)
+if(top!==self)top.location=self.location; // nadie puede meter esta página dentro de otra para robar el PIN
 const edit=id=>edits[id]||(edits[id]={v:P[id].v,off:!!P[id].off,fav:!!P[id].fav});
 const cambios=()=>Object.keys(edits).filter(id=>edits[id].v!==P[id].v||edits[id].off!==!!P[id].off||edits[id].fav!==!!P[id].fav);
 dctl=p=>{const e=edits[p.id]||p;return `<div class="dctl"><label class="pe">$<input data-pe="${p.id}" inputmode="numeric" value="${e.v}" aria-label="Precio de ${esc(p.n)}"></label><button class="sw${e.off?"":" on"}" data-sw="${p.id}" aria-label="Disponible: ${esc(p.n)}"><i></i><span>${e.off?"Agotado":"Disponible"}</span></button><button class="fv${e.fav?" on":""}" data-fv="${p.id}" aria-label="Top de la semana: ${esc(p.n)}" title="Top de la semana">⭐</button></div>`};
@@ -489,10 +501,11 @@ document.addEventListener("input",e=>{const id=e.target.dataset.pe;if(!id)return
 document.addEventListener("click",e=>{if(!DUENO)return;const w=e.target.closest("[data-sw]"),f=e.target.closest("[data-fv]");if(!w&&!f)return;e.stopPropagation();
  if(w){const v=edit(w.dataset.sw);v.off=!v.off;w.classList.toggle("on",!v.off);w.querySelector("span").textContent=v.off?"Agotado":"Disponible"}
  else{const v=edit(f.dataset.fv);v.fav=!v.fav;f.classList.toggle("on",v.fav)}contar()},true);
-$("#dsave").onclick=async()=>{const c=cambios(),malo=c.find(id=>edits[id].v<1000);if(malo)return toast(`Revisa el precio de ${P[malo].n}`,true);
+$("#dsave").onclick=async()=>{const c=cambios(),malo=c.find(id=>edits[id].v<1000||edits[id].v>300000);if(malo)return toast(`Revisa el precio de ${P[malo].n} (entre $1.000 y $300.000)`,true);
  const b=$("#dsave");b.disabled=true;b.textContent="Guardando…";
  try{const r=await api({accion:"guardar",cambios:c.map(id=>({cat:P[id].cat,plato:P[id].n,precio:edits[id].v,disponible:!edits[id].off,top:!!edits[id].fav}))});if(!r.ok)throw new Error(r.error);
-  c.forEach(id=>{P[id].v=edits[id].v;P[id].off=edits[id].off;P[id].fav=edits[id].fav});edits={};pintarCarta();toast("✓ Guardado. Los clientes lo verán en unos minutos.")}
+  c.forEach(id=>{P[id].v=edits[id].v;P[id].off=edits[id].off;P[id].fav=edits[id].fav});edits={};pintarCarta();
+  toast(r.guardados<c.length?`Se guardaron ${r.guardados} de ${c.length}: revisa que los platos estén en la hoja.`:"✓ Guardado. Los clientes lo verán en unos minutos.",r.guardados<c.length)}
  catch(e){toast(e.message||"No se pudo guardar. Revisa tu internet.",true)}
  contar()};
 function modoDueno(){DUENO=true;document.body.classList.add("dueno");cerrar();pintarCarta();contar()}
