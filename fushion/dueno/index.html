@@ -293,7 +293,7 @@ nav.pegada .navt{max-height:0;opacity:0;padding-top:0}
 <div class="sheet" id="dn" role="dialog" aria-label="Acceso dueños">
   <div class="grab"></div><h2>Modo dueño</h2><p class="nt">Escribe tu PIN para cambiar precios y marcar platos agotados.</p>
   <label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="12">
-  <label class="chk"><input type="checkbox" id="rec" checked>Recordar en este celular</label>
+  <label class="chk"><input type="checkbox" id="rec">Recordar en este celular (30 días)</label>
   <p class="err" id="err"></p><button class="send" id="entrar" style="background:var(--red);color:#fff">Entrar</button>
 </div>
 <div class="toast" id="toast"></div>
@@ -496,7 +496,10 @@ if(SHEET)cargarHoja().catch(()=>{}); // si falla, se quedan los precios de la ca
 /*DUENO*/
 const API="https://script.google.com/macros/s/AKfycbwSgdzWSaWF9ZSqiqwA76YcgSA_wjcJjkBawtlvRNiBtfEOrW9uD_LpsFXFlowO6-c/exec";let PIN="",edits={}; // en la página de dueños el PIN no se puede cerrar
 // página de dueños (el PIN lo valida el script de la hoja; 5 errores = bloqueo de 15 min)
-const store={get(){try{return localStorage.getItem("fushion_pin")||""}catch(e){return ""}},set(v){try{v?localStorage.setItem("fushion_pin",v):localStorage.removeItem("fushion_pin")}catch(e){}}};
+const PIN_DIAS=30; // el PIN recordado vence: si prestan o pierden el celular no queda abierto para siempre
+const store={get(){try{const g=JSON.parse(localStorage.getItem("fushion_pin")||"{}");if(g.p&&Date.now()-g.t<PIN_DIAS*864e5)return g.p;localStorage.removeItem("fushion_pin")}catch(e){try{localStorage.removeItem("fushion_pin")}catch(_){}}return ""},
+ set(v){try{v?localStorage.setItem("fushion_pin",JSON.stringify({p:v,t:Date.now()})):localStorage.removeItem("fushion_pin")}catch(e){}}};
+if(top!==self)top.location=self.location; // nadie puede meter esta página dentro de otra para robar el PIN
 const toast=(t,bad)=>{const e=$("#toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",3800)};
 // Google a veces tarda (el script "despierta") o responde una página de error en vez de JSON: se reintenta y nunca se queda en "Entrando…"
 async function api(body,intento=0){
