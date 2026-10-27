@@ -88,7 +88,7 @@ function tk(o,caja){const piezas=o.i.reduce((s,x)=>s+x[0],0);
  <div class="pie">La buena vida sabe a burger</div></section>`}
 let pedido=leer();
 function pintar(){const cp=$("#copias").value;document.body.className=$("#papel").value;
- if(!pedido){$("#out").innerHTML=`<div class="vacio"><p>Abre esta página desde el enlace 🖨️ <b>Comanda</b> que llega en cada pedido de WhatsApp.</p><button id="ej">Ver un ejemplo</button></div>`;$("#ej").onclick=()=>{pedido=EJEMPLO;pintar()};return}
+ if(!pedido){$("#out").innerHTML=`<div class="vacio"><p>${location.hash.length>1?"Este enlace llegó <b>cortado</b> y no se puede leer el pedido. Ábrelo tocando el enlace completo en el mensaje de WhatsApp (no lo copies a mano).":"Aquí no hay ningún pedido. La comanda se abre desde el enlace 🖨️ <b>Comanda para cocina</b> que llega al final de cada pedido por WhatsApp."}</p><button id="ej">Ver un ejemplo</button></div>`;$("#ej").onclick=()=>{pedido=EJEMPLO;pintar()};return}
  $("#out").innerHTML=(cp!=="caja"?tk(pedido,false):"")+(cp!=="cocina"?tk(pedido,true):"");
  // tamaño de página = ancho del papel y alto del ticket más largo (la térmica corta donde termina)
  const carta=$("#papel").value==="carta",alto=Math.max(...[...document.querySelectorAll(".tk")].map(t=>t.offsetHeight))*25.4/96+8;
