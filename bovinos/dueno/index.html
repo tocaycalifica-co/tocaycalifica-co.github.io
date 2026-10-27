@@ -442,8 +442,8 @@ function pedido(paso="lista"){const h=$("#pedido");
    if(datos.cuanto&&+datos.cuanto<total())return av.textContent="El valor con el que pagas es menor que el total.";
    pedido("revisar")};
   if(abierta!==h)abrir(h);return}
- const hora=new Date().toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"}), id=Date.now().toString(36).slice(-4).toUpperCase();
- const msg=mensaje(hora,id);
+ const hora=new Date().toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"});
+ const msg=mensaje(hora);
  h.innerHTML=`<button class="x" aria-label="Cerrar">✕</button><div class="in"><h3>Revisa tu pedido</h3>${ticket(hora)}<p class="nota" style="margin-top:12px">Al tocar Enviar se abre WhatsApp con tu pedido listo. Solo dale enviar.</p><div class="acc"><button class="btn sec" id="edi">Editar</button><button class="btn wa" id="env">Enviar por WhatsApp</button></div></div>`;
  h.querySelector(".x").onclick=cerrar;$("#edi").onclick=()=>pedido();
  $("#env").onclick=()=>{const url="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);cart=[];save();pintarBarra();if(!window.open(url,"_blank"))location.href=url;
@@ -453,19 +453,19 @@ function pedido(paso="lista"){const h=$("#pedido");
 
 const dom=()=>datos.entrega==="domicilio", cambio=()=>datos.pago==="Efectivo"&&+datos.cuanto>total()?+datos.cuanto-total():0;
 function pagoTxt(){return datos.pago==="Efectivo"&&+datos.cuanto?`Efectivo · paga con ${fmt(+datos.cuanto)}${cambio()?` (cambio ${fmt(cambio())})`:""}`:datos.pago}
-function mensaje(hora,id){
+function mensaje(hora){
  const L="━━━━━━━━━━━━━━━━";
- return ["🐂 *BOVINOS BURGER*","_Carne · Madera · Rock_",L,`🧾 *PEDIDO #${id}* · ${hora}`,"",
+ return ["🐂 *BOVINOS BURGER*","_Carne · Madera · Rock_",`🖨️ Comanda: ${comanda(hora)}`,L,`🧾 *MI PEDIDO* · ${hora}`,"",
   ...cart.flatMap(i=>[`▸ *${i.q}x ${P[i.id].n}*`,...extras(i).map(x=>`     ${x.startsWith("✏️")?`✏️ _${x.slice(3)}_`:x}`),`     ${fmt(unit(i)*i.q)}`]),
   L,`💰 *TOTAL: ${fmt(total())}*`,...(dom()?["_+ domicilio (me confirman el valor)_"]:[]),L,
   `👤 *Nombre:* ${datos.nombre.trim()}`,dom()?`🛵 *Entrega:* Domicilio`:`🏠 *Entrega:* Recojo en el local`,
   ...(dom()&&datos.dir.trim()?[`📍 *Dirección:* ${datos.dir.trim()}`]:[]),...(dom()&&datos.ref.trim()?[`🏢 *Referencia:* ${datos.ref.trim()}`]:[]),
   ...(dom()&&mapa(datos.geo)?[`🗺️ *Ubicación:* ${mapa(datos.geo)}`]:[]),
-  `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_","",`🖨️ Comanda para cocina: ${comanda(hora,id)}`].join("\n")}
-// Enlace a la comanda imprimible (web/comanda): el pedido va en el # (no se envía a ningún servidor), en base64url.
-function comanda(hora,id){const o={id,h:hora,f:new Date().toLocaleDateString("es-CO",{day:"2-digit",month:"2-digit"}),n:datos.nombre.trim(),e:dom()?"D":"R",
-  d:dom()?datos.dir.trim():"",r:dom()?datos.ref.trim():"",g:dom()?mapa(datos.geo):"",pg:pagoTxt(),t:total(),i:cart.map(i=>[i.q,P[i.id].n,extras(i),unit(i)*i.q])};
- return "https://tocaycalifica-co.github.io/bovinos/comanda/#"+btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+  `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_"].join("\n")}
+// Enlace corto a la comanda imprimible (web/c, formato en comanda.html): el pedido va en el # (no pasa por ningún servidor), en base64url.
+function comanda(hora){const o=[hora,datos.nombre.trim(),dom()?1:0,dom()?datos.dir.trim():"",dom()?datos.ref.trim():"",dom()&&mapa(datos.geo)?1:0,datos.pago==="Efectivo"?"E":"T",datos.pago==="Efectivo"?+datos.cuanto||0:0,total(),
+  cart.map(i=>[P[i.id].n,i.q,...extras(i).map(x=>x.replace(/:[^(]*/," ").replace(/ +/g," ").trim())])]; // "Combo Ultra: 150 g … (Sprite)" -> "Combo Ultra (Sprite)"
+ return "https://tocaycalifica-co.github.io/bovinos/c/#"+btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 function ticket(hora){
  return `<div class="tk"><div class="tk-h"><img src="../img/logo.webp" alt=""><div><b class="rye">Bovinos Burger</b><small>Mi pedido · ${hora}</small></div></div>
  ${cart.map(i=>`<div class="tk-i"><span class="tk-q">${i.q}x</span><span class="tk-n">${esc(P[i.id].n)}${extras(i).map(x=>`<em>${esc(x)}</em>`).join("")}</span><span class="tk-v">${fmt(unit(i)*i.q)}</span></div>`).join("")}

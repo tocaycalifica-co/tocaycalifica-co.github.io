@@ -57,7 +57,7 @@ body.carta{--w:110mm;--f:15px}
 <div class="barra">
  <b>🖨️ Comanda</b>
  <select id="papel" aria-label="Papel"><option value="p80">Tirilla 80 mm</option><option value="p58">Tirilla 58 mm</option><option value="carta">Hoja carta / PDF</option></select>
- <select id="copias" aria-label="Copias"><option value="ambas">Cocina + caja</option><option value="cocina">Solo cocina</option><option value="caja">Solo caja</option></select>
+ <select id="copias" aria-label="Copias"><option value="1">1 copia</option><option value="2">2 copias</option></select>
  <button class="imp" id="imp">Imprimir / Guardar PDF</button>
 </div>
 <p class="ayuda">Con impresora térmica Bluetooth en Android: instala <b>RawBT</b>, emparéjala una vez y aquí toca <b>Imprimir</b> → elige <b>RawBT</b>. Sin impresora: <b>Imprimir → Guardar como PDF</b>.</p>
@@ -66,37 +66,42 @@ body.carta{--w:110mm;--f:15px}
 const $=s=>document.querySelector(s), fmt=n=>"$"+Number(n).toLocaleString("es-CO");
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const txt=(s,max=200)=>typeof s==="string"?s.slice(0,max):"", num=n=>Number.isFinite(+n)&&+n>=0&&+n<1e8?+n:0;
-const EJEMPLO={id:"EJ01",h:"7:42 p. m.",f:"26/10",n:"Andrea (ejemplo)",e:"D",d:"Cra. 3 #4-20, Capellanía",r:"Casa esquinera, reja negra",g:"",pg:"Efectivo · paga con $100.000 (cambio $12.300)",t:87700,
- i:[[2,"Bovinos Ripe",["+ Combo Ultra: 150 g de papas + bebida a tu gusto (Sprite)","+ Carne de res","Sin cebolla"],80600],[1,"Bovinos Chicken",["Sin vegetales","✏️ Salsas aparte"],27900],[1,"Dedos de Queso",[],15000]]};
+// Formato del enlace (corto, para que quepa arriba del mensaje de WhatsApp sin "Leer más"):
+// #base64url de [hora, nombre, domicilio 1/0, dirección, referencia, mapa 1/0, pago "E"/"T", paga con, total, [[plato, cantidad, extra, extra…], …]]
+const EJEMPLO=["7:42 p. m.","Andrea (ejemplo)",1,"Cra. 3 #4-20, Capellanía","Casa esquinera, reja negra",1,"E",100000,87700,
+ [["Bovinos Ripe",2,"+ Combo Ultra (Sprite)","+ Carne de res","Sin cebolla"],["Bovinos Chicken",1,"Sin vegetales","✏️ Salsas aparte"],["Dedos de Queso",1]]];
 // El pedido viene del enlace: se valida campo por campo y todo se escapa (cualquiera puede armar un enlace).
-function leer(){const h=location.hash.slice(1);if(!h)return null;
- try{const b=atob(h.replace(/-/g,"+").replace(/_/g,"/"));const o=JSON.parse(decodeURIComponent(escape(b)));
-  if(!o||!Array.isArray(o.i)||!o.i.length)return null;
-  return {id:txt(o.id,8),h:txt(o.h,20),f:txt(o.f,10),n:txt(o.n,40),e:o.e==="D"?"D":"R",d:txt(o.d,120),r:txt(o.r,100),g:txt(o.g,300),pg:txt(o.pg,80),t:num(o.t),
-   i:o.i.slice(0,60).filter(Array.isArray).map(x=>[Math.min(99,Math.floor(num(x[0]))||1),txt(x[1],60),(Array.isArray(x[2])?x[2]:[]).slice(0,20).map(e=>txt(e,120)),num(x[3])])}}
+function leer(h=location.hash.slice(1)){if(!h)return null;
+ try{const o=typeof h==="string"?JSON.parse(decodeURIComponent(escape(atob(h.replace(/-/g,"+").replace(/_/g,"/"))))):h;
+  if(!Array.isArray(o)||!Array.isArray(o[9])||!o[9].length)return null;
+  const t=num(o[8]),cu=num(o[7]),cambio=cu>t?cu-t:0;
+  return {h:txt(o[0],20),n:txt(o[1],40),e:o[2]===1?"D":"R",d:txt(o[3],120),r:txt(o[4],100),g:o[5]===1,t,
+   pg:o[6]==="E"?"Efectivo"+(cu?` · paga con ${fmt(cu)}${cambio?` (cambio ${fmt(cambio)})`:""}`:""):o[6]==="T"?"Transferencia":"",
+   i:o[9].slice(0,60).filter(Array.isArray).map(x=>[Math.min(99,Math.floor(num(x[1]))||1),txt(x[0],60),x.slice(2,22).map(e=>txt(e,120))])}}
  catch(e){return null}}
 const extra=e=>/^sin /i.test(e)?`<li class="sin">${esc(e.toUpperCase())}</li>`:e.startsWith("✏️")?`<li class="nota">NOTA: ${esc(e.slice(2).trim())}</li>`:`<li>${esc(e.replace(/:[^(]*/," ").replace(/ +/g," ").trim())}</li>`; // "Combo Ultra: 150 g de papas + … (Sprite)" -> "Combo Ultra (Sprite)"
-function tk(o,caja){const piezas=o.i.reduce((s,x)=>s+x[0],0);
- return `<section class="tk"><div class="c"><div class="marca">Bovinos Burger</div><span class="tipo">${caja?"— CAJA / DOMICILIO —":"— COMANDA COCINA —"}</span></div>
- <div class="num"><big>#${esc(o.id)}</big><span>${esc(o.h)}${o.f?" · "+esc(o.f):""}</span></div>
+// Una sola comanda: lo de cocina arriba (sin precios, con casillas) y abajo total, entrega y pago para quien despacha.
+function tk(o){
+ return `<section class="tk"><div class="c"><div class="marca">Bovinos Burger</div><span class="tipo">— COMANDA —</span></div>
+ <div class="num"><big>${esc(o.h)}</big><span>${o.i.reduce((s,x)=>s+x[0],0)} prod.</span></div>
  <div class="inv">${o.e==="D"?"DOMICILIO":"RECOGE EN EL LOCAL"}</div>
  <div class="dato"><b>Cliente:</b> ${esc(o.n)}</div><hr>
- ${o.i.map(([q,n,ex,v])=>`<div class="it"><div class="n">${caja?"":`<span class="chk"></span>`}<span class="q">${q}x</span><span>${esc(n)}</span>${caja?`<span class="p">${fmt(v)}</span>`:""}</div>${ex.length?`<ul>${ex.map(extra).join("")}</ul>`:""}</div>`).join("")}
- <hr>${caja?`<div class="tot"><span>TOTAL</span><span>${fmt(o.t)}</span></div>${o.e==="D"?`<div class="pie">+ valor del domicilio</div>`:""}<hr>
- ${o.e==="D"?`<div class="dato"><b>Dirección:</b> ${esc(o.d)||"(ver ubicación en WhatsApp)"}</div>${o.r?`<div class="dato"><b>Ref.:</b> ${esc(o.r)}</div>`:""}${o.g?`<div class="dato"><b>Mapa:</b> enviado en WhatsApp</div>`:""}`:""}
- <div class="dato"><b>Pago:</b> ${esc(o.pg)}</div>`:`<div class="dato"><b>Productos:</b> ${piezas}</div>`}
+ ${o.i.map(([q,n,ex])=>`<div class="it"><div class="n"><span class="chk"></span><span class="q">${q}x</span><span>${esc(n)}</span></div>${ex.length?`<ul>${ex.map(extra).join("")}</ul>`:""}</div>`).join("")}
+ <hr><div class="tot"><span>TOTAL</span><span>${fmt(o.t)}</span></div>${o.e==="D"?`<div class="pie">+ valor del domicilio</div>`:""}
+ ${o.e==="D"?`<div class="dato"><b>Dirección:</b> ${esc(o.d)||"(ver ubicación en WhatsApp)"}</div>${o.r?`<div class="dato"><b>Ref.:</b> ${esc(o.r)}</div>`:""}${o.g?`<div class="dato"><b>Mapa:</b> en el WhatsApp</div>`:""}`:""}
+ <div class="dato"><b>Pago:</b> ${esc(o.pg)}</div>
  <div class="pie">La buena vida sabe a burger</div></section>`}
 let pedido=leer();
-function pintar(){const cp=$("#copias").value;document.body.className=$("#papel").value;
- if(!pedido){$("#out").innerHTML=`<div class="vacio"><p>${location.hash.length>1?"Este enlace llegó <b>cortado</b> y no se puede leer el pedido. Ábrelo tocando el enlace completo en el mensaje de WhatsApp (no lo copies a mano).":"Aquí no hay ningún pedido. La comanda se abre desde el enlace 🖨️ <b>Comanda para cocina</b> que llega al final de cada pedido por WhatsApp."}</p><button id="ej">Ver un ejemplo</button></div>`;$("#ej").onclick=()=>{pedido=EJEMPLO;pintar()};return}
- $("#out").innerHTML=(cp!=="caja"?tk(pedido,false):"")+(cp!=="cocina"?tk(pedido,true):"");
+function pintar(){document.body.className=$("#papel").value;
+ if(!pedido){$("#out").innerHTML=`<div class="vacio"><p>${location.hash.length>1?"Este enlace llegó <b>cortado</b> y no se puede leer el pedido. Ábrelo tocando el enlace completo en el mensaje de WhatsApp (no lo copies a mano).":"Aquí no hay ningún pedido. La comanda se abre desde el enlace 🖨️ <b>Comanda</b> que llega arriba de cada pedido por WhatsApp."}</p><button id="ej">Ver un ejemplo</button></div>`;$("#ej").onclick=()=>{pedido=leer(EJEMPLO);pintar()};return}
+ $("#out").innerHTML=tk(pedido).repeat(+$("#copias").value||1);
  // tamaño de página = ancho del papel y alto del ticket más largo (la térmica corta donde termina)
  const carta=$("#papel").value==="carta",alto=Math.max(...[...document.querySelectorAll(".tk")].map(t=>t.offsetHeight))*25.4/96+8;
  $("#pagina").textContent=carta?"@page{size:letter;margin:12mm}":`@page{size:${$("#papel").value==="p58"?58:80}mm ${Math.ceil(alto)}mm;margin:0}`}
 const KEY="bovinos_comanda";
 try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");if(s.papel)$("#papel").value=s.papel;if(s.copias)$("#copias").value=s.copias}catch(e){}
 ["papel","copias"].forEach(id=>$("#"+id).onchange=()=>{try{localStorage.setItem(KEY,JSON.stringify({papel:$("#papel").value,copias:$("#copias").value}))}catch(e){}pintar()});
-$("#imp").onclick=()=>{if(!pedido){pedido=EJEMPLO;pintar()}window.print()};
+$("#imp").onclick=()=>{if(!pedido){pedido=leer(EJEMPLO);pintar()}window.print()};
 addEventListener("hashchange",()=>{pedido=leer();pintar()});
 pintar();
 </script>
