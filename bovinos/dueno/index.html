@@ -455,13 +455,13 @@ const dom=()=>datos.entrega==="domicilio", cambio=()=>datos.pago==="Efectivo"&&+
 function pagoTxt(){return datos.pago==="Efectivo"&&+datos.cuanto?`Efectivo · paga con ${fmt(+datos.cuanto)}${cambio()?` (cambio ${fmt(cambio())})`:""}`:datos.pago}
 function mensaje(hora){
  const L="━━━━━━━━━━━━━━━━";
- return ["🐂 *BOVINOS BURGER*","_Carne · Madera · Rock_",`🖨️ Comanda: ${comanda(hora)}`,L,`🧾 *MI PEDIDO* · ${hora}`,"",
+ return ["🐂 *BOVINOS BURGER*","_Carne · Madera · Rock_",L,`🧾 *MI PEDIDO* · ${hora}`,"",
   ...cart.flatMap(i=>[`▸ *${i.q}x ${P[i.id].n}*`,...extras(i).map(x=>`     ${x.startsWith("✏️")?`✏️ _${x.slice(3)}_`:x}`),`     ${fmt(unit(i)*i.q)}`]),
   L,`💰 *TOTAL: ${fmt(total())}*`,...(dom()?["_+ domicilio (me confirman el valor)_"]:[]),L,
   `👤 *Nombre:* ${datos.nombre.trim()}`,dom()?`🛵 *Entrega:* Domicilio`:`🏠 *Entrega:* Recojo en el local`,
   ...(dom()&&datos.dir.trim()?[`📍 *Dirección:* ${datos.dir.trim()}`]:[]),...(dom()&&datos.ref.trim()?[`🏢 *Referencia:* ${datos.ref.trim()}`]:[]),
   ...(dom()&&mapa(datos.geo)?[`🗺️ *Ubicación:* ${mapa(datos.geo)}`]:[]),
-  `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_"].join("\n")}
+  `💳 *Pago:* ${pagoTxt()}`,L,"📲 _Pedido hecho desde la carta digital_","",`🖨️ Comanda: ${comanda(hora)}`].join("\n")} // la comanda de última: WhatsApp hace la vista previa con el primer enlace (el de Maps)
 // Enlace corto a la comanda imprimible (web/c, formato en comanda.html): el pedido va en el # (no pasa por ningún servidor), en base64url.
 function comanda(hora){const o=[hora,datos.nombre.trim(),dom()?1:0,dom()?datos.dir.trim():"",dom()?datos.ref.trim():"",dom()&&mapa(datos.geo)?1:0,datos.pago==="Efectivo"?"E":"T",datos.pago==="Efectivo"?+datos.cuanto||0:0,total(),
   cart.map(i=>[P[i.id].n,i.q,...extras(i).map(x=>x.replace(/:[^(]*/," ").replace(/ +/g," ").trim())])]; // "Combo Ultra: 150 g … (Sprite)" -> "Combo Ultra (Sprite)"
