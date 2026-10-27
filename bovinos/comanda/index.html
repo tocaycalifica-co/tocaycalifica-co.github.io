@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bovinos Burger · Comanda</title>
+<!-- Comanda imprimible del pedido de WhatsApp. El pedido viaja en el enlace (#...): nunca llega a un servidor.
+     menu.py la copia a web/comanda/index.html. Tirilla térmica 80 o 58 mm (Bluetooth/USB) o PDF. -->
+<style>
+:root{--w:72mm;--f:13px}
+*{box-sizing:border-box}
+body{margin:0;background:#2a2622;color:#111;font:var(--f)/1.3 "Courier New",ui-monospace,monospace}
+.barra{position:sticky;top:0;z-index:2;background:#0C0B0A;color:#EFE8DA;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:14px/1.2 system-ui,sans-serif}
+.barra b{font-size:15px;margin-right:auto}
+.barra select,.barra button,.barra label{font:inherit;border-radius:8px;border:1px solid #5a5148;background:#1d1a17;color:#EFE8DA;padding:8px 10px}
+.barra button.imp{background:#F39A33;color:#111;border:0;font-weight:700}
+.ayuda{background:#1d1a17;color:#cfc6b6;font:13px/1.45 system-ui,sans-serif;padding:10px 14px;margin:0}
+.ayuda a{color:#F39A33}
+main{padding:16px 0 40px}
+.tk{width:var(--w);margin:0 auto 18px;background:#fff;padding:3mm 2mm 6mm;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.c{text-align:center}
+.marca{font:900 1.55em/1 Impact,"Arial Black",sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.tipo{display:block;margin:.5mm 0 1.5mm;font-weight:700;letter-spacing:.15em}
+.num{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}
+.num big{font-size:1.9em;letter-spacing:.02em}
+.inv{background:#000;color:#fff;font-weight:900;text-align:center;padding:1.2mm;margin:1.5mm 0;font-size:1.3em;letter-spacing:.06em;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+hr{border:0;border-top:1px dashed #000;margin:2mm 0}
+.it{margin:0 0 2.2mm;break-inside:avoid}
+.it .n{display:flex;gap:1.5mm;font-weight:900;font-size:1.22em;line-height:1.15;text-transform:uppercase}
+.it .n .q{flex:none}
+.it .n .p{margin-left:auto;font-weight:700;font-size:.85em;white-space:nowrap}
+.it ul{list-style:none;margin:.8mm 0 0;padding:0 0 0 7mm}
+.it li{margin:.4mm 0}
+.it li.sin{font-weight:900;background:#000;color:#fff;display:inline-block;padding:0 1.2mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.it li.nota{border:1.5px solid #000;padding:.6mm 1.2mm;font-weight:700}
+.chk{display:inline-block;width:1em;height:1em;border:2px solid #000;margin-right:1mm;vertical-align:-.12em;flex:none}
+.tot{display:flex;justify-content:space-between;font-weight:900;font-size:1.3em}
+.dato{margin:.6mm 0;word-break:break-word}
+.dato b{display:inline-block;min-width:17mm}
+.pie{text-align:center;font-size:.85em;margin-top:2mm}
+.vacio{max-width:420px;margin:40px auto;color:#EFE8DA;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:0 16px}
+.vacio button{margin-top:12px;font:700 15px system-ui;background:#F39A33;border:0;border-radius:10px;padding:12px 18px}
+body.p58{--w:48mm;--f:11px}
+body.carta{--w:110mm;--f:15px}
+@media print{
+ body{background:#fff}
+ .barra,.ayuda,.vacio{display:none!important}
+ main{padding:0}
+ .tk{box-shadow:none;margin:0 auto;page-break-after:always}
+ .tk:last-child{page-break-after:auto}
+}
+</style>
+<style id="pagina"></style>
+</head>
+<body>
+<div class="barra">
+ <b>🖨️ Comanda</b>
+ <select id="papel" aria-label="Papel"><option value="p80">Tirilla 80 mm</option><option value="p58">Tirilla 58 mm</option><option value="carta">Hoja carta / PDF</option></select>
+ <select id="copias" aria-label="Copias"><option value="ambas">Cocina + caja</option><option value="cocina">Solo cocina</option><option value="caja">Solo caja</option></select>
+ <button class="imp" id="imp">Imprimir / Guardar PDF</button>
+</div>
+<p class="ayuda">Con impresora térmica Bluetooth en Android: instala <b>RawBT</b>, emparéjala una vez y aquí toca <b>Imprimir</b> → elige <b>RawBT</b>. Sin impresora: <b>Imprimir → Guardar como PDF</b>.</p>
+<main id="out"></main>
+<script>
+const $=s=>document.querySelector(s), fmt=n=>"$"+Number(n).toLocaleString("es-CO");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const txt=(s,max=200)=>typeof s==="string"?s.slice(0,max):"", num=n=>Number.isFinite(+n)&&+n>=0&&+n<1e8?+n:0;
+const EJEMPLO={id:"EJ01",h:"7:42 p. m.",f:"26/10",n:"Andrea (ejemplo)",e:"D",d:"Cra. 3 #4-20, Capellanía",r:"Casa esquinera, reja negra",g:"",pg:"Efectivo · paga con $100.000 (cambio $12.300)",t:87700,
+ i:[[2,"Bovinos Ripe",["+ Combo Ultra: 150 g de papas + bebida a tu gusto (Sprite)","+ Carne de res","Sin cebolla"],80600],[1,"Bovinos Chicken",["Sin vegetales","✏️ Salsas aparte"],27900],[1,"Dedos de Queso",[],15000]]};
+// El pedido viene del enlace: se valida campo por campo y todo se escapa (cualquiera puede armar un enlace).
+function leer(){const h=location.hash.slice(1);if(!h)return null;
+ try{const b=atob(h.replace(/-/g,"+").replace(/_/g,"/"));const o=JSON.parse(decodeURIComponent(escape(b)));
+  if(!o||!Array.isArray(o.i)||!o.i.length)return null;
+  return {id:txt(o.id,8),h:txt(o.h,20),f:txt(o.f,10),n:txt(o.n,40),e:o.e==="D"?"D":"R",d:txt(o.d,120),r:txt(o.r,100),g:txt(o.g,300),pg:txt(o.pg,80),t:num(o.t),
+   i:o.i.slice(0,60).filter(Array.isArray).map(x=>[Math.min(99,Math.floor(num(x[0]))||1),txt(x[1],60),(Array.isArray(x[2])?x[2]:[]).slice(0,20).map(e=>txt(e,120)),num(x[3])])}}
+ catch(e){return null}}
+const extra=e=>/^sin /i.test(e)?`<li class="sin">${esc(e.toUpperCase())}</li>`:e.startsWith("✏️")?`<li class="nota">NOTA: ${esc(e.slice(2).trim())}</li>`:`<li>${esc(e.replace(/:[^(]*/," ").replace(/ +/g," ").trim())}</li>`; // "Combo Ultra: 150 g de papas + … (Sprite)" -> "Combo Ultra (Sprite)"
+function tk(o,caja){const piezas=o.i.reduce((s,x)=>s+x[0],0);
+ return `<section class="tk"><div class="c"><div class="marca">Bovinos Burger</div><span class="tipo">${caja?"— CAJA / DOMICILIO —":"— COMANDA COCINA —"}</span></div>
+ <div class="num"><big>#${esc(o.id)}</big><span>${esc(o.h)}${o.f?" · "+esc(o.f):""}</span></div>
+ <div class="inv">${o.e==="D"?"DOMICILIO":"RECOGE EN EL LOCAL"}</div>
+ <div class="dato"><b>Cliente:</b> ${esc(o.n)}</div><hr>
+ ${o.i.map(([q,n,ex,v])=>`<div class="it"><div class="n">${caja?"":`<span class="chk"></span>`}<span class="q">${q}x</span><span>${esc(n)}</span>${caja?`<span class="p">${fmt(v)}</span>`:""}</div>${ex.length?`<ul>${ex.map(extra).join("")}</ul>`:""}</div>`).join("")}
+ <hr>${caja?`<div class="tot"><span>TOTAL</span><span>${fmt(o.t)}</span></div>${o.e==="D"?`<div class="pie">+ valor del domicilio</div>`:""}<hr>
+ ${o.e==="D"?`<div class="dato"><b>Dirección:</b> ${esc(o.d)||"(ver ubicación en WhatsApp)"}</div>${o.r?`<div class="dato"><b>Ref.:</b> ${esc(o.r)}</div>`:""}${o.g?`<div class="dato"><b>Mapa:</b> enviado en WhatsApp</div>`:""}`:""}
+ <div class="dato"><b>Pago:</b> ${esc(o.pg)}</div>`:`<div class="dato"><b>Productos:</b> ${piezas}</div>`}
+ <div class="pie">La buena vida sabe a burger</div></section>`}
+let pedido=leer();
+function pintar(){const cp=$("#copias").value;document.body.className=$("#papel").value;
+ if(!pedido){$("#out").innerHTML=`<div class="vacio"><p>Abre esta página desde el enlace 🖨️ <b>Comanda</b> que llega en cada pedido de WhatsApp.</p><button id="ej">Ver un ejemplo</button></div>`;$("#ej").onclick=()=>{pedido=EJEMPLO;pintar()};return}
+ $("#out").innerHTML=(cp!=="caja"?tk(pedido,false):"")+(cp!=="cocina"?tk(pedido,true):"");
+ // tamaño de página = ancho del papel y alto del ticket más largo (la térmica corta donde termina)
+ const carta=$("#papel").value==="carta",alto=Math.max(...[...document.querySelectorAll(".tk")].map(t=>t.offsetHeight))*25.4/96+8;
+ $("#pagina").textContent=carta?"@page{size:letter;margin:12mm}":`@page{size:${$("#papel").value==="p58"?58:80}mm ${Math.ceil(alto)}mm;margin:0}`}
+const KEY="bovinos_comanda";
+try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");if(s.papel)$("#papel").value=s.papel;if(s.copias)$("#copias").value=s.copias}catch(e){}
+["papel","copias"].forEach(id=>$("#"+id).onchange=()=>{try{localStorage.setItem(KEY,JSON.stringify({papel:$("#papel").value,copias:$("#copias").value}))}catch(e){}pintar()});
+$("#imp").onclick=()=>{if(!pedido){pedido=EJEMPLO;pintar()}window.print()};
+addEventListener("hashchange",()=>{pedido=leer();pintar()});
+pintar();
+</script>
+</body>
+</html>
