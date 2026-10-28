@@ -467,9 +467,11 @@ function csv(t){const R=[];let r=[""],q=false;for(let i=0;i<t.length;i++){const 
  else if(c=='"')q=true;else if(c==",")r.push("");else if(c=="\n"){R.push(r);r=[""]}else if(c!="\r")r[r.length-1]+=c}
  if(r.length>1||r[0])R.push(r);return R}
 const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+let hojaFresca=false; // si ya llegó la hoja al día desde el script, la publicada (vieja) no la pisa
 async function cargarHoja(){
  const rows=csv(await fetch(SHEET+(SHEET.includes("?")?"&":"?")+"t="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.text()}));
- const h=rows.shift().map(norm),col=k=>h.findIndex(x=>x.startsWith(k)),C=[col("plato"),col("precio"),col("dispon"),col("top")];
+ if(hojaFresca)return;const h=rows.shift().map(norm),col=k=>h.findIndex(x=>x.startsWith(k));usarHoja(rows,[col("plato"),col("precio"),col("dispon"),col("top")])}
+function usarHoja(rows,C){
  for(const r of rows){const p=P[norm(r[C[0]]||"")];if(!p)continue; // filas que no están en la carta se ignoran
   const v=+String(r[C[1]]||"").replace(/\D/g,"");if(v>=1000)p.v=v;p.off=/^(no|agotado)/i.test((r[C[2]]||"").trim());if(C[3]>=0)p.fav=/^(si|sí|x|1)/i.test((r[C[3]]||"").trim())}
  cart=cart.filter(i=>!P[i.id].off).map(sano).filter(Boolean);save();pintarCarta()}

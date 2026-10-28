@@ -487,9 +487,11 @@ function csv(t){const R=[];let r=[""],q=false;for(let i=0;i<t.length;i++){const 
  else if(c=='"')q=true;else if(c==",")r.push("");else if(c=="\n"){R.push(r);r=[""]}else if(c!="\r")r[r.length-1]+=c}
  if(r.length>1||r[0])R.push(r);return R}
 const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+let hojaFresca=false; // si ya llegó la hoja al día desde el script, la publicada (vieja) no la pisa
 async function cargarHoja(){
  const rows=csv(await fetch(SHEET+(SHEET.includes("?")?"&":"?")+"t="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.text()}));
- const h=rows.shift().map(norm),col=k=>h.findIndex(x=>x.startsWith(k)),C=[col("plato"),col("precio"),col("dispon"),col("top")];
+ if(hojaFresca)return;const h=rows.shift().map(norm),col=k=>h.findIndex(x=>x.startsWith(k));usarHoja(rows,[col("plato"),col("precio"),col("dispon"),col("top")])}
+function usarHoja(rows,C){
  for(const r of rows){const p=P[norm(r[C[0]]||"")];if(!p)continue; // filas que no están en la carta se ignoran
   const v=+String(r[C[1]]||"").replace(/\D/g,"");if(v>=1000)p.v=v;p.off=/^(no|agotado)/i.test((r[C[2]]||"").trim());if(C[3]>=0)p.fav=/^(si|sí|x|1)/i.test((r[C[3]]||"").trim())}
  cart=cart.filter(i=>!P[i.id].off).map(sano).filter(Boolean);save();pintarCarta()}
@@ -518,14 +520,17 @@ document.addEventListener("click",e=>{if(!DUENO)return;const w=e.target.closest(
  else{const v=edit(f.dataset.fv);v.fav=!v.fav;f.classList.toggle("on",v.fav)}contar()},true);
 $("#dsave").onclick=async()=>{const c=cambios(),malo=c.find(id=>edits[id].v<1000||edits[id].v>300000);if(malo)return toast(`Revisa el precio de ${P[malo].n} (entre $1.000 y $300.000)`,true);
  const b=$("#dsave");b.disabled=true;b.textContent="Guardando…";
- try{const r=await api({accion:"guardar",cambios:c.map(id=>({cat:P[id].cat,plato:P[id].n,precio:edits[id].v,disponible:!edits[id].off,top:!!edits[id].fav}))});if(!r.ok)throw new Error(r.error);
-  c.forEach(id=>{P[id].v=edits[id].v;P[id].off=edits[id].off;P[id].fav=edits[id].fav});edits={};pintarCarta();
+ // solo va lo que cambió: si otra persona cambió otro dato del mismo plato, no se le pisa
+ try{const r=await api({accion:"guardar",cambios:c.map(id=>({cat:P[id].cat,plato:P[id].n,...(edits[id].v!==P[id].v&&{precio:edits[id].v}),...(edits[id].off!==!!P[id].off&&{disponible:!edits[id].off}),...(edits[id].fav!==!!P[id].fav&&{top:edits[id].fav})}))});if(!r.ok)throw new Error(r.error);
+  c.forEach(id=>{P[id].v=edits[id].v;P[id].off=edits[id].off;P[id].fav=edits[id].fav});edits={};fresca(r);pintarCarta();
   toast(r.guardados<c.length?`Se guardaron ${r.guardados} de ${c.length}: revisa que los platos estén en la hoja.`:"✓ Guardado. Los clientes lo verán en unos minutos.",r.guardados<c.length)}
  catch(e){toast(e.message||"No se pudo guardar. Revisa tu internet.",true)}
  contar()};
+// la hoja de este momento, que manda el script (la publicada tarda ~5 min y haría ver datos viejos)
+const fresca=r=>Array.isArray(r.hoja)&&r.hoja.length>0&&(hojaFresca=true,usarHoja(r.hoja,[0,1,2,3]),true);
 function modoDueno(){DUENO=true;document.body.classList.add("dueno");cerrar();pintarCarta();contar()}
 async function entrar(pin){PIN=pin;$("#err").textContent="";$("#entrar").disabled=true;$("#entrar").textContent="Entrando…";
- try{const r=await api({accion:"entrar"});if(!r.ok)throw new Error(r.error);if(SHEET)await cargarHoja().catch(()=>{});modoDueno();$("#carta").scrollIntoView()}
+ try{const r=await api({accion:"entrar"});if(!r.ok)throw new Error(r.error);if(!fresca(r)&&SHEET)await cargarHoja().catch(()=>{});modoDueno();$("#carta").scrollIntoView()}
  catch(e){PIN="";$("#err").textContent=e.message||"No hay conexión"}
  $("#entrar").disabled=false;$("#entrar").textContent="Entrar"}
 $("#entrar").onclick=()=>{const v=$("#pin").value.trim();if(v)entrar(v)};
