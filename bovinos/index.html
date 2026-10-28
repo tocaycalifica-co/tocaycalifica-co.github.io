@@ -362,6 +362,13 @@ function ficha(id){const p=P[id],G=grupos(p);let q=1,sel={combo:null,beb:"",ad:[
  abrir(h)}
 const firma=i=>JSON.stringify([i.id,i.op,i.nota]);
 function agregar(id,q,op={combo:null,ad:[],quitar:[]},nota=""){if(P[id].off)return;const n={id,q,op,nota},i=cart.find(x=>firma(x)===firma(n));if(i)i.q=Math.min(20,i.q+q);else cart.push(n);save();pintarBarra(true)}
+// rehace las opciones con la carta y la hoja de hoy: un carrito guardado puede traer precios viejos o inventados
+function sano(i){const G=grupos(P[i.id]),o=i.op,uno=G.filter(g=>g.tipo==="uno").flatMap(g=>g.o),multi=G.filter(g=>g.tipo!=="uno").flatMap(g=>g.o);
+ const c=o.combo&&uno.find(x=>x.v&&x.n.split(":")[0]===o.combo.n);if(o.combo&&(!c||c.b&&!c.b.includes(o.combo.beb)))return null;
+ return{...i,nota:String(i.nota||"").slice(0,120),op:{combo:c?{n:o.combo.n,v:c.v,beb:c.b?o.combo.beb:""}:null,
+  ad:o.ad.map(a=>{const x=a&&multi.find(m=>m.v&&m.n===a.n);return x&&{n:x.n,v:x.v,q:Math.max(1,Math.min(5,Math.floor(a.q)||1))}}).filter(Boolean),
+  quitar:o.quitar.filter(n=>multi.some(m=>!m.v&&m.n===n))}}}
+cart=cart.map(sano).filter(Boolean);
 const unit=i=>P[i.id].v+(i.op.combo?i.op.combo.v:0)+i.op.ad.reduce((s,a)=>s+a.v*a.q,0);
 const extras=i=>[...(i.op.combo?[`+ ${i.op.combo.n}${i.op.combo.beb?` (${i.op.combo.beb})`:""}`]:[]),...i.op.ad.map(a=>`+ ${a.q>1?a.q+"x ":""}${a.n}`),...i.op.quitar,...(i.nota?[`✏️ ${i.nota}`]:[])];
 let DUENO=false;
@@ -465,7 +472,7 @@ async function cargarHoja(){
  const h=rows.shift().map(norm),col=k=>h.findIndex(x=>x.startsWith(k)),C=[col("plato"),col("precio"),col("dispon"),col("top")];
  for(const r of rows){const p=P[norm(r[C[0]]||"")];if(!p)continue; // filas que no están en la carta se ignoran
   const v=+String(r[C[1]]||"").replace(/\D/g,"");if(v>=1000)p.v=v;p.off=/^(no|agotado)/i.test((r[C[2]]||"").trim());if(C[3]>=0)p.fav=/^(si|sí|x|1)/i.test((r[C[3]]||"").trim())}
- cart=cart.filter(i=>!P[i.id].off);save();pintarCarta()}
+ cart=cart.filter(i=>!P[i.id].off).map(sano).filter(Boolean);save();pintarCarta()}
 if(SHEET)cargarHoja().catch(()=>{});
 
 </script>
