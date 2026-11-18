@@ -321,7 +321,7 @@ footer{border-top:3px solid #E2322B}
 </style>
 </head>
 <body>
-<div class="demo hide" id="demoBar"><span>Versión de prueba · las fotos marcadas son de referencia</span> <a href="https://tocaycalifica-co.github.io/mesalista/" target="_blank" rel="noopener">Hecho con Mesa Lista</a></div>
+<div class="demo hide" id="demoBar"><span>Versión de prueba</span> <a href="https://tocaycalifica-co.github.io/mesalista/" target="_blank" rel="noopener">Hecho con Mesa Lista</a></div>
 <header class="hero">
  <div class="bg"></div>
  <div>
@@ -401,7 +401,7 @@ const foto=(p,cl="")=>p.f?`<img src="img/${p.f}" alt="" loading="lazy"${cl}>`:""
 const toast=(t,bad)=>{const e=$("#toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",3800)};
 
 // Servidor: Apps Script de la hoja (API). Sin API = DEMO: todo se guarda en este navegador (mismo contrato que el script).
-var API="", DEMO=true;
+var API="", DEMO=false;
 if(DEMO)$("#demoBar").classList.remove("hide");
 async function llamar(body,intento=0){if(DEMO)return new Promise(ok=>setTimeout(()=>ok(demoR(body)),380));
  const ab=new AbortController(),t=setTimeout(()=>ab.abort(),25000);
@@ -727,7 +727,7 @@ function registro(){const h=$("#tarjeta"),M=["Ene","Feb","Mar","Abr","May","Jun"
 
 listo=true;pintarBarra();
 // precios, agotados y top en vivo desde la hoja de Google (Categoría, Plato, Precio, Disponible, Top). Vacío = datos de carta.py
-const SHEET="";
+const SHEET="https://docs.google.com/spreadsheets/d/e/2PACX-1vTnqZnsfK_u6ouI8KsKOVV5n0vGZ_UA8p9BvhkET1COYsJry1dtCkyQjUHjWhZGGT0UTjnBbOJ2MC8r/pub?gid=0&single=true&output=csv";
 function csv(t){const R=[];let r=[""],q=false;for(let i=0;i<t.length;i++){const c=t[i];
  if(q){if(c=='"'){if(t[i+1]=='"'){r[r.length-1]+='"';i++}else q=false}else r[r.length-1]+=c}
  else if(c=='"')q=true;else if(c==",")r.push("");else if(c=="\n"){R.push(r);r=[""]}else if(c!="\r")r[r.length-1]+=c}
